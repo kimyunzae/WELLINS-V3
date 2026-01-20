@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { ChevronDown, Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 const navigation = {
   company: {
@@ -55,15 +56,20 @@ export function Navigation() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-primary text-primary-foreground">
+   <header className="fixed top-0 left-0 right-0 z-50 bg-white text-black border-b border-black/10">
       <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-4 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center border border-primary-foreground/30">
-            <span className="text-lg font-bold tracking-tighter">W</span>
-          </div>
-          <span className="text-lg font-semibold tracking-wide">WELLINS INC.</span>
+          <Image
+            src="/images/logos/logo-wellins.png"
+            alt="Wellins Inc."
+            width={140}
+            height={40}
+            priority
+            className="h-8 w-auto object-contain"
+          />
         </Link>
+
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex lg:items-center lg:gap-8">

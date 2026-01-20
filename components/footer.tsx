@@ -1,4 +1,6 @@
 import Link from "next/link"
+import Image from "next/image"
+
 
 const footerLinks = {
   company: {
@@ -48,11 +50,15 @@ export function Footer() {
           {/* Logo and Contact */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center border border-primary-foreground/30">
-                <span className="text-lg font-bold tracking-tighter">W</span>
-              </div>
-              <span className="text-lg font-semibold tracking-wide">WELLINS INC.</span>
-            </Link>
+          <Image
+            src="/images/logos/logo-wellins.png"
+            alt="Wellins Inc."
+            width={140}
+            height={40}
+            priority
+            className="h-8 w-auto object-contain"
+          />
+        </Link>
             <p className="mt-6 text-sm leading-relaxed text-primary-foreground/70">
               Industrial engineering excellence since 1995. Delivering precision, safety, and performance across the United States.
             </p>

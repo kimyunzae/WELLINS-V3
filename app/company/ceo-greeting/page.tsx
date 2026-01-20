@@ -26,13 +26,13 @@ export default function CEOGreetingPage() {
               <div className="relative aspect-[3/4] overflow-hidden">
                 <Image
                   src="/images/ceo-portrait.jpg"
-                  alt="Michael Thompson, CEO of Wellins Inc."
+                  alt="Jeongsu Park, CEO of Wellins Inc."
                   fill
                   className="object-cover"
                 />
               </div>
               <div className="mt-6">
-                <p className="text-xl font-semibold text-foreground">Michael Thompson</p>
+                <p className="text-xl font-semibold text-foreground">Jeongsu Park</p>
                 <p className="mt-1 text-sm text-muted-foreground">Chief Executive Officer</p>
               </div>
             </div>
@@ -77,7 +77,7 @@ export default function CEOGreetingPage() {
                 </p>
 
                 <div className="mt-8">
-                  <p className="font-semibold text-foreground">Michael Thompson</p>
+                  <p className="font-semibold text-foreground">Jeongsu Park</p>
                   <p className="text-sm">Chief Executive Officer, Wellins Inc.</p>
                 </div>
               </div>
