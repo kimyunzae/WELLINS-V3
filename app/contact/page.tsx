@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
@@ -53,9 +51,27 @@ export default function ContactPage() {
     projectDetails: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+
     // Form submission logic would go here
+
+    const payload = {
+      fullName: formData.name,
+      company: formData.company,
+      email: formData.email,
+      phone: formData.phone,
+      service: formData.service,
+      description: formData.projectDetails,
+    };
+
+    const data = fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
     console.log("Form submitted:", formData);
   };
 
@@ -211,7 +227,12 @@ export default function ContactPage() {
                     }
                   />
                 </div>
-
+                <input
+                  name="hp"
+                  className="hidden"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
                 <button
                   type="submit"
                   className="inline-flex items-center bg-primary px-8 py-4 text-sm font-semibold uppercase tracking-wider text-primary-foreground transition-colors hover:bg-primary/90"
