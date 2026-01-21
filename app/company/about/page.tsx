@@ -1,31 +1,36 @@
-import Image from "next/image"
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
-import { PageHeader } from "@/components/page-header"
+import { Footer } from "@/components/footer";
+import { Navigation } from "@/components/nav-bar/navigation";
+import { PageHeader } from "@/components/page-header";
+import Image from "next/image";
 
 export const metadata = {
   title: "About Us | Wellins Inc.",
-  description: "Learn about Wellins Inc., a leading industrial engineering company with over 25 years of experience in piping, HVAC, and equipment installation.",
-}
+  description:
+    "Learn about Wellins Inc., a leading industrial engineering company with over 25 years of experience in piping, HVAC, and equipment installation.",
+};
 
 const values = [
   {
     title: "Safety First",
-    description: "Every project begins and ends with a commitment to the safety of our workers, clients, and communities.",
+    description:
+      "Every project begins and ends with a commitment to the safety of our workers, clients, and communities.",
   },
   {
     title: "Precision Engineering",
-    description: "We deliver exacting standards in every installation, ensuring long-term reliability and performance.",
+    description:
+      "We deliver exacting standards in every installation, ensuring long-term reliability and performance.",
   },
   {
     title: "Client Partnership",
-    description: "We work as an extension of your team, understanding your goals and delivering solutions that exceed expectations.",
+    description:
+      "We work as an extension of your team, understanding your goals and delivering solutions that exceed expectations.",
   },
   {
     title: "Continuous Innovation",
-    description: "We invest in the latest technologies and training to bring cutting-edge solutions to industrial challenges.",
+    description:
+      "We invest in the latest technologies and training to bring cutting-edge solutions to industrial challenges.",
   },
-]
+];
 
 export default function AboutPage() {
   return (
@@ -54,15 +59,16 @@ export default function AboutPage() {
                 Our <span className="font-semibold">Mission</span>
               </h2>
               <p className="mt-6 text-base leading-relaxed text-muted-foreground lg:text-lg">
-                To deliver world-class industrial engineering solutions that enable our 
-                clients to achieve operational excellence. We combine technical expertise 
-                with an unwavering commitment to safety and quality to build facilities 
-                that drive industrial progress.
+                To deliver world-class industrial engineering solutions that
+                enable our clients to achieve operational excellence. We combine
+                technical expertise with an unwavering commitment to safety and
+                quality to build facilities that drive industrial progress.
               </p>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground lg:text-lg">
-                From our headquarters in Birmingham, Alabama, we serve major manufacturers, 
-                EPC firms, and general contractors across eight states, bringing decades 
-                of expertise to every project we undertake.
+                From our headquarters in Birmingham, Alabama, we serve major
+                manufacturers, EPC firms, and general contractors across eight
+                states, bringing decades of expertise to every project we
+                undertake.
               </p>
             </div>
           </div>
@@ -77,13 +83,16 @@ export default function AboutPage() {
               Our <span className="font-semibold">Values</span>
             </h2>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground lg:text-lg">
-              These core principles guide every decision we make and every project we deliver.
+              These core principles guide every decision we make and every
+              project we deliver.
             </p>
           </div>
           <div className="mt-12 grid gap-8 md:grid-cols-2 lg:gap-12">
             {values.map((value, index) => (
               <div key={index} className="border-l-2 border-accent pl-6">
-                <h3 className="text-xl font-semibold text-foreground">{value.title}</h3>
+                <h3 className="text-xl font-semibold text-foreground">
+                  {value.title}
+                </h3>
                 <p className="mt-2 text-base leading-relaxed text-muted-foreground">
                   {value.description}
                 </p>
@@ -99,19 +108,27 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 gap-8 lg:grid-cols-4 lg:gap-12">
             <div>
               <p className="text-5xl font-light lg:text-6xl">30+</p>
-              <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">Years Experience</p>
+              <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">
+                Years Experience
+              </p>
             </div>
             <div>
               <p className="text-5xl font-light lg:text-6xl">500+</p>
-              <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">Projects Completed</p>
+              <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">
+                Projects Completed
+              </p>
             </div>
             <div>
               <p className="text-5xl font-light lg:text-6xl">150+</p>
-              <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">Team Members</p>
+              <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">
+                Team Members
+              </p>
             </div>
             <div>
               <p className="text-5xl font-light lg:text-6xl">8</p>
-              <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">States Licensed</p>
+              <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">
+                States Licensed
+              </p>
             </div>
           </div>
         </div>
@@ -119,5 +136,5 @@ export default function AboutPage() {
 
       <Footer />
     </main>
-  )
+  );
 }

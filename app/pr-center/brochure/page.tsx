@@ -1,40 +1,47 @@
-import Link from "next/link"
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
-import { PageHeader } from "@/components/page-header"
-import { Download, FileText } from "lucide-react"
+import { Footer } from "@/components/footer";
+import { Navigation } from "@/components/nav-bar/navigation";
+import { PageHeader } from "@/components/page-header";
+import { Download, FileText } from "lucide-react";
+import Link from "next/link";
 
 export const metadata = {
   title: "Brochure | Wellins Inc.",
   description: "Download our corporate brochure and service materials.",
-}
+};
 
 const downloads = [
   {
     title: "Corporate Brochure",
-    description: "Comprehensive overview of Wellins Inc. capabilities, services, and project portfolio.",
+    description:
+      "Comprehensive overview of Wellins Inc. capabilities, services, and project portfolio.",
     size: "4.2 MB",
     format: "PDF",
+    href: "/downloads/corporate-brochure.pdf",
   },
   {
     title: "Services Overview",
-    description: "Detailed information about our six core service areas and capabilities.",
+    description:
+      "Detailed information about our six core service areas and capabilities.",
     size: "2.8 MB",
     format: "PDF",
+    href: "/downloads/services-overview.pdf",
   },
   {
     title: "Safety Program",
-    description: "Our commitment to safety excellence and OSHA compliance programs.",
+    description:
+      "Our commitment to safety excellence and OSHA compliance programs.",
     size: "1.5 MB",
     format: "PDF",
+    href: "/downloads/safety-program.pdf",
   },
   {
     title: "Quality Assurance",
     description: "Quality management systems and certification documentation.",
     size: "1.2 MB",
     format: "PDF",
+    href: "/downloads/quality-assurance.pdf",
   },
-]
+];
 
 export default function BrochurePage() {
   return (
@@ -50,21 +57,32 @@ export default function BrochurePage() {
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
           <div className="grid gap-6 md:grid-cols-2 lg:gap-8">
             {downloads.map((item, index) => (
-              <div key={index} className="flex gap-6 border border-border p-6 lg:p-8">
+              <div
+                key={index}
+                className="flex gap-6 border border-border p-6 lg:p-8"
+              >
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-muted">
                   <FileText className="h-6 w-6 text-muted-foreground" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{item.description}</p>
+                  <h3 className="text-lg font-semibold text-foreground">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {item.description}
+                  </p>
                   <div className="mt-4 flex items-center gap-4">
                     <span className="text-xs text-muted-foreground">
                       {item.format} • {item.size}
                     </span>
-                    <button className="inline-flex items-center text-sm font-medium text-foreground transition-colors hover:text-accent">
+                    <a
+                      href={item.href}
+                      className="inline-flex items-center text-sm font-medium text-foreground transition-colors hover:text-accent cursor-pointer"
+                      download
+                    >
                       <Download className="mr-2 h-4 w-4" />
                       Download
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -78,8 +96,8 @@ export default function BrochurePage() {
                 Need <span className="font-semibold">Custom Materials?</span>
               </h2>
               <p className="mt-4 text-muted-foreground">
-                Contact our team to request project-specific documentation, case studies, 
-                or customized presentations for your stakeholders.
+                Contact our team to request project-specific documentation, case
+                studies, or customized presentations for your stakeholders.
               </p>
               <Link
                 href="/contact"
@@ -94,5 +112,5 @@ export default function BrochurePage() {
 
       <Footer />
     </main>
-  )
+  );
 }

@@ -1,21 +1,21 @@
-import Image from "next/image"
-import Link from "next/link"
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
-import { PageHeader } from "@/components/page-header"
-import { ArrowRight, Check } from "lucide-react"
+import { Footer } from "@/components/footer";
+import { Navigation } from "@/components/nav-bar/navigation";
+import { PageHeader } from "@/components/page-header";
+import { ArrowRight, Check } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 interface ServiceDetailProps {
-  title: string
-  description: string
-  image: string
-  overview: string
-  capabilities: string[]
-  applications: string[]
+  title: string;
+  description: string;
+  image: string;
+  overview: string;
+  capabilities: string[];
+  applications: string[];
   benefits: {
-    title: string
-    description: string
-  }[]
+    title: string;
+    description: string;
+  }[];
 }
 
 export function ServiceDetail({
@@ -30,11 +30,7 @@ export function ServiceDetail({
   return (
     <main>
       <Navigation />
-      <PageHeader
-        eyebrow="Services"
-        title={title}
-        description={description}
-      />
+      <PageHeader eyebrow="Services" title={title} description={description} />
 
       {/* Overview */}
       <section className="bg-background py-20 lg:py-28">
@@ -125,10 +121,12 @@ export function ServiceDetail({
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
           <div className="flex flex-col items-center text-center">
             <h2 className="text-3xl font-light tracking-tight text-foreground lg:text-4xl">
-              Ready to discuss your <span className="font-semibold">project?</span>
+              Ready to discuss your{" "}
+              <span className="font-semibold">project?</span>
             </h2>
             <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-              Contact our team to learn how we can support your industrial engineering needs.
+              Contact our team to learn how we can support your industrial
+              engineering needs.
             </p>
             <Link
               href="/contact"
@@ -143,5 +141,5 @@ export function ServiceDetail({
 
       <Footer />
     </main>
-  )
+  );
 }

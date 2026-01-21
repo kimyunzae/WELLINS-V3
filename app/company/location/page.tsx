@@ -1,13 +1,14 @@
-import Image from "next/image"
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
-import { PageHeader } from "@/components/page-header"
-import { MapPin, Phone, Mail, Clock } from "lucide-react"
+import { Footer } from "@/components/footer";
+import { Navigation } from "@/components/nav-bar/navigation";
+import { PageHeader } from "@/components/page-header";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import Image from "next/image";
 
 export const metadata = {
   title: "Location | Wellins Inc.",
-  description: "Find our headquarters and regional offices. Wellins Inc. serves industrial clients across eight states.",
-}
+  description:
+    "Find our headquarters and regional offices. Wellins Inc. serves industrial clients across eight states.",
+};
 
 const locations = [
   {
@@ -34,12 +35,18 @@ const locations = [
     email: "georgia@wellinsinc.com",
     hours: "Mon-Fri: 7:00 AM - 5:00 PM",
   },
-]
+];
 
 const serviceStates = [
-  "Alabama", "Georgia", "Indiana", "Michigan", 
-  "Ohio", "South Carolina", "Tennessee", "Texas"
-]
+  "Alabama",
+  "Georgia",
+  "Indiana",
+  "Michigan",
+  "Ohio",
+  "South Carolina",
+  "Tennessee",
+  "Texas",
+];
 
 export default function LocationPage() {
   return (
@@ -71,34 +78,44 @@ export default function LocationPage() {
                 Birmingham, <span className="font-semibold">Alabama</span>
               </h2>
               <p className="mt-6 text-base leading-relaxed text-muted-foreground lg:text-lg">
-                Our headquarters serves as the central hub for all operations, 
-                housing our executive team, engineering department, and main 
+                Our headquarters serves as the central hub for all operations,
+                housing our executive team, engineering department, and main
                 fabrication facilities.
               </p>
-              
+
               <div className="mt-8 space-y-4">
                 <div className="flex items-start gap-4">
                   <MapPin className="mt-1 h-5 w-5 text-muted-foreground" />
                   <div>
                     <p className="text-foreground">1234 Industrial Parkway</p>
-                    <p className="text-muted-foreground">Birmingham, AL 35203</p>
+                    <p className="text-muted-foreground">
+                      Birmingham, AL 35203
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
                   <Phone className="h-5 w-5 text-muted-foreground" />
-                  <a href="tel:+12055551234" className="text-foreground hover:text-accent">
+                  <a
+                    href="tel:+12055551234"
+                    className="text-foreground hover:text-accent"
+                  >
                     +1 (205) 555-1234
                   </a>
                 </div>
                 <div className="flex items-center gap-4">
                   <Mail className="h-5 w-5 text-muted-foreground" />
-                  <a href="mailto:info@wellinsinc.com" className="text-foreground hover:text-accent">
+                  <a
+                    href="mailto:info@wellinsinc.com"
+                    className="text-foreground hover:text-accent"
+                  >
                     info@wellinsinc.com
                   </a>
                 </div>
                 <div className="flex items-center gap-4">
                   <Clock className="h-5 w-5 text-muted-foreground" />
-                  <p className="text-muted-foreground">Mon-Fri: 7:00 AM - 5:00 PM</p>
+                  <p className="text-muted-foreground">
+                    Mon-Fri: 7:00 AM - 5:00 PM
+                  </p>
                 </div>
               </div>
             </div>
@@ -118,16 +135,26 @@ export default function LocationPage() {
                 <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
                   {location.name}
                 </p>
-                <h3 className="mt-2 text-xl font-semibold text-foreground">{location.city}</h3>
+                <h3 className="mt-2 text-xl font-semibold text-foreground">
+                  {location.city}
+                </h3>
                 <div className="mt-6 space-y-3 text-sm">
-                  <p className="whitespace-pre-line text-muted-foreground">{location.address}</p>
+                  <p className="whitespace-pre-line text-muted-foreground">
+                    {location.address}
+                  </p>
                   <p>
-                    <a href={`tel:${location.phone}`} className="text-foreground hover:text-accent">
+                    <a
+                      href={`tel:${location.phone}`}
+                      className="text-foreground hover:text-accent"
+                    >
                       {location.phone}
                     </a>
                   </p>
                   <p>
-                    <a href={`mailto:${location.email}`} className="text-foreground hover:text-accent">
+                    <a
+                      href={`mailto:${location.email}`}
+                      className="text-foreground hover:text-accent"
+                    >
                       {location.email}
                     </a>
                   </p>
@@ -146,13 +173,16 @@ export default function LocationPage() {
               Service <span className="font-semibold">Area</span>
             </h2>
             <p className="mt-4 text-base leading-relaxed text-primary-foreground/70 lg:text-lg">
-              Wellins Inc. is licensed to operate in eight states across the southeastern 
-              and midwestern United States.
+              Wellins Inc. is licensed to operate in eight states across the
+              southeastern and midwestern United States.
             </p>
           </div>
           <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 lg:gap-6">
             {serviceStates.map((state, index) => (
-              <div key={index} className="border border-primary-foreground/20 p-4 text-center">
+              <div
+                key={index}
+                className="border border-primary-foreground/20 p-4 text-center"
+              >
                 <p className="font-medium">{state}</p>
               </div>
             ))}
@@ -162,5 +192,5 @@ export default function LocationPage() {
 
       <Footer />
     </main>
-  )
+  );
 }

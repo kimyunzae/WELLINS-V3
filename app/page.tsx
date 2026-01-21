@@ -1,11 +1,11 @@
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
-import { HeroSection } from "@/components/home/hero-section"
-import { StatsSection } from "@/components/home/stats-section"
-import { FacilitySection } from "@/components/home/facility-section"
-import { ProjectsSection } from "@/components/home/projects-section"
-import { ServicesSection } from "@/components/home/services-section"
-import { CTASection } from "@/components/home/cta-section"
+import { Footer } from "@/components/footer";
+import { CTASection } from "@/components/home/cta-section";
+import { FacilitySection } from "@/components/home/facility-section";
+import { HeroSection } from "@/components/home/hero-section";
+import { ProjectsSection } from "@/components/home/projects-section";
+import { ServicesSection } from "@/components/home/services-section";
+import { StatsSection } from "@/components/home/stats-section";
+import { Navigation } from "@/components/nav-bar/navigation";
 
 export default function HomePage() {
   return (
@@ -19,5 +19,5 @@ export default function HomePage() {
       <CTASection />
       <Footer />
     </main>
-  )
+  );
 }
