@@ -1,51 +1,58 @@
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
-import { PageHeader } from "@/components/page-header"
-import { Play } from "lucide-react"
+import { Footer } from "@/components/footer";
+import { Navigation } from "@/components/nav-bar/navigation";
+import { PageHeader } from "@/components/page-header";
+import { Play } from "lucide-react";
 
 export const metadata = {
   title: "PR Video | Wellins Inc.",
-  description: "Watch videos about Wellins Inc. projects, capabilities, and company culture.",
-}
+  description:
+    "Watch videos about Wellins Inc. projects, capabilities, and company culture.",
+};
 
 const videos = [
   {
     title: "Company Overview",
-    description: "Learn about Wellins Inc., our history, capabilities, and commitment to industrial excellence.",
+    description:
+      "Learn about Wellins Inc., our history, capabilities, and commitment to industrial excellence.",
     duration: "4:32",
     thumbnail: "/images/hero-industrial.jpg",
   },
   {
     title: "Safety Program",
-    description: "Our comprehensive safety program ensures every worker goes home safe every day.",
+    description:
+      "Our comprehensive safety program ensures every worker goes home safe every day.",
     duration: "3:15",
     thumbnail: "/images/service-equipment.jpg",
   },
   {
     title: "Industrial Piping Capabilities",
-    description: "Explore our advanced piping fabrication and installation capabilities.",
+    description:
+      "Explore our advanced piping fabrication and installation capabilities.",
     duration: "5:48",
     thumbnail: "/images/service-piping.jpg",
   },
   {
     title: "Project Spotlight: Alabama Automotive",
-    description: "Behind the scenes of our largest automotive plant expansion project.",
+    description:
+      "Behind the scenes of our largest automotive plant expansion project.",
     duration: "6:22",
     thumbnail: "/images/facility-expansion.jpg",
   },
   {
     title: "HVAC Solutions for Manufacturing",
-    description: "How we design and install climate control systems for demanding industrial environments.",
+    description:
+      "How we design and install climate control systems for demanding industrial environments.",
     duration: "4:05",
     thumbnail: "/images/service-hvac.jpg",
   },
   {
     title: "Meet Our Team",
-    description: "The skilled professionals behind every successful Wellins Inc. project.",
+    description:
+      "The skilled professionals behind every successful Wellins Inc. project.",
     duration: "3:45",
     thumbnail: "/images/team-workers.jpg",
   },
-]
+];
 
 export default function VideoPage() {
   return (
@@ -71,8 +78,12 @@ export default function VideoPage() {
                 <button className="flex h-20 w-20 items-center justify-center rounded-full border-2 border-primary-foreground/50 transition-colors hover:border-primary-foreground hover:bg-primary-foreground/10">
                   <Play className="h-8 w-8 fill-primary-foreground" />
                 </button>
-                <h2 className="mt-6 text-2xl font-semibold lg:text-3xl">{videos[0].title}</h2>
-                <p className="mt-2 text-sm text-primary-foreground/70">{videos[0].duration}</p>
+                <h2 className="mt-6 text-2xl font-semibold lg:text-3xl">
+                  {videos[0].title}
+                </h2>
+                <p className="mt-2 text-sm text-primary-foreground/70">
+                  {videos[0].duration}
+                </p>
               </div>
             </div>
           </div>
@@ -100,7 +111,9 @@ export default function VideoPage() {
                   <h3 className="text-lg font-semibold text-foreground transition-colors group-hover:text-accent">
                     {video.title}
                   </h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{video.description}</p>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {video.description}
+                  </p>
                 </div>
               </div>
             ))}
@@ -110,5 +123,5 @@ export default function VideoPage() {
 
       <Footer />
     </main>
-  )
+  );
 }

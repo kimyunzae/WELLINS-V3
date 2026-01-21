@@ -1,30 +1,35 @@
-import Image from "next/image"
-import Link from "next/link"
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
-import { PageHeader } from "@/components/page-header"
-import { ArrowRight } from "lucide-react"
+import { Footer } from "@/components/footer";
+import { Navigation } from "@/components/nav-bar/navigation";
+import { PageHeader } from "@/components/page-header";
+import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 interface Project {
-  name: string
-  type: string
-  location: string
-  year: string
-  description: string
-  image: string
+  name: string;
+  type: string;
+  location: string;
+  year: string;
+  description: string;
+  image: string;
 }
 
 interface ProjectDetailProps {
-  state: string
-  description: string
+  state: string;
+  description: string;
   stats: {
-    label: string
-    value: string
-  }[]
-  projects: Project[]
+    label: string;
+    value: string;
+  }[];
+  projects: Project[];
 }
 
-export function ProjectDetail({ state, description, stats, projects }: ProjectDetailProps) {
+export function ProjectDetail({
+  state,
+  description,
+  stats,
+  projects,
+}: ProjectDetailProps) {
   return (
     <main>
       <Navigation />
@@ -40,8 +45,12 @@ export function ProjectDetail({ state, description, stats, projects }: ProjectDe
           <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
             {stats.map((stat, index) => (
               <div key={index}>
-                <p className="text-3xl font-light text-foreground lg:text-4xl">{stat.value}</p>
-                <p className="mt-1 text-sm uppercase tracking-wider text-muted-foreground">{stat.label}</p>
+                <p className="text-3xl font-light text-foreground lg:text-4xl">
+                  {stat.value}
+                </p>
+                <p className="mt-1 text-sm uppercase tracking-wider text-muted-foreground">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </div>
@@ -53,7 +62,7 @@ export function ProjectDetail({ state, description, stats, projects }: ProjectDe
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
           <div className="grid gap-12 lg:gap-16">
             {projects.map((project, index) => (
-              <div 
+              <div
                 key={index}
                 className={`grid items-center gap-8 lg:grid-cols-2 lg:gap-16 ${
                   index % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
@@ -74,7 +83,9 @@ export function ProjectDetail({ state, description, stats, projects }: ProjectDe
                   <h2 className="mt-2 text-2xl font-semibold text-foreground lg:text-3xl">
                     {project.name}
                   </h2>
-                  <p className="mt-2 text-sm text-muted-foreground">{project.location}</p>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {project.location}
+                  </p>
                   <p className="mt-4 text-base leading-relaxed text-muted-foreground">
                     {project.description}
                   </p>
@@ -93,7 +104,8 @@ export function ProjectDetail({ state, description, stats, projects }: ProjectDe
               Have a project in <span className="font-semibold">{state}?</span>
             </h2>
             <p className="mt-4 max-w-xl text-base leading-relaxed text-primary-foreground/70">
-              Our team is ready to discuss your industrial engineering needs in this region.
+              Our team is ready to discuss your industrial engineering needs in
+              this region.
             </p>
             <Link
               href="/contact"
@@ -108,5 +120,5 @@ export function ProjectDetail({ state, description, stats, projects }: ProjectDe
 
       <Footer />
     </main>
-  )
+  );
 }

@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import React from "react"
+import React from "react";
 
-import { useState } from "react"
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
-import { PageHeader } from "@/components/page-header"
-import { MapPin, Phone, Mail, Clock, ArrowRight } from "lucide-react"
+import { Footer } from "@/components/footer";
+import { Navigation } from "@/components/nav-bar/navigation";
+import { PageHeader } from "@/components/page-header";
+import { ArrowRight, Clock, Mail, MapPin, Phone } from "lucide-react";
+import { useState } from "react";
 
 const offices = [
   {
@@ -30,7 +30,7 @@ const offices = [
     phone: "+1 (404) 555-9012",
     email: "georgia@wellinsinc.com",
   },
-]
+];
 
 const services = [
   "Equipment Installation",
@@ -40,7 +40,7 @@ const services = [
   "High-Pressure Vessels",
   "Fire Protection",
   "Other",
-]
+];
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -50,13 +50,13 @@ export default function ContactPage() {
     phone: "",
     service: "",
     projectDetails: "",
-  })
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     // Form submission logic would go here
-    console.log("Form submitted:", formData)
-  }
+    console.log("Form submitted:", formData);
+  };
 
   return (
     <main>
@@ -76,13 +76,18 @@ export default function ContactPage() {
                 Request a <span className="font-semibold">Quote</span>
               </h2>
               <p className="mt-4 text-muted-foreground">
-                Fill out the form below and one of our team members will be in touch within 24 hours.
+                Fill out the form below and one of our team members will be in
+                touch within 24 hours.
               </p>
 
+              {/* contact form */}
               <form onSubmit={handleSubmit} className="mt-8 space-y-6">
                 <div className="grid gap-6 md:grid-cols-2">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-foreground">
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-foreground"
+                    >
                       Full Name *
                     </label>
                     <input
@@ -92,11 +97,16 @@ export default function ContactPage() {
                       className="mt-2 w-full border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none"
                       placeholder="John Smith"
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
                     />
                   </div>
                   <div>
-                    <label htmlFor="company" className="block text-sm font-medium text-foreground">
+                    <label
+                      htmlFor="company"
+                      className="block text-sm font-medium text-foreground"
+                    >
                       Company *
                     </label>
                     <input
@@ -106,14 +116,19 @@ export default function ContactPage() {
                       className="mt-2 w-full border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none"
                       placeholder="Acme Manufacturing"
                       value={formData.company}
-                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, company: e.target.value })
+                      }
                     />
                   </div>
                 </div>
 
                 <div className="grid gap-6 md:grid-cols-2">
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-foreground">
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-foreground"
+                    >
                       Email *
                     </label>
                     <input
@@ -123,11 +138,16 @@ export default function ContactPage() {
                       className="mt-2 w-full border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none"
                       placeholder="john@acme.com"
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
                     />
                   </div>
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-foreground">
+                    <label
+                      htmlFor="phone"
+                      className="block text-sm font-medium text-foreground"
+                    >
                       Phone
                     </label>
                     <input
@@ -136,13 +156,18 @@ export default function ContactPage() {
                       className="mt-2 w-full border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none"
                       placeholder="+1 (555) 123-4567"
                       value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, phone: e.target.value })
+                      }
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="service" className="block text-sm font-medium text-foreground">
+                  <label
+                    htmlFor="service"
+                    className="block text-sm font-medium text-foreground"
+                  >
                     Service Required *
                   </label>
                   <select
@@ -150,7 +175,9 @@ export default function ContactPage() {
                     required
                     className="mt-2 w-full border border-border bg-background px-4 py-3 text-foreground focus:border-accent focus:outline-none"
                     value={formData.service}
-                    onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, service: e.target.value })
+                    }
                   >
                     <option value="">Select a service</option>
                     {services.map((service) => (
@@ -162,7 +189,10 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="projectDetails" className="block text-sm font-medium text-foreground">
+                  <label
+                    htmlFor="projectDetails"
+                    className="block text-sm font-medium text-foreground"
+                  >
                     Project Details *
                   </label>
                   <textarea
@@ -172,7 +202,12 @@ export default function ContactPage() {
                     className="mt-2 w-full resize-none border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none"
                     placeholder="Please describe your project requirements, timeline, and any specific needs..."
                     value={formData.projectDetails}
-                    onChange={(e) => setFormData({ ...formData, projectDetails: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        projectDetails: e.target.value,
+                      })
+                    }
                   />
                 </div>
 
@@ -185,7 +220,7 @@ export default function ContactPage() {
                 </button>
               </form>
             </div>
-
+                  
             {/* Contact Info */}
             <div>
               <h2 className="text-2xl font-light tracking-tight text-foreground lg:text-3xl">
@@ -201,7 +236,10 @@ export default function ContactPage() {
                   <Phone className="h-5 w-5 text-muted-foreground" />
                   <div>
                     <p className="text-sm text-muted-foreground">Main Line</p>
-                    <a href="tel:+12055551234" className="text-foreground hover:text-accent">
+                    <a
+                      href="tel:+12055551234"
+                      className="text-foreground hover:text-accent"
+                    >
                       +1 (205) 555-1234
                     </a>
                   </div>
@@ -210,7 +248,10 @@ export default function ContactPage() {
                   <Mail className="h-5 w-5 text-muted-foreground" />
                   <div>
                     <p className="text-sm text-muted-foreground">Email</p>
-                    <a href="mailto:info@wellinsinc.com" className="text-foreground hover:text-accent">
+                    <a
+                      href="mailto:info@wellinsinc.com"
+                      className="text-foreground hover:text-accent"
+                    >
                       info@wellinsinc.com
                     </a>
                   </div>
@@ -218,34 +259,48 @@ export default function ContactPage() {
                 <div className="flex items-center gap-4">
                   <Clock className="h-5 w-5 text-muted-foreground" />
                   <div>
-                    <p className="text-sm text-muted-foreground">Business Hours</p>
-                    <p className="text-foreground">Monday - Friday: 7:00 AM - 5:00 PM</p>
+                    <p className="text-sm text-muted-foreground">
+                      Business Hours
+                    </p>
+                    <p className="text-foreground">
+                      Monday - Friday: 7:00 AM - 5:00 PM
+                    </p>
                   </div>
                 </div>
               </div>
 
               {/* Office Locations */}
               <div className="mt-12">
-                <h3 className="text-lg font-semibold text-foreground">Our Offices</h3>
+                <h3 className="text-lg font-semibold text-foreground">
+                  Our Offices
+                </h3>
                 <div className="mt-6 space-y-6">
                   {offices.map((office, index) => (
                     <div key={index} className="border-l-2 border-border pl-6">
                       <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
                         {office.name}
                       </p>
-                      <p className="mt-2 font-semibold text-foreground">{office.city}</p>
+                      <p className="mt-2 font-semibold text-foreground">
+                        {office.city}
+                      </p>
                       <div className="mt-3 flex items-start gap-3 text-sm text-muted-foreground">
                         <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
                         <p className="whitespace-pre-line">{office.address}</p>
                       </div>
                       <div className="mt-2 space-y-1 text-sm">
                         <p>
-                          <a href={`tel:${office.phone}`} className="text-foreground hover:text-accent">
+                          <a
+                            href={`tel:${office.phone}`}
+                            className="text-foreground hover:text-accent"
+                          >
                             {office.phone}
                           </a>
                         </p>
                         <p>
-                          <a href={`mailto:${office.email}`} className="text-foreground hover:text-accent">
+                          <a
+                            href={`mailto:${office.email}`}
+                            className="text-foreground hover:text-accent"
+                          >
                             {office.email}
                           </a>
                         </p>
@@ -282,5 +337,5 @@ export default function ContactPage() {
 
       <Footer />
     </main>
-  )
+  );
 }

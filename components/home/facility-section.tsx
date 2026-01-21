@@ -1,6 +1,6 @@
-import Image from "next/image"
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export function FacilitySection() {
   return (
@@ -27,19 +27,27 @@ export function FacilitySection() {
               <span className="font-semibold">Facility Expansion</span>
             </h2>
             <p className="mt-6 text-base leading-relaxed text-muted-foreground lg:text-lg">
-              A comprehensive 250,000 sq ft expansion project featuring complete 
-              mechanical systems installation including industrial piping, HVAC, 
+              A comprehensive 250,000 sq ft expansion project featuring complete
+              mechanical systems installation including industrial piping, HVAC,
               and fire protection systems for a major automotive manufacturer.
             </p>
-            
+
             <div className="mt-8 grid grid-cols-2 gap-6">
               <div>
-                <p className="text-2xl font-light text-foreground lg:text-3xl">250K</p>
-                <p className="mt-1 text-sm text-muted-foreground">Square Feet</p>
+                <p className="text-2xl font-light text-foreground lg:text-3xl">
+                  250K
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Square Feet
+                </p>
               </div>
               <div>
-                <p className="text-2xl font-light text-foreground lg:text-3xl">18</p>
-                <p className="mt-1 text-sm text-muted-foreground">Months Duration</p>
+                <p className="text-2xl font-light text-foreground lg:text-3xl">
+                  18
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Months Duration
+                </p>
               </div>
             </div>
 
@@ -54,5 +62,5 @@ export function FacilitySection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
