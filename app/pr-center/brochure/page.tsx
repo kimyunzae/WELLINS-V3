@@ -16,6 +16,7 @@ const downloads = [
       "Comprehensive overview of Wellins Inc. capabilities, services, and project portfolio.",
     size: "4.2 MB",
     format: "PDF",
+    href: "/downloads/corporate-brochure.pdf",
   },
   {
     title: "Services Overview",
@@ -23,6 +24,7 @@ const downloads = [
       "Detailed information about our six core service areas and capabilities.",
     size: "2.8 MB",
     format: "PDF",
+    href: "/downloads/services-overview.pdf",
   },
   {
     title: "Safety Program",
@@ -30,12 +32,14 @@ const downloads = [
       "Our commitment to safety excellence and OSHA compliance programs.",
     size: "1.5 MB",
     format: "PDF",
+    href: "/downloads/safety-program.pdf",
   },
   {
     title: "Quality Assurance",
     description: "Quality management systems and certification documentation.",
     size: "1.2 MB",
     format: "PDF",
+    href: "/downloads/quality-assurance.pdf",
   },
 ];
 
@@ -71,10 +75,14 @@ export default function BrochurePage() {
                     <span className="text-xs text-muted-foreground">
                       {item.format} • {item.size}
                     </span>
-                    <button className="inline-flex items-center text-sm font-medium text-foreground transition-colors hover:text-accent">
+                    <a
+                      href={item.href}
+                      className="inline-flex items-center text-sm font-medium text-foreground transition-colors hover:text-accent cursor-pointer"
+                      download
+                    >
                       <Download className="mr-2 h-4 w-4" />
                       Download
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>

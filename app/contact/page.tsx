@@ -6,6 +6,7 @@ import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
 import { ArrowRight, Clock, Mail, MapPin, Phone } from "lucide-react";
+
 import { useState } from "react";
 
 const offices = [
@@ -220,7 +221,7 @@ export default function ContactPage() {
                 </button>
               </form>
             </div>
-                  
+
             {/* Contact Info */}
             <div>
               <h2 className="text-2xl font-light tracking-tight text-foreground lg:text-3xl">
