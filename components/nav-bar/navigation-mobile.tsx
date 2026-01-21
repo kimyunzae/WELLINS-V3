@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ChevronDown, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -24,13 +24,39 @@ type Props = {
 
 export default function NavigationMobile({ navigation }: Props) {
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
 
   const handleToggle = (key: string) => {
     setActiveSection((current) => (current === key ? null : key));
   };
 
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 1024px)");
+
+    const handleChange = () => {
+      if (media.matches) {
+        setOpen(false);
+        setActiveSection(null);
+      }
+    };
+
+    handleChange();
+    media.addEventListener("change", handleChange);
+
+    return () => {
+      media.removeEventListener("change", handleChange);
+    };
+  }, []);
+
+  const handleOpenChange = (nextOpen: boolean) => {
+    setOpen(nextOpen);
+    if (!nextOpen) {
+      setActiveSection(null);
+    }
+  };
+
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={handleOpenChange}>
       <SheetTrigger asChild>
         <button className="lg:hidden" aria-label="Toggle menu">
           <Menu className="h-6 w-6" />
