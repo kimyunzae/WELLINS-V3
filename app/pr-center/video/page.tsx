@@ -16,7 +16,7 @@ const videos: VideoItem[] = [
       "Learn about Wellins Inc., our history, capabilities, and commitment to industrial excellence.",
     duration: "4:32",
     thumbnail: "/images/hero-industrial.jpg",
-    src: "/videos/company-overview.mp4",
+    youtubeId: "",
   },
   {
     title: "Safety Program",
@@ -24,7 +24,7 @@ const videos: VideoItem[] = [
       "Our comprehensive safety program ensures every worker goes home safe every day.",
     duration: "3:15",
     thumbnail: "/images/service-equipment.jpg",
-    src: "/videos/safety-program.mp4",
+    youtubeId: "",
   },
   {
     title: "Industrial Piping Capabilities",
@@ -32,7 +32,7 @@ const videos: VideoItem[] = [
       "Explore our advanced piping fabrication and installation capabilities.",
     duration: "5:48",
     thumbnail: "/images/service-piping.jpg",
-    src: "/videos/industrial-piping-capabilities.mp4",
+    youtubeId: "",
   },
   {
     title: "Project Spotlight: Alabama Automotive",
@@ -40,7 +40,7 @@ const videos: VideoItem[] = [
       "Behind the scenes of our largest automotive plant expansion project.",
     duration: "6:22",
     thumbnail: "/images/facility-expansion.jpg",
-    src: "/videos/project-spotlight-alabama-automotive.mp4",
+    youtubeId: "",
   },
   {
     title: "HVAC Solutions for Manufacturing",
@@ -48,7 +48,7 @@ const videos: VideoItem[] = [
       "How we design and install climate control systems for demanding industrial environments.",
     duration: "4:05",
     thumbnail: "/images/service-hvac.jpg",
-    src: "/videos/hvac-solutions-for-manufacturing.mp4",
+    youtubeId: "",
   },
   {
     title: "Meet Our Team",
@@ -56,7 +56,7 @@ const videos: VideoItem[] = [
       "The skilled professionals behind every successful Wellins Inc. project.",
     duration: "3:45",
     thumbnail: "/images/team-workers.jpg",
-    src: "/videos/meet-our-team.mp4",
+    youtubeId: "",
   },
 ];
 
