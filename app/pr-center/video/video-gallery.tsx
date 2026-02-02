@@ -9,7 +9,7 @@ export type VideoItem = {
   description: string;
   duration: string;
   thumbnail: string;
-  src: string;
+  youtubeId: string;
 };
 
 type Props = {
@@ -27,16 +27,24 @@ export default function VideoGallery({ videos }: Props) {
       {/* 상단 비디오 플레이어 및 설명 */}
       <div className="mb-16">
         <div className="relative aspect-video overflow-hidden bg-muted">
-          <video
-            playsInline
-            key={activeVideo.src}
-            controls
-            preload="metadata"
-            poster={activeVideo.thumbnail}
-            className="h-full w-full object-cover"
-          >
-            <source src={activeVideo.src} type="video/mp4" />
-          </video>
+          {activeVideo.youtubeId ? (
+            <iframe
+              key={activeVideo.youtubeId}
+              title={activeVideo.title}
+              src={`https://www.youtube.com/embed/${activeVideo.youtubeId}?rel=0`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" //자동재생, 미디어 보호, pip, 회전 등 iframe 허용 옵션
+              allowFullScreen
+              className="h-full w-full"
+            />
+          ) : (
+            <div
+              className="flex h-full w-full items-center justify-center bg-cover bg-center text-sm font-medium text-white"
+              style={{ backgroundImage: `url(${activeVideo.thumbnail})` }}
+            >
+              <div className="absolute inset-0 bg-black/50" />
+              <span className="relative z-10">No video</span>
+            </div>
+          )}
         </div>
         <div className="mt-6 max-w-3xl">
           <h2 className="text-2xl font-semibold text-foreground lg:text-3xl">
@@ -57,7 +65,7 @@ export default function VideoGallery({ videos }: Props) {
           const isActive = activeIndex === index;
           return (
             <button
-              key={video.src}
+              key={`${video.title}-${index}`}
               type="button"
               onClick={() => setActiveIndex(index)}
               aria-pressed={isActive}
