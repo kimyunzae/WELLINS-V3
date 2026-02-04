@@ -25,7 +25,7 @@ const footerLinks = {
   projects: {
     label: "Projects",
     links: [
-      { name: "Alabama", href: "/projects/alabama" },
+      { name: "Buford", href: "/projects/buford" },
       { name: "Georgia", href: "/projects/georgia" },
       { name: "Texas", href: "/projects/texas" },
       { name: "View All", href: "/projects" },
@@ -63,11 +63,11 @@ export function Footer() {
               Industrial engineering excellence since 1995. Delivering precision, safety, and performance across the United States.
             </p>
             <div className="mt-6 space-y-2 text-sm text-primary-foreground/70">
-              <p>1234 Industrial Parkway</p>
-              <p>Birmingham, AL 35203</p>
+              <p>3483 Satellite Blvd. Suite 100</p>
+              <p>Duluth, GA 30096</p>
               <p className="mt-4">
-                <a href="tel:+12055551234" className="transition-colors hover:text-primary-foreground">
-                  +1 (205) 555-1234
+                <a href="tel:+17705570019" className="transition-colors hover:text-primary-foreground">
+                  +1 (770) 557-0019
                 </a>
               </p>
               <p>

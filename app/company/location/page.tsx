@@ -2,22 +2,21 @@ import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
-import Image from "next/image";
 
 export const metadata = {
   title: "Location | Wellins Inc.",
   description:
-    "Find our headquarters and regional offices. Wellins Inc. serves industrial clients across eight states.",
+    "Find our headquarters and facilities across the Southeast.",
 };
 
 const locations = [
   {
     name: "Headquarters",
-    city: "Birmingham, AL",
-    address: "1234 Industrial Parkway\nBirmingham, AL 35203",
-    phone: "+1 (205) 555-1234",
+    city: "Duluth, GA",
+    address: "3483 Satellite Blvd. Suite 100\nDuluth, GA 30096",
+    phone: "+1 (770) 557-0019",
     email: "info@wellinsinc.com",
-    hours: "Mon-Fri: 7:00 AM - 5:00 PM",
+    hours: "Mon-Fri: 8:00 AM - 6:00 PM ET",
   },
   {
     name: "Texas Office",
@@ -38,14 +37,12 @@ const locations = [
 ];
 
 const serviceStates = [
-  "Alabama",
   "Georgia",
-  "Indiana",
-  "Michigan",
-  "Ohio",
-  "South Carolina",
   "Tennessee",
+  "South Carolina",
+  "Alabama",
   "Texas",
+  "Louisiana",
 ];
 
 export default function LocationPage() {
@@ -55,19 +52,20 @@ export default function LocationPage() {
       <PageHeader
         eyebrow="Company"
         title="Our Locations"
-        description="Strategically positioned to serve industrial clients across the United States"
+        description="Licensed across GA, TN, SC, AL, TX, and LA. Rapid-response installation teams ready to mobilize nationwide."
       />
 
       {/* Headquarters */}
       <section className="bg-background py-20 lg:py-28">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-            <div className="relative aspect-[4/3] overflow-hidden">
-              <Image
-                src="/images/headquarters.jpg"
-                alt="Wellins Inc. Headquarters in Birmingham, Alabama"
-                fill
-                className="object-cover"
+            <div className="relative aspect-[4/3] overflow-hidden border border-border bg-muted">
+              <iframe
+                title="Wellins Inc. Headquarters in Duluth, GA"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3312.149682792209!2d-84.11853602396974!3d33.96063317317882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5aefb7a58cb15%3A0x6af73d1d65eee5d4!2s3483%20Satellite%20Blvd%20%23100%2C%20Duluth%2C%20GA%2030096!5e0!3m2!1sen!2sus!4v1700000000000"
+                className="h-full w-full border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
             <div>
@@ -75,31 +73,33 @@ export default function LocationPage() {
                 Corporate Headquarters
               </p>
               <h2 className="mt-4 text-3xl font-light tracking-tight text-foreground lg:text-4xl">
-                Birmingham, <span className="font-semibold">Alabama</span>
+                Duluth, <span className="font-semibold">Georgia</span>
               </h2>
               <p className="mt-6 text-base leading-relaxed text-muted-foreground lg:text-lg">
-                Our headquarters serves as the central hub for all operations,
-                housing our executive team, engineering department, and main
-                fabrication facilities.
+                Our headquarters in Duluth serves as the central hub for all
+                operations, housing leadership, engineering support, and
+                project coordination teams.
               </p>
 
               <div className="mt-8 space-y-4">
                 <div className="flex items-start gap-4">
                   <MapPin className="mt-1 h-5 w-5 text-muted-foreground" />
                   <div>
-                    <p className="text-foreground">1234 Industrial Parkway</p>
+                    <p className="text-foreground">
+                      3483 Satellite Blvd. Suite 100
+                    </p>
                     <p className="text-muted-foreground">
-                      Birmingham, AL 35203
+                      Duluth, GA 30096
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
                   <Phone className="h-5 w-5 text-muted-foreground" />
                   <a
-                    href="tel:+12055551234"
+                    href="tel:+17705570019"
                     className="text-foreground hover:text-accent"
                   >
-                    +1 (205) 555-1234
+                    +1 (770) 557-0019
                   </a>
                 </div>
                 <div className="flex items-center gap-4">
@@ -114,7 +114,7 @@ export default function LocationPage() {
                 <div className="flex items-center gap-4">
                   <Clock className="h-5 w-5 text-muted-foreground" />
                   <p className="text-muted-foreground">
-                    Mon-Fri: 7:00 AM - 5:00 PM
+                    Mon-Fri: 8:00 AM - 6:00 PM ET
                   </p>
                 </div>
               </div>
@@ -123,11 +123,11 @@ export default function LocationPage() {
         </div>
       </section>
 
-      {/* Regional Offices */}
+      {/* Facilities */}
       <section className="bg-muted py-20 lg:py-28">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
           <h2 className="text-3xl font-light tracking-tight text-foreground lg:text-4xl">
-            Regional <span className="font-semibold">Offices</span>
+            Our <span className="font-semibold">Facilities</span>
           </h2>
           <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {locations.map((location, index) => (

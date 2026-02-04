@@ -23,14 +23,22 @@ export function FacilitySection() {
               Featured Project
             </p>
             <h2 className="mt-4 text-3xl font-light tracking-tight text-foreground lg:text-4xl xl:text-5xl text-balance">
-              Alabama Automotive{" "}
-              <span className="font-semibold">Facility Expansion</span>
+              Buford Manufacturing Hub{" "}
+              <span className="block pt-3 font-semibold">Opening In 2026</span>
             </h2>
-            <p className="mt-6 text-base leading-relaxed text-muted-foreground lg:text-lg">
-              A comprehensive 250,000 sq ft expansion project featuring complete
-              mechanical systems installation including industrial piping, HVAC,
-              and fire protection systems for a major automotive manufacturer.
-            </p>
+            <div className="mt-6 text-base leading-relaxed text-muted-foreground lg:text-lg">
+              <p>
+                We are excited to announce our new manufacturing facility in
+                Buford, GA. The 4.3-acre site is designed to expand production
+                space for high-pressure piping, vessels, and specialized
+                fabrication.
+              </p>
+              <p className="mt-3">
+                This expansion allows us to customize solutions to complex
+                mechanical needs while keeping project timelines responsive for
+                partners across the Southeast.
+              </p>
+            </div>
 
             <div className="mt-8 grid grid-cols-2 gap-6">
               <div>
@@ -52,7 +60,7 @@ export function FacilitySection() {
             </div>
 
             <Link
-              href="/projects/alabama"
+              href="/projects/buford"
               className="mt-10 inline-flex items-center text-sm font-semibold uppercase tracking-wider text-foreground transition-colors hover:text-accent"
             >
               View Project Details

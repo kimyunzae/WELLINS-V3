@@ -8,10 +8,10 @@ export const metadata = {
 export default function IndustrialPipingPage() {
   return (
     <ServiceDetail
-      title="Industrial Piping"
+      title="Mechanical & Industrial Piping"
       description="Complete piping solutions from design to installation for process, utility, and specialized applications"
       image="/images/service-piping.jpg"
-      overview="Wellins Inc. provides comprehensive industrial piping services for the most demanding applications. From high-purity pharmaceutical systems to high-pressure petrochemical processes, our certified pipefitters and welders deliver installations that meet the strictest industry standards. We handle everything from initial design support through final testing and commissioning."
+      overview="Process-critical distribution networks engineered for uptime and simplified maintenance."
       capabilities={[
         "Process piping systems design and installation",
         "High-purity and sanitary piping",

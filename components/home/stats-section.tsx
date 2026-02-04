@@ -1,8 +1,8 @@
 const stats = [
-  { value: "1995", label: "Founded" },
-  { value: "8", label: "States Licensed" },
-  { value: "500+", label: "Installations" },
-  { value: "150+", label: "Certified Contractors" },
+  { value: "2016", label: "Founded" },
+  { value: "12", label: "States Licensed" },
+  { value: "4.3", label: "Acres", subLabel: "Buford Facility" },
+  { value: "150+", label: "Major Installations" },
 ]
 
 export function StatsSection() {
@@ -18,6 +18,11 @@ export function StatsSection() {
               <p className="mt-2 text-sm font-medium uppercase tracking-wider text-muted-foreground">
                 {stat.label}
               </p>
+              {stat.subLabel && (
+                <p className="mt-1 text-xs font-medium uppercase tracking-wider text-muted-foreground/70">
+                  {stat.subLabel}
+                </p>
+              )}
             </div>
           ))}
         </div>

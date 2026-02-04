@@ -11,7 +11,7 @@ export default function HighPressureVesselsPage() {
       title="High-Pressure Vessels"
       description="Engineering and installation of pressure vessels meeting ASME standards for industrial applications"
       image="/images/service-vessels.jpg"
-      overview="Pressure vessels are critical components in many industrial processes, requiring expert handling during installation and rigorous attention to safety codes. Wellins Inc. provides comprehensive pressure vessel services from rigging and installation to modifications and repairs, all performed in strict accordance with ASME codes and National Board requirements."
+      overview="Code-compliant fabrication and installation for liquid and gas processing under extreme conditions."
       capabilities={[
         "Pressure vessel rigging and setting",
         "Foundation and anchor design",

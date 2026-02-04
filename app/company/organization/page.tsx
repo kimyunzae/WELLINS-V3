@@ -8,60 +8,57 @@ export const metadata = {
     "Learn about the organizational structure of Wellins Inc. and our leadership team.",
 };
 
-const departments = [
+const divisions = [
   {
-    name: "Executive Leadership",
-    description: "Strategic direction and corporate governance",
-    roles: [
-      "Chief Executive Officer",
-      "Chief Operating Officer",
-      "Chief Financial Officer",
+    name: "Management Support Division",
+    description: "Company operations and administrative support",
+    groups: [
+      { name: "HR / General Affairs", items: [] },
+      { name: "Purchasing", items: [] },
+      { name: "Accounting", items: [] },
     ],
   },
   {
-    name: "Engineering",
-    description: "Design, planning, and technical oversight",
-    roles: [
-      "VP of Engineering",
-      "Project Engineers",
-      "Design Engineers",
-      "CAD Specialists",
+    name: "Fabrication Division",
+    description: "Fabrication, production, and engineering execution",
+    groups: [
+      {
+        name: "Production Team",
+        items: ["Fire Protection Piping Team", "Equipment & Spool Team"],
+      },
+      {
+        name: "Engineering Team",
+        items: ["Fire Protection Piping Team", "Equipment & Piping Team"],
+      },
     ],
   },
   {
-    name: "Project Management",
-    description: "Project delivery and client coordination",
-    roles: [
-      "Director of Projects",
-      "Senior Project Managers",
-      "Project Coordinators",
+    name: "Installation Division",
+    description: "Installation and site delivery operations",
+    groups: [
+      {
+        name: "Installation Team",
+        items: ["Project Control Manager", "Safety Manager"],
+      },
+      {
+        name: "Construction Manager",
+        items: ["QC Manager"],
+      },
     ],
   },
   {
-    name: "Field Operations",
-    description: "On-site installation and construction",
-    roles: [
-      "Field Superintendent",
-      "Foremen",
-      "Pipefitters",
-      "HVAC Technicians",
-      "Welders",
+    name: "New Business Division",
+    description: "Growth, sales, and service expansion",
+    groups: [
+      {
+        name: "Fire Protection Support Team",
+        items: ["Installation Support Team", "Maintenance Team"],
+      },
+      {
+        name: "Sales Team",
+        items: ["Sales Manager", "Project Estimator"],
+      },
     ],
-  },
-  {
-    name: "Safety & Quality",
-    description: "Safety compliance and quality assurance",
-    roles: [
-      "Safety Director",
-      "Quality Manager",
-      "Safety Officers",
-      "QC Inspectors",
-    ],
-  },
-  {
-    name: "Business Development",
-    description: "Client relations and market growth",
-    roles: ["VP of Business Development", "Account Managers", "Estimators"],
   },
 ];
 
@@ -72,57 +69,54 @@ export default function OrganizationPage() {
       <PageHeader
         eyebrow="Company"
         title="Organization"
-        description="Our structure enables efficient delivery of complex industrial projects"
+        description="Skilled teams and specialized units, equipped for mission-critical operations with zero compromise on safety or compliance."
       />
 
       <section className="bg-background py-20 lg:py-28">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-          {/* Org Chart Visual */}
-          <div className="mb-20">
-            <div className="flex flex-col items-center">
-              {/* CEO */}
-              <div className="border border-primary bg-primary px-8 py-4 text-center text-primary-foreground">
-                <p className="text-sm font-medium">Chief Executive Officer</p>
-              </div>
-              <div className="h-8 w-px bg-border" />
-
-              {/* C-Suite */}
-              <div className="flex gap-4">
-                <div className="h-px w-32 self-center bg-border" />
-                <div className="flex gap-8">
-                  <div className="border border-border bg-muted px-6 py-3 text-center">
-                    <p className="text-sm font-medium text-foreground">COO</p>
-                  </div>
-                  <div className="border border-border bg-muted px-6 py-3 text-center">
-                    <p className="text-sm font-medium text-foreground">CFO</p>
-                  </div>
-                </div>
-                <div className="h-px w-32 self-center bg-border" />
-              </div>
+          {/* Leadership */}
+          <div className="mb-8 flex flex-col items-center text-center">
+            <div className="border border-primary bg-primary px-10 py-4 text-primary-foreground">
+              <p className="text-sm font-medium tracking-[0.3em]">CEO</p>
             </div>
+            <div className="mt-4 h-8 w-px bg-border" />
           </div>
 
-          {/* Departments Grid */}
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {departments.map((dept, index) => (
-              <div key={index} className="border border-border p-8">
+          {/* Divisions Grid */}
+          <div className="grid gap-8 md:grid-cols-2">
+            {divisions.map((division, index) => (
+              <div key={index} className="border border-border bg-card p-8">
                 <h3 className="text-lg font-semibold text-foreground">
-                  {dept.name}
+                  {division.name}
                 </h3>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  {dept.description}
+                  {division.description}
                 </p>
-                <ul className="mt-6 space-y-2">
-                  {dept.roles.map((role, roleIndex) => (
-                    <li
-                      key={roleIndex}
-                      className="flex items-center gap-2 text-sm text-muted-foreground"
+                <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                  {division.groups.map((group, groupIndex) => (
+                    <div
+                      key={groupIndex}
+                      className="rounded-md border border-border/70 bg-muted/30 p-4"
                     >
-                      <span className="h-1 w-1 bg-accent" />
-                      {role}
-                    </li>
+                      <p className="text-sm font-semibold text-foreground">
+                        {group.name}
+                      </p>
+                      {group.items.length > 0 && (
+                        <ul className="mt-3 space-y-1 text-sm text-muted-foreground">
+                          {group.items.map((item, itemIndex) => (
+                            <li
+                              key={itemIndex}
+                              className="flex items-start gap-2"
+                            >
+                              <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-accent" />
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             ))}
           </div>

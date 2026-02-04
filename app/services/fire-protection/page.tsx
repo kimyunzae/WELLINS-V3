@@ -11,7 +11,7 @@ export default function FireProtectionPage() {
       title="Fire Protection"
       description="Comprehensive fire suppression systems including sprinklers, alarms, and specialized protection systems"
       image="/images/service-fire.jpg"
-      overview="Protecting industrial facilities from fire requires specialized systems designed for the unique hazards present in manufacturing environments. Wellins Inc. designs and installs complete fire protection systems that meet NFPA standards and insurance requirements while providing effective protection for your people, equipment, and operations."
+      overview="Turnkey suppression networks, alarm integration and ongoing inspection programs."
       capabilities={[
         "Wet and dry sprinkler systems",
         "Deluge and pre-action systems",
