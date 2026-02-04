@@ -11,7 +11,7 @@ export default function InsulationJacketingPage() {
       title="Insulation & Jacketing"
       description="Thermal insulation and protective jacketing for pipes, vessels, and equipment in demanding conditions"
       image="/images/service-insulation.jpg"
-      overview="Proper insulation is critical for energy efficiency, personnel safety, and process control in industrial facilities. Wellins Inc. provides complete insulation and jacketing services using the highest quality materials and installation techniques. Our work meets all relevant codes and standards while delivering the thermal performance your operations require."
+      overview="Thermal and acoustic packages that safeguard performance and extend equipment life."
       capabilities={[
         "Hot and cold pipe insulation",
         "Vessel and tank insulation",

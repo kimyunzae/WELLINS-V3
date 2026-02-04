@@ -6,7 +6,7 @@ import Image from "next/image";
 export const metadata = {
   title: "About Us | Wellins Inc.",
   description:
-    "Learn about Wellins Inc., a leading industrial engineering company with over 25 years of experience in piping, HVAC, and equipment installation.",
+    "Learn about Wellins Inc., founded in 2016, delivering industrial engineering services in piping, HVAC, and equipment installation.",
 };
 
 const values = [
@@ -16,19 +16,19 @@ const values = [
       "Every project begins and ends with a commitment to the safety of our workers, clients, and communities.",
   },
   {
-    title: "Precision Engineering",
+    title: "Integrated Project Delivery",
     description:
-      "We deliver exacting standards in every installation, ensuring long-term reliability and performance.",
+      "In-house management, fabrication, and field teams aligned for fast decision making.",
   },
   {
-    title: "Client Partnership",
+    title: "Scalable Capabilities",
     description:
-      "We work as an extension of your team, understanding your goals and delivering solutions that exceed expectations.",
+      "Licensed across the Southeast with capacity to mobilize specialty crews quickly.",
   },
   {
-    title: "Continuous Innovation",
+    title: "Partnership Mindset",
     description:
-      "We invest in the latest technologies and training to bring cutting-edge solutions to industrial challenges.",
+      "Long-term relationships that prioritize transparency, safety, and trusted delivery.",
   },
 ];
 
@@ -38,9 +38,48 @@ export default function AboutPage() {
       <Navigation />
       <PageHeader
         eyebrow="Company"
-        title="Building Industrial Excellence Since 1995"
+        title="Building Industrial Excellence Since 2016"
         description="Wellins Inc. has grown from a regional contractor to a nationally recognized leader in industrial engineering services."
       />
+
+      {/* Stats */}
+      <section className="bg-primary pt-0 pb-16 text-primary-foreground lg:pb-10 -mt-10 lg:-mt-12">
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
+          <div className="border-t border-primary-foreground/10">
+            <div className="flex items-center py-8 lg:py-10">
+              <div className="grid w-full grid-cols-2 gap-8 lg:grid-cols-4 lg:gap-12 ">
+                <div>
+                  <p className="text-5xl font-light lg:text-6xl">2016</p>
+                  <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">
+                    Founded
+                  </p>
+                </div>
+                <div>
+                  <p className="text-5xl font-light lg:text-6xl">12</p>
+                  <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">
+                    States Licensed
+                  </p>
+                </div>
+                <div>
+                  <p className="text-5xl font-light lg:text-6xl">4.3</p>
+                  <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">
+                    Acres
+                    <span className="mt-1 block text-xs uppercase tracking-wider text-primary-foreground/60">
+                      Buford Facility
+                    </span>
+                  </p>
+                </div>
+                <div>
+                  <p className="text-5xl font-light lg:text-6xl">150+</p>
+                  <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">
+                    Major Installations
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Mission Section */}
       <section className="bg-background py-20 lg:py-28">
@@ -56,19 +95,27 @@ export default function AboutPage() {
             </div>
             <div>
               <h2 className="text-3xl font-light tracking-tight text-foreground lg:text-4xl">
-                Our <span className="font-semibold">Mission</span>
+                "Go above and beyond the best."
               </h2>
               <p className="mt-6 text-base leading-relaxed text-muted-foreground lg:text-lg">
-                To deliver world-class industrial engineering solutions that
-                enable our clients to achieve operational excellence. We combine
-                technical expertise with an unwavering commitment to safety and
-                quality to build facilities that drive industrial progress.
+                WELLINS INC was founded with the goal of enhancing efficiency in
+                the construction and engineering sectors through innovative
+                technological solutions.
               </p>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground lg:text-lg">
-                From our headquarters in Birmingham, Alabama, we serve major
-                manufacturers, EPC firms, and general contractors across eight
-                states, bringing decades of expertise to every project we
-                undertake.
+                We were established with a deep understanding of technological
+                advancements and industry experience, aiming to provide more
+                efficient and reliable project execution.
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground lg:text-lg">
+                WELLINS INC has a dedicated Project Management Group along with
+                Engineering Support and established distribution accounts with
+                leading equipment manufacturers for mechanical, industrial,
+                HVAC, and commercial projects.
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground lg:text-lg">
+                We look forward to growing together as a community in the
+                future.
               </p>
             </div>
           </div>
@@ -98,38 +145,6 @@ export default function AboutPage() {
                 </p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="bg-primary py-20 text-primary-foreground lg:py-28">
-        <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-          <div className="grid grid-cols-2 gap-8 lg:grid-cols-4 lg:gap-12">
-            <div>
-              <p className="text-5xl font-light lg:text-6xl">30+</p>
-              <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">
-                Years Experience
-              </p>
-            </div>
-            <div>
-              <p className="text-5xl font-light lg:text-6xl">500+</p>
-              <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">
-                Projects Completed
-              </p>
-            </div>
-            <div>
-              <p className="text-5xl font-light lg:text-6xl">150+</p>
-              <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">
-                Team Members
-              </p>
-            </div>
-            <div>
-              <p className="text-5xl font-light lg:text-6xl">8</p>
-              <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">
-                States Licensed
-              </p>
-            </div>
           </div>
         </div>
       </section>

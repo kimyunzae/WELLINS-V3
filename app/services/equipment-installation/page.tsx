@@ -11,7 +11,7 @@ export default function EquipmentInstallationPage() {
       title="Equipment Installation"
       description="Precision installation of heavy industrial equipment with rigorous safety standards and minimal downtime"
       image="/images/service-equipment.jpg"
-      overview="Our equipment installation services cover the full spectrum of industrial machinery, from small precision instruments to massive production equipment weighing hundreds of tons. We work closely with equipment manufacturers and facility owners to ensure every installation meets exact specifications while minimizing disruption to ongoing operations."
+      overview="Precision rigging, alignment and commissioning for heavy industrial assets and utilities."
       capabilities={[
         "Heavy machinery rigging and positioning",
         "Precision alignment and leveling",

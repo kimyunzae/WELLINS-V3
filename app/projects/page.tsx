@@ -13,7 +13,7 @@ export const metadata = {
 
 const projects = [
   {
-    state: "Alabama",
+    state: "Buford",
     projects: [
       {
         name: "Birmingham Automotive Plant Expansion",
@@ -27,7 +27,7 @@ const projects = [
       },
     ],
     image: "/images/project-1.jpg",
-    href: "/projects/alabama",
+    href: "/projects/buford",
   },
   {
     state: "Georgia",

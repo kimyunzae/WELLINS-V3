@@ -5,51 +5,39 @@ import { PageHeader } from "@/components/page-header";
 export const metadata = {
   title: "History | Wellins Inc.",
   description:
-    "The history of Wellins Inc., from our founding in 1995 to becoming a leader in industrial engineering.",
+    "Key milestones that trace how our footprint, licensing, and capabilities continue to expand.",
 };
 
 const timeline = [
   {
-    year: "1995",
-    title: "Company Founded",
+    year: "2016",
+    title: "WELLINS INC Established",
     description:
-      "Wellins Inc. was established in Birmingham, Alabama, with a focus on industrial piping installations for regional manufacturers.",
+      "Our company is founded in Georgia with a commitment to delivering dependable industrial and mechanical systems.",
   },
   {
-    year: "2000",
-    title: "HVAC Division Launched",
+    year: "2019",
+    title: "General Contract Licensed",
     description:
-      "Expanded services to include complete HVAC system design and installation, responding to client demand for integrated solutions.",
+      "Earned general contracting licenses across GA, TN, and SC—unlocking multi-state coverage for industrial partners.",
   },
   {
-    year: "2005",
-    title: "Multi-State Expansion",
+    year: "2023",
+    title: "HQ Relocation",
     description:
-      "Obtained licensing in five southeastern states, enabling service to major automotive manufacturers establishing facilities in the region.",
-  },
-  {
-    year: "2010",
-    title: "Fire Protection Services",
-    description:
-      "Added comprehensive fire protection capabilities, becoming a full-service mechanical contractor for industrial facilities.",
-  },
-  {
-    year: "2015",
-    title: "Texas Operations",
-    description:
-      "Opened Houston office to serve the petrochemical and energy sectors, marking significant expansion into Gulf Coast markets.",
-  },
-  {
-    year: "2020",
-    title: "500th Project Milestone",
-    description:
-      "Completed our 500th major installation, a testament to the trust placed in us by manufacturers across the United States.",
+      "Relocated headquarters to Duluth, GA to centralize leadership, engineering, and fabrication support teams.",
   },
   {
     year: "2024",
-    title: "Looking Forward",
+    title: "Fire Protection Licensed",
     description:
-      "Continued investment in technology, safety, and workforce development positions Wellins Inc. for the next chapter of growth.",
+      "Secured fire protection licenses in LA, AL, and TX—broadening our ability to deliver turnkey life-safety systems.",
+  },
+  {
+    year: "2025",
+    title: "Business Expansion",
+    description:
+      "New Buford, GA manufacturing facility comes online—providing dedicated space for large-scale fabrication and rapid deployment.",
   },
 ];
 
@@ -60,7 +48,7 @@ export default function HistoryPage() {
       <PageHeader
         eyebrow="Company"
         title="Our History"
-        description="Nearly three decades of industrial engineering excellence"
+        description="Key milestones that trace how our footprint, licensing, and capabilities continue to expand."
       />
 
       <section className="bg-background py-20 lg:py-28">

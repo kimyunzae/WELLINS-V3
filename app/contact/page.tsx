@@ -10,9 +10,9 @@ import { useState } from "react";
 const offices = [
   {
     name: "Headquarters",
-    city: "Birmingham, AL",
-    address: "1234 Industrial Parkway\nBirmingham, AL 35203",
-    phone: "+1 (205) 555-1234",
+    city: "Duluth, GA",
+    address: "3483 Satellite Blvd. Suite 100\nDuluth, GA 30096",
+    phone: "+1 (770) 557-0019",
     email: "info@wellinsinc.com",
   },
   {

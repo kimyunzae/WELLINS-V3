@@ -11,7 +11,7 @@ export default function HVACSystemPage() {
       title="HVAC System"
       description="Advanced climate control systems designed for industrial environments requiring precise temperature management"
       image="/images/service-hvac.jpg"
-      overview="Industrial facilities require HVAC systems that go far beyond comfort cooling. Wellins Inc. designs and installs complete environmental control systems that maintain precise temperature, humidity, and air quality specifications critical to your manufacturing processes. Our systems are engineered for reliability, energy efficiency, and long-term operational cost savings."
+      overview="Climate control and clean room delivery for mission-critical manufacturing environments."
       capabilities={[
         "Process cooling and heating systems",
         "Clean room HVAC systems",
