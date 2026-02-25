@@ -43,14 +43,6 @@ export default function NavigationDesktop({ navigation }: Porps) {
             </NavigationMenuContent>
           </NavigationMenuItem>
         ))}
-        <NavigationMenuItem>
-          <NavigationMenuLink
-            href="/contact"
-            className="text-sm font-medium tracking-wider text-primary-foreground/80 transition-colors hover:text-primary-foreground"
-          >
-            <p className="text-black">CONTACT US</p>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   );

@@ -89,7 +89,7 @@ export default function NavigationMobile({ navigation }: Props) {
                     <ChevronDown
                       className={cn(
                         "h-4 w-4 transition-transform",
-                        isOpen && "rotate-180",
+                        isOpen && "rotate-180"
                       )}
                     />
                   </button>
@@ -97,7 +97,7 @@ export default function NavigationMobile({ navigation }: Props) {
                     id={panelId}
                     className={cn(
                       "overflow-hidden transition-all duration-200",
-                      isOpen ? "mt-2 max-h-[400px]" : "max-h-0",
+                      isOpen ? "mt-2 max-h-[400px]" : "max-h-0"
                     )}
                   >
                     {items.map((item) => (
@@ -114,14 +114,7 @@ export default function NavigationMobile({ navigation }: Props) {
                 </div>
               );
             })}
-            <SheetClose asChild>
-              <Link
-                href="/contact"
-                className="block py-4 text-sm font-medium tracking-wider text-foreground"
-              >
-                CONTACT US
-              </Link>
-            </SheetClose>
+
             <SheetClose asChild>
               <Link
                 href="/contact"
