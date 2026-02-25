@@ -62,32 +62,38 @@ const navigation = {
 export function Navigation() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white text-black border-b border-black/10">
-      <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-4 lg:px-8">
+      <nav className="relative mx-auto flex max-w-[1400px] items-center justify-between px-6 py-4 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="z-10 flex shrink-0 items-center gap-3">
           <Image
             src="/images/logos/logo-wellins.png"
             alt="Wellins Inc."
-            width={140}
-            height={40}
+            width={227}
+            height={50}
             priority
-            className="h-8 w-auto object-contain"
+            className="h-[50px] w-auto object-contain"
           />
         </Link>
 
         {/* Desktop Navigation */}
-        <NavigationDesktop navigation={navigation} />
+        <div className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 lg:block">
+          <div className="pointer-events-auto">
+            <NavigationDesktop navigation={navigation} />
+          </div>
+        </div>
 
-        {/* Contact Button */}
-        <Link
-          href="/contact"
-          className="hidden  bg-transparent px-6 py-2 text-sm font-medium tracking-wider  transition-colors  lg:block"
-        >
-          GET A QUOTE
-        </Link>
+        <div className="z-10 flex items-center">
+          {/* Contact Button */}
+          <Link
+            href="/contact"
+            className="hidden bg-transparent px-6 py-2 text-sm font-medium tracking-wider transition-colors lg:block"
+          >
+            GET A QUOTE
+          </Link>
 
-        {/* Mobile Menu Button */}
-        <NavigationMobile navigation={navigation} />
+          {/* Mobile Menu Button */}
+          <NavigationMobile navigation={navigation} />
+        </div>
       </nav>
     </header>
   );
