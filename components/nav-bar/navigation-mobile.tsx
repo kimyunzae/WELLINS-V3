@@ -20,9 +20,13 @@ type Props = {
       items: { name: string; href: string }[];
     };
   };
+  forceVisible?: boolean;
 };
 
-export default function NavigationMobile({ navigation }: Props) {
+export default function NavigationMobile({
+  navigation,
+  forceVisible = false,
+}: Props) {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
 
@@ -34,7 +38,7 @@ export default function NavigationMobile({ navigation }: Props) {
     const media = window.matchMedia("(min-width: 1024px)");
 
     const handleChange = () => {
-      if (media.matches) {
+      if (media.matches && !forceVisible) {
         setOpen(false);
         setActiveSection(null);
       }
@@ -46,7 +50,7 @@ export default function NavigationMobile({ navigation }: Props) {
     return () => {
       media.removeEventListener("change", handleChange);
     };
-  }, []);
+  }, [forceVisible]);
 
   const handleOpenChange = (nextOpen: boolean) => {
     setOpen(nextOpen);
@@ -58,11 +62,17 @@ export default function NavigationMobile({ navigation }: Props) {
   return (
     <Sheet open={open} onOpenChange={handleOpenChange}>
       <SheetTrigger asChild>
-        <button className="lg:hidden" aria-label="Toggle menu">
+        <button
+          className={cn(!forceVisible && "lg:hidden")}
+          aria-label="Toggle menu"
+        >
           <Menu className="h-6 w-6" />
         </button>
       </SheetTrigger>
-      <SheetContent side="top" className="lg:hidden gap-0 p-0">
+      <SheetContent
+        side="top"
+        className={cn("gap-0 p-0", !forceVisible && "lg:hidden")}
+      >
         <SheetHeader className="sr-only">
           <SheetTitle>Mobile navigation</SheetTitle>
         </SheetHeader>
