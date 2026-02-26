@@ -51,14 +51,6 @@ export function HeroSection() {
           </div>
         </div>
       </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2">
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-xs uppercase tracking-widest text-primary-foreground/50">Scroll</span>
-          <div className="h-12 w-px bg-primary-foreground/30" />
-        </div>
-      </div>
     </section>
   )
 }

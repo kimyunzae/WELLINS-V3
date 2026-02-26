@@ -20,9 +20,13 @@ type Props = {
       items: { name: string; href: string }[];
     };
   };
+  forceVisible?: boolean;
 };
 
-export default function NavigationMobile({ navigation }: Props) {
+export default function NavigationMobile({
+  navigation,
+  forceVisible = false,
+}: Props) {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
 
@@ -34,7 +38,7 @@ export default function NavigationMobile({ navigation }: Props) {
     const media = window.matchMedia("(min-width: 1024px)");
 
     const handleChange = () => {
-      if (media.matches) {
+      if (media.matches && !forceVisible) {
         setOpen(false);
         setActiveSection(null);
       }
@@ -46,7 +50,7 @@ export default function NavigationMobile({ navigation }: Props) {
     return () => {
       media.removeEventListener("change", handleChange);
     };
-  }, []);
+  }, [forceVisible]);
 
   const handleOpenChange = (nextOpen: boolean) => {
     setOpen(nextOpen);
@@ -58,11 +62,17 @@ export default function NavigationMobile({ navigation }: Props) {
   return (
     <Sheet open={open} onOpenChange={handleOpenChange}>
       <SheetTrigger asChild>
-        <button className="lg:hidden" aria-label="Toggle menu">
+        <button
+          className={cn(!forceVisible && "lg:hidden")}
+          aria-label="Toggle menu"
+        >
           <Menu className="h-6 w-6" />
         </button>
       </SheetTrigger>
-      <SheetContent side="top" className="lg:hidden gap-0 p-0">
+      <SheetContent
+        side="top"
+        className={cn("gap-0 p-0", !forceVisible && "lg:hidden")}
+      >
         <SheetHeader className="sr-only">
           <SheetTitle>Mobile navigation</SheetTitle>
         </SheetHeader>
@@ -89,7 +99,7 @@ export default function NavigationMobile({ navigation }: Props) {
                     <ChevronDown
                       className={cn(
                         "h-4 w-4 transition-transform",
-                        isOpen && "rotate-180",
+                        isOpen && "rotate-180"
                       )}
                     />
                   </button>
@@ -97,7 +107,7 @@ export default function NavigationMobile({ navigation }: Props) {
                     id={panelId}
                     className={cn(
                       "overflow-hidden transition-all duration-200",
-                      isOpen ? "mt-2 max-h-[400px]" : "max-h-0",
+                      isOpen ? "mt-2 max-h-[400px]" : "max-h-0"
                     )}
                   >
                     {items.map((item) => (
@@ -114,14 +124,7 @@ export default function NavigationMobile({ navigation }: Props) {
                 </div>
               );
             })}
-            <SheetClose asChild>
-              <Link
-                href="/contact"
-                className="block py-4 text-sm font-medium tracking-wider text-foreground"
-              >
-                CONTACT US
-              </Link>
-            </SheetClose>
+
             <SheetClose asChild>
               <Link
                 href="/contact"

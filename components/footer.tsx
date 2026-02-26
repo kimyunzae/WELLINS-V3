@@ -49,9 +49,9 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-6">
           {/* Logo and Contact */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3">
           <Image
-            src="/images/logos/logo-wellins.png"
+            src="/images/logos/logo-wellins-footer.png"
             alt="Wellins Inc."
             width={140}
             height={40}
