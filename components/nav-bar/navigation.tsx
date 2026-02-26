@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import NavigationDesktop from "./navigation-desktop";
 import NavigationMobile from "./navigation-mobile";
@@ -125,10 +126,30 @@ const navigation = {
   },
 };
 
+const resolveActiveMenuKey = (
+  pathname: string
+): keyof typeof navigation | null => {
+  const sectionMap = [
+    { prefix: "/company", key: "company" },
+    { prefix: "/services", key: "services" },
+    { prefix: "/projects", key: "projects" },
+    { prefix: "/pr-center", key: "prCenter" },
+  ] as const;
+
+  const section = sectionMap.find(
+    ({ prefix }) => pathname === prefix || pathname.startsWith(`${prefix}/`)
+  );
+
+  return section?.key ?? null;
+};
+
 export function Navigation() {
+  const pathname = usePathname();
   const [desktopMode, setDesktopMode] = useState<DesktopMode>("full");
   const [isScrolled, setIsScrolled] = useState(false);
   const [dropdownOffset, setDropdownOffset] = useState(21);
+
+  const activeMenuKey = resolveActiveMenuKey(pathname);
 
   const headerRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLElement>(null);
@@ -273,6 +294,7 @@ export function Navigation() {
               navigation={navigation}
               compact={desktopMode === "compact"}
               dropdownOffset={dropdownOffset}
+              activeMenuKey={activeMenuKey}
             />
           </div>
         </div>
@@ -282,11 +304,14 @@ export function Navigation() {
           <Link
             href="/contact"
             className={cn(
-              "bg-transparent px-6 py-2 text-sm font-medium tracking-wider transition-colors",
+              "group/quote relative overflow-hidden border px-6 py-2 text-sm font-medium text-[#2C2C2C] tracking-[0.14em] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20",
+              "border-black/20 hover:-translate-y-px hover:border-black focus-visible:border-black",
+              "before:absolute before:inset-0 before:origin-left before:scale-x-0 before:bg-black before:transition-transform before:duration-200 before:content-['']",
+              "hover:text-white hover:before:scale-x-100 focus-visible:text-white focus-visible:before:scale-x-100",
               desktopMode === "mobile" ? "hidden" : "hidden lg:block"
             )}
           >
-            GET A QUOTE
+            <span className="relative z-10">GET A QUOTE</span>
           </Link>
 
           {/* Mobile Menu Button */}
@@ -302,14 +327,21 @@ export function Navigation() {
           className="pointer-events-none absolute -left-[9999px] top-0 opacity-0"
         >
           <div ref={fullMeasureRef}>
-            <NavigationDesktop navigation={navigation} />
+            <NavigationDesktop
+              navigation={navigation}
+              activeMenuKey={activeMenuKey}
+            />
           </div>
           <div ref={compactMeasureRef} className="mt-2">
-            <NavigationDesktop navigation={navigation} compact />
+            <NavigationDesktop
+              navigation={navigation}
+              compact
+              activeMenuKey={activeMenuKey}
+            />
           </div>
           <span
             ref={ctaMeasureRef}
-            className="inline-block whitespace-nowrap px-6 py-2 text-sm font-medium tracking-wider"
+            className="inline-block whitespace-nowrap border border-black/20 px-6 py-2 text-sm font-medium tracking-[0.14em]"
           >
             GET A QUOTE
           </span>
