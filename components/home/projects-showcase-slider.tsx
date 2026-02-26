@@ -160,13 +160,39 @@ export function ProjectsShowcaseSlider() {
     ? ({ ["--project-image-height" as string]: `${imageHeight}px` } as CSSProperties)
     : undefined;
 
+  const slideControls = (
+    <div className="flex items-center justify-start gap-5">
+      {slides.map((slide, index) => {
+        const isActive = index === activeIndex;
+
+        return (
+          <button
+            key={slide.key}
+            type="button"
+            onClick={() => transitionTo(index)}
+            onMouseEnter={() => transitionTo(index)}
+            className={cn(
+              "relative pb-2 text-xs font-semibold tracking-[0.22em] text-foreground/55 transition-colors duration-200 hover:text-foreground",
+              "after:pointer-events-none after:absolute after:-bottom-0.5 after:left-0 after:h-[2px] after:w-full after:origin-center after:scale-x-0 after:bg-black after:transition-transform after:duration-200 after:content-['']",
+              "hover:after:scale-x-100",
+              isActive && "text-foreground after:scale-x-100"
+            )}
+            aria-label={`Show ${slide.region} project slide`}
+          >
+            {String(index + 1).padStart(2, "0")}
+          </button>
+        );
+      })}
+    </div>
+  );
+
   return (
     <section ref={sectionRef} className="bg-muted py-20 lg:py-28">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start lg:gap-14">
+        <div className="grid gap-7 md:gap-8 xl:grid-cols-[minmax(360px,0.9fr)_minmax(0,1.1fr)] xl:items-start xl:gap-10">
           <div
             className={cn(
-              "transition-all duration-200 ease-out lg:flex lg:h-[var(--project-image-height)] lg:flex-col",
+              "transition-all duration-200 ease-out xl:flex xl:h-[var(--project-image-height)] xl:flex-col",
               isTransitioning
                 ? "translate-y-1 opacity-0"
                 : "translate-y-0 opacity-100"
@@ -175,7 +201,7 @@ export function ProjectsShowcaseSlider() {
           >
             <p
               className={cn(
-                "text-5xl font-semibold tracking-tight text-foreground transition-opacity duration-700 ease-out md:text-6xl lg:text-7xl",
+                "text-4xl font-semibold tracking-tight text-foreground transition-opacity duration-700 ease-out sm:text-5xl md:text-6xl xl:text-7xl",
                 hasEnteredView ? "opacity-100" : "opacity-0"
               )}
             >
@@ -183,7 +209,7 @@ export function ProjectsShowcaseSlider() {
             </p>
             <div
               className={cn(
-                "mt-24 transition-all delay-150 duration-700 ease-out lg:flex lg:flex-1 lg:flex-col",
+                "mt-16 transition-all delay-150 duration-700 ease-out xl:flex xl:flex-1 xl:flex-col",
                 hasEnteredView ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
               )}
             >
@@ -197,7 +223,7 @@ export function ProjectsShowcaseSlider() {
                 {activeSlide.description}
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-8 lg:mt-auto">
+              <div className="mt-8 flex flex-wrap items-center gap-8 xl:mt-auto">
                 <Link
                   href={activeSlide.href}
                   className="inline-flex items-center text-sm font-semibold uppercase tracking-wider text-foreground transition-colors hover:text-accent"
@@ -212,6 +238,8 @@ export function ProjectsShowcaseSlider() {
                   View All Projects
                 </Link>
               </div>
+
+              <div className="mt-8 xl:hidden">{slideControls}</div>
             </div>
           </div>
 
@@ -233,29 +261,7 @@ export function ProjectsShowcaseSlider() {
               />
             </div>
 
-            <div className="mt-5 flex items-center justify-start gap-5">
-              {slides.map((slide, index) => {
-                const isActive = index === activeIndex;
-
-                return (
-                  <button
-                    key={slide.key}
-                    type="button"
-                    onClick={() => transitionTo(index)}
-                    onMouseEnter={() => transitionTo(index)}
-                    className={cn(
-                      "relative pb-2 text-xs font-semibold tracking-[0.22em] text-foreground/55 transition-colors duration-200 hover:text-foreground",
-                      "after:pointer-events-none after:absolute after:-bottom-0.5 after:left-0 after:h-[2px] after:w-full after:origin-center after:scale-x-0 after:bg-black after:transition-transform after:duration-200 after:content-['']",
-                      "hover:after:scale-x-100",
-                      isActive && "text-foreground after:scale-x-100"
-                    )}
-                    aria-label={`Show ${slide.region} project slide`}
-                  >
-                    {String(index + 1).padStart(2, "0")}
-                  </button>
-                );
-              })}
-            </div>
+            <div className="mt-5 hidden xl:flex">{slideControls}</div>
           </div>
         </div>
       </div>
