@@ -98,11 +98,10 @@ export function ServicesSection() {
 
         <div className="mt-20 grid gap-x-8 gap-y-16 md:grid-cols-2 xl:grid-cols-3">
           {services.map((service, index) => (
-            <Link
+            <article
               key={index}
-              href={service.href}
               className={cn(
-                "group block transition-all duration-700 ease-out",
+                "group flex min-h-[320px] flex-col transition-all duration-700 ease-out lg:min-h-[340px]",
                 hasEnteredView ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
               )}
               style={{ transitionDelay: `${index < 3 ? index * 110 : 360 + (index - 3) * 110}ms` } as CSSProperties}
@@ -113,24 +112,21 @@ export function ServicesSection() {
                   strokeWidth={1.6}
                 />
               </div>
-              <h3 className="mt-8 min-h-[3.3rem] text-2xl font-semibold leading-[1.3] tracking-tight text-foreground lg:min-h-[3.9rem] lg:text-[30px]">
+              <h3 className="mt-6 min-h-[3.3rem] text-2xl font-semibold leading-[1.3] tracking-tight text-foreground lg:min-h-[3.9rem] lg:text-[30px]">
                 {service.title}
               </h3>
-              <p className="mt-4 text-lg leading-relaxed text-muted-foreground lg:text-[21px] lg:leading-[1.55]">
+              <p className="mt-3 flex-1 text-lg leading-relaxed text-muted-foreground lg:text-[21px] lg:leading-[1.55]">
                 {service.description}
               </p>
-            </Link>
+              <Link
+                href={service.href}
+                className="mt-7 inline-flex items-center text-sm font-semibold uppercase tracking-[0.14em] text-foreground/70 transition-colors hover:text-foreground"
+              >
+                View Service
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </article>
           ))}
-        </div>
-
-        <div className="mt-20">
-          <Link
-            href="/services"
-            className="inline-flex items-center text-sm font-semibold uppercase tracking-[0.14em] text-foreground/70 transition-colors hover:text-foreground"
-          >
-            View All Services
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
         </div>
       </div>
     </section>
