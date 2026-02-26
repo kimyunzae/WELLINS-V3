@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -16,19 +17,26 @@ type Props = {
     };
   };
   compact?: boolean;
+  dropdownOffset?: number;
   className?: string;
 };
 
 export default function NavigationDesktop({
   navigation,
   compact = false,
+  dropdownOffset = 21,
   className,
 }: Props) {
   return (
     <NavigationMenu
       viewport={false}
+      style={
+        {
+          "--nav-dropdown-offset": `${dropdownOffset}px`,
+        } as CSSProperties
+      }
       className={cn(
-        "flex flex-none justify-start [--nav-dropdown-offset:21px]",
+        "flex flex-none justify-start",
         className
       )}
     >
@@ -45,7 +53,7 @@ export default function NavigationDesktop({
             >
               <p className="text-[#2C2C2C]">{label}</p>
             </NavigationMenuTrigger>
-            <NavigationMenuContent className="group-data-[viewport=false]/navigation-menu:mt-[var(--nav-dropdown-offset)] relative border-t-2 border-black/10 before:content-[''] before:absolute before:left-0 before:top-0 before:h-[2px] before:w-4 before:bg-[#0096D9] after:content-[''] after:absolute after:left-4 after:top-0 after:h-[2px] after:w-4 after:bg-[#EE1A29] p-0">
+            <NavigationMenuContent className="group-data-[viewport=false]/navigation-menu:!mt-[var(--nav-dropdown-offset)] relative bg-white border-t-2 border-zinc-300 before:content-[''] before:absolute before:left-0 before:top-0 before:h-[2px] before:w-4 before:bg-[#0096D9] after:content-[''] after:absolute after:left-4 after:top-0 after:h-[2px] after:w-4 after:bg-[#EE1A29] p-0">
               <div className="w-[200px] bg-card shadow-md">
                 {items.map((item) => (
                   <NavigationMenuLink

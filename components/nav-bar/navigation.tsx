@@ -127,12 +127,29 @@ const navigation = {
 
 export function Navigation() {
   const [desktopMode, setDesktopMode] = useState<DesktopMode>("full");
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [dropdownOffset, setDropdownOffset] = useState(21);
 
+  const headerRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLElement>(null);
+  const desktopNavRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const fullMeasureRef = useRef<HTMLDivElement>(null);
   const compactMeasureRef = useRef<HTMLDivElement>(null);
   const ctaMeasureRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const updateScrolled = () => {
+      setIsScrolled(window.scrollY > 8);
+    };
+
+    updateScrolled();
+    window.addEventListener("scroll", updateScrolled, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", updateScrolled);
+    };
+  }, []);
 
   useEffect(() => {
     let frameId = 0;
@@ -156,6 +173,25 @@ export function Navigation() {
               compactMeasureRef.current?.getBoundingClientRect().width ?? 0,
           })
         );
+
+        const headerRect = headerRef.current?.getBoundingClientRect();
+        const desktopItems = desktopNavRef.current?.querySelectorAll<HTMLElement>(
+          '[data-slot="navigation-menu-item"]'
+        );
+        const visibleItem = desktopItems
+          ? Array.from(desktopItems).find((element) => {
+              const rect = element.getBoundingClientRect();
+              return rect.width > 0 && rect.height > 0;
+            })
+          : null;
+
+        if (headerRect && visibleItem) {
+          const itemRect = visibleItem.getBoundingClientRect();
+          const nextOffset = Math.max(0, headerRect.bottom - itemRect.bottom);
+          setDropdownOffset((current) =>
+            Math.abs(current - nextOffset) > 0.5 ? nextOffset : current
+          );
+        }
       });
     };
 
@@ -166,6 +202,8 @@ export function Navigation() {
 
     const observedElements = [
       navRef.current,
+      desktopNavRef.current,
+      headerRef.current,
       logoRef.current,
       fullMeasureRef.current,
       compactMeasureRef.current,
@@ -195,7 +233,15 @@ export function Navigation() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white text-black border-b border-black/10">
+    <header
+      ref={headerRef}
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 border-b text-black transition-all duration-300",
+        isScrolled
+          ? "border-black/10 bg-white/80 backdrop-blur-md shadow-[0_12px_34px_rgba(20,32,51,0.12)]"
+          : "border-black/10 bg-white"
+      )}
+    >
       <nav
         ref={navRef}
         className="relative mx-auto flex max-w-[1400px] items-center justify-between px-6 py-4 lg:px-8"
@@ -216,6 +262,7 @@ export function Navigation() {
 
         {/* Desktop Navigation */}
         <div
+          ref={desktopNavRef}
           className={cn(
             "pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
             desktopMode === "mobile" ? "hidden" : "hidden lg:block"
@@ -225,6 +272,7 @@ export function Navigation() {
             <NavigationDesktop
               navigation={navigation}
               compact={desktopMode === "compact"}
+              dropdownOffset={dropdownOffset}
             />
           </div>
         </div>
