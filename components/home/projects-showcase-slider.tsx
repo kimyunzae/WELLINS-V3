@@ -62,9 +62,11 @@ export function ProjectsShowcaseSlider() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [imageHeight, setImageHeight] = useState<number | null>(null);
+  const [hasEnteredView, setHasEnteredView] = useState(false);
   const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
     null
   );
+  const sectionRef = useRef<HTMLElement | null>(null);
   const imageFrameRef = useRef<HTMLDivElement | null>(null);
 
   const activeSlide = slides[activeIndex];
@@ -100,6 +102,38 @@ export function ProjectsShowcaseSlider() {
   }, []);
 
   useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) {
+      return;
+    }
+
+    if (typeof IntersectionObserver === "undefined") {
+      setHasEnteredView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasEnteredView(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.45,
+        rootMargin: "0px 0px -10% 0px",
+      }
+    );
+
+    observer.observe(section);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
     const imageFrame = imageFrameRef.current;
     if (!imageFrame || typeof ResizeObserver === "undefined") {
       return;
@@ -127,7 +161,7 @@ export function ProjectsShowcaseSlider() {
     : undefined;
 
   return (
-    <section className="bg-muted py-20 lg:py-28">
+    <section ref={sectionRef} className="bg-muted py-20 lg:py-28">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start lg:gap-14">
           <div
@@ -139,10 +173,20 @@ export function ProjectsShowcaseSlider() {
             )}
             style={leftPanelStyle}
           >
-            <p className="text-5xl font-semibold tracking-tight text-foreground md:text-6xl lg:text-7xl">
+            <p
+              className={cn(
+                "text-5xl font-semibold tracking-tight text-foreground transition-opacity duration-700 ease-out md:text-6xl lg:text-7xl",
+                hasEnteredView ? "opacity-100" : "opacity-0"
+              )}
+            >
               {slideType}
             </p>
-            <div className="mt-24 lg:flex lg:flex-1 lg:flex-col">
+            <div
+              className={cn(
+                "mt-24 transition-all delay-150 duration-700 ease-out lg:flex lg:flex-1 lg:flex-col",
+                hasEnteredView ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
+              )}
+            >
               <h2 className="text-3xl font-semibold tracking-tight text-foreground lg:text-4xl xl:text-5xl">
                 {activeSlide.region}
               </h2>
