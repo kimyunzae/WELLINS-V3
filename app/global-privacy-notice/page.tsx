@@ -54,18 +54,28 @@ export default function GlobalPrivacyNoticePage() {
         </h3>
         <p>We may collect the following types of personal information:</p>
         <ul className="space-y-3 pl-5 text-muted-foreground marker:text-foreground">
-          <li>Contact information such as name, email, phone number, and address</li>
           <li>
-            Professional information related to project requests, job
-            applications, vendor coordination, and customer support
+            <span className="font-medium text-foreground">
+              Contact Information:
+            </span>{" "}
+            Name, email address, phone number, and address.
           </li>
           <li>
-            Technical data such as IP address, browser type, device details, and
-            website interaction data
+            <span className="font-medium text-foreground">
+              Professional Information:
+            </span>{" "}
+            Details related to project requests, job applications, vendor
+            coordination, and customer support.
           </li>
           <li>
-            Any other information you choose to provide through forms, emails, or
-            direct communications
+            <span className="font-medium text-foreground">Technical Data:</span>{" "}
+            IP address, browser type, device details, and website interaction
+            data.
+          </li>
+          <li>
+            <span className="font-medium text-foreground">Other Information:</span>{" "}
+            Any other information you choose to provide through forms, emails,
+            or direct communications.
           </li>
         </ul>
       </section>
@@ -76,10 +86,10 @@ export default function GlobalPrivacyNoticePage() {
         </h3>
         <p>We may use personal information to:</p>
         <ul className="space-y-3 pl-5 text-muted-foreground marker:text-foreground">
-          <li>Respond to inquiries and provide requested information or services</li>
-          <li>Coordinate engineering, fabrication, and field operations</li>
-          <li>Support recruiting, vendor onboarding, and internal administration</li>
-          <li>Meet legal, regulatory, and contractual obligations</li>
+          <li>Respond to inquiries and provide requested information or services.</li>
+          <li>Coordinate engineering, fabrication, and field operations.</li>
+          <li>Support recruiting, vendor onboarding, and internal administration.</li>
+          <li>Meet legal, regulatory, and contractual obligations.</li>
         </ul>
       </section>
 
@@ -89,9 +99,24 @@ export default function GlobalPrivacyNoticePage() {
         </h3>
         <p>We may share information only when reasonably necessary, including:</p>
         <ul className="space-y-3 pl-5 text-muted-foreground marker:text-foreground">
-          <li>With third-party providers that support our business systems and operations</li>
-          <li>Within Wellins Inc. for legitimate business and administrative purposes</li>
-          <li>When required to comply with law, court order, or legal process</li>
+          <li>
+            <span className="font-medium text-foreground">
+              Service Providers:
+            </span>{" "}
+            With third-party providers that support our business systems and
+            operations.
+          </li>
+          <li>
+            <span className="font-medium text-foreground">Internal Use:</span>{" "}
+            Within Wellins Inc. for legitimate business and administrative
+            purposes.
+          </li>
+          <li>
+            <span className="font-medium text-foreground">
+              Legal Obligations:
+            </span>{" "}
+            When required to comply with law, court order, or legal process.
+          </li>
         </ul>
       </section>
 
@@ -101,10 +126,23 @@ export default function GlobalPrivacyNoticePage() {
         </h3>
         <p>Depending on where you are located, you may have the right to:</p>
         <ul className="space-y-3 pl-5 text-muted-foreground marker:text-foreground">
-          <li>Request access to the personal information we hold about you</li>
-          <li>Request correction of inaccurate personal information</li>
-          <li>Request deletion of personal information, subject to legal exceptions</li>
-          <li>Opt out of certain communications or data uses where permitted</li>
+          <li>
+            <span className="font-medium text-foreground">Access:</span> Request
+            access to the personal information we hold about you.
+          </li>
+          <li>
+            <span className="font-medium text-foreground">Correction:</span>{" "}
+            Request correction of inaccurate personal information.
+          </li>
+          <li>
+            <span className="font-medium text-foreground">Deletion:</span>{" "}
+            Request deletion of personal information, subject to legal
+            exceptions.
+          </li>
+          <li>
+            <span className="font-medium text-foreground">Opt-Out:</span> Opt
+            out of certain communications or data uses where permitted.
+          </li>
         </ul>
         <p>
           To exercise these rights, contact us at{" "}

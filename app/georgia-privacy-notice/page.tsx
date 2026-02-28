@@ -54,9 +54,9 @@ export default function GeorgiaPrivacyNoticePage() {
           Georgia and surrounding markets.
         </p>
         <ul className="space-y-3 pl-5 text-muted-foreground marker:text-foreground">
-          <li>Mechanical and industrial piping project support</li>
-          <li>HVAC, fire protection, and equipment installation services</li>
-          <li>Engineering coordination, estimating, and client communications</li>
+          <li>Mechanical and industrial piping project support.</li>
+          <li>HVAC, fire protection, and equipment installation services.</li>
+          <li>Engineering coordination, estimating, and client communications.</li>
         </ul>
       </section>
 
@@ -70,16 +70,23 @@ export default function GeorgiaPrivacyNoticePage() {
         </p>
         <ul className="space-y-3 pl-5 text-muted-foreground marker:text-foreground">
           <li>
-            Contact information such as your name, email address, phone number,
-            company name, and mailing address
+            <span className="font-medium text-foreground">
+              Contact Information:
+            </span>{" "}
+            Name, email address, phone number, company name, and mailing
+            address.
           </li>
           <li>
-            Professional information related to project inquiries, bids, vendor
-            relationships, and recruiting
+            <span className="font-medium text-foreground">
+              Professional Information:
+            </span>{" "}
+            Details related to project inquiries, bids, vendor relationships,
+            and recruiting.
           </li>
           <li>
-            Technical data such as IP address, browser type, device details, and
-            usage information collected through cookies or similar tools
+            <span className="font-medium text-foreground">Technical Data:</span>{" "}
+            IP address, browser type, device details, and usage information
+            collected through cookies or similar tools.
           </li>
         </ul>
       </section>
@@ -90,9 +97,12 @@ export default function GeorgiaPrivacyNoticePage() {
         </h3>
         <p>We use personal information for purposes including:</p>
         <ul className="space-y-3 pl-5 text-muted-foreground marker:text-foreground">
-          <li>Responding to project, service, partnership, or employment inquiries</li>
-          <li>Preparing proposals, coordinating work, and supporting operations</li>
-          <li>Complying with legal obligations and improving our services</li>
+          <li>
+            Responding to project, service, partnership, or employment
+            inquiries.
+          </li>
+          <li>Preparing proposals, coordinating work, and supporting operations.</li>
+          <li>Complying with legal obligations and improving our services.</li>
         </ul>
       </section>
 
@@ -102,9 +112,25 @@ export default function GeorgiaPrivacyNoticePage() {
         </h3>
         <p>We may share your information in limited circumstances, including:</p>
         <ul className="space-y-3 pl-5 text-muted-foreground marker:text-foreground">
-          <li>With service providers supporting hosting, email, analytics, or administration</li>
-          <li>When required by law, regulation, or valid legal process</li>
-          <li>Within Wellins Inc. for legitimate internal operational purposes</li>
+          <li>
+            <span className="font-medium text-foreground">
+              Service Providers:
+            </span>{" "}
+            With service providers supporting hosting, email, analytics, or
+            administration.
+          </li>
+          <li>
+            <span className="font-medium text-foreground">
+              Legal Compliance:
+            </span>{" "}
+            When required by law, regulation, or valid legal process.
+          </li>
+          <li>
+            <span className="font-medium text-foreground">
+              Internal Operations:
+            </span>{" "}
+            Within Wellins Inc. for legitimate internal operational purposes.
+          </li>
         </ul>
       </section>
 
@@ -114,11 +140,13 @@ export default function GeorgiaPrivacyNoticePage() {
         </h3>
         <p>Depending on applicable law, you may be able to:</p>
         <ul className="space-y-3 pl-5 text-muted-foreground marker:text-foreground">
-          <li>Request access to personal information we maintain about you</li>
-          <li>Request correction of inaccurate or outdated information</li>
+          <li>
+            Request access to personal information we maintain about you.
+          </li>
+          <li>Request correction of inaccurate or outdated information.</li>
           <li>
             Request deletion of personal information, subject to business and
-            legal retention requirements
+            legal retention requirements.
           </li>
         </ul>
         <p>

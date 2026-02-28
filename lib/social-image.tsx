@@ -1,5 +1,6 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
-import wellinsLogo from "@/public/images/logos/logo-wellins.png";
 
 export const socialImageSize = {
   width: 1200,
@@ -7,11 +8,31 @@ export const socialImageSize = {
 };
 
 const LOGO_WIDTH = 520;
-const LOGO_HEIGHT = Math.round(
-  (LOGO_WIDTH * wellinsLogo.height) / wellinsLogo.width
-);
+const LOGO_HEIGHT = 114;
+
+let logoDataUriPromise: Promise<string> | null = null;
+
+const getLogoDataUri = async () => {
+  if (!logoDataUriPromise) {
+    const logoPath = join(
+      process.cwd(),
+      "public",
+      "images",
+      "logos",
+      "logo-wellins.png"
+    );
+
+    logoDataUriPromise = readFile(logoPath).then(
+      (buffer) => `data:image/png;base64,${buffer.toString("base64")}`
+    );
+  }
+
+  return logoDataUriPromise;
+};
 
 export const renderSocialImage = async () => {
+  const logoSrc = await getLogoDataUri();
+
   // Next.js용 PNG 이미지 동적 생성 api 
   return new ImageResponse(
     (
@@ -88,7 +109,7 @@ export const renderSocialImage = async () => {
               }}
             >
               <img
-                src={wellinsLogo.src}
+                src={logoSrc}
                 alt="Wellins Inc."
                 width={LOGO_WIDTH}
                 height={LOGO_HEIGHT}
