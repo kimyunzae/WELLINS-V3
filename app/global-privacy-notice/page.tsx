@@ -14,7 +14,8 @@ export default function GlobalPrivacyNoticePage() {
     >
       <div className="space-y-4">
         <h2 className="text-3xl font-light tracking-tight text-foreground lg:text-4xl">
-          Wellins Inc. <span className="font-semibold">Global Privacy Notice</span>
+          Wellins Inc. -{" "}
+          <span className="font-semibold">Global Privacy Notice</span>
         </h2>
         <p>
           <span className="font-medium text-foreground">Last Updated:</span>{" "}
@@ -25,26 +26,30 @@ export default function GlobalPrivacyNoticePage() {
       <section className="space-y-4">
         <p>
           Wellins Inc. (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;)
-          values your privacy and is committed to protecting personal information
-          in accordance with applicable privacy laws. This notice explains how we
-          collect, use, disclose, and safeguard personal information across the
-          regions in which we operate.
+          values your privacy and is committed to protecting your personal
+          information in compliance with applicable privacy laws across all
+          regions where we operate. This Global Privacy Notice outlines how we
+          collect, use, and disclose personal information and clarifies the
+          scope of our business activities.
         </p>
       </section>
 
       <section className="space-y-4">
         <h3 className="text-2xl font-semibold tracking-tight text-foreground">
-          1. Scope of This Privacy Notice
+          1. Scope of this Privacy Notice
         </h3>
         <p>
-          This notice applies to personal information collected through our
-          website, project inquiries, recruiting, vendor communications, and
-          business interactions worldwide.
+          This Privacy Notice applies to personal information collected by
+          Wellins Inc. through our websites, services, and interactions
+          worldwide.
         </p>
         <p>
-          It covers information collected directly from individuals and
-          information submitted to us on behalf of companies, project teams, and
-          business partners.
+          <span className="font-medium text-foreground">Important Note:</span>{" "}
+          Wellins Inc. provides industrial engineering, fabrication support,
+          mechanical contracting, and related professional services. This notice
+          applies to those business and website interactions. Project owners,
+          subcontractors, and third-party vendors may maintain separate privacy
+          practices for their own systems and processes.
         </p>
       </section>
 
@@ -58,38 +63,45 @@ export default function GlobalPrivacyNoticePage() {
             <span className="font-medium text-foreground">
               Contact Information:
             </span>{" "}
-            Name, email address, phone number, and address.
+            Name, email address, phone number, and physical address.
           </li>
           <li>
             <span className="font-medium text-foreground">
               Professional Information:
             </span>{" "}
-            Details related to project requests, job applications, vendor
-            coordination, and customer support.
+            Details related to your business inquiries or interactions with us.
           </li>
           <li>
             <span className="font-medium text-foreground">Technical Data:</span>{" "}
-            IP address, browser type, device details, and website interaction
-            data.
+            IP address, browser type, and other usage data collected via
+            cookies or similar technologies.
           </li>
           <li>
             <span className="font-medium text-foreground">Other Information:</span>{" "}
-            Any other information you choose to provide through forms, emails,
-            or direct communications.
+            Any information you voluntarily provide during communications with
+            us.
           </li>
         </ul>
       </section>
 
       <section className="space-y-4">
         <h3 className="text-2xl font-semibold tracking-tight text-foreground">
-          3. How We Use Your Information
+          3. Use of Your Information
         </h3>
-        <p>We may use personal information to:</p>
+        <p>
+          We use your personal information for purposes including, but not
+          limited to:
+        </p>
         <ul className="space-y-3 pl-5 text-muted-foreground marker:text-foreground">
-          <li>Respond to inquiries and provide requested information or services.</li>
-          <li>Coordinate engineering, fabrication, and field operations.</li>
-          <li>Support recruiting, vendor onboarding, and internal administration.</li>
-          <li>Meet legal, regulatory, and contractual obligations.</li>
+          <li>
+            Providing and improving industrial engineering, construction
+            support, and administrative services.
+          </li>
+          <li>
+            Communicating with you regarding inquiries, project requests, or
+            professional services.
+          </li>
+          <li>Complying with applicable legal and regulatory requirements.</li>
         </ul>
       </section>
 
@@ -97,51 +109,71 @@ export default function GlobalPrivacyNoticePage() {
         <h3 className="text-2xl font-semibold tracking-tight text-foreground">
           4. Sharing of Information
         </h3>
-        <p>We may share information only when reasonably necessary, including:</p>
+        <p>We may share your information in the following circumstances:</p>
         <ul className="space-y-3 pl-5 text-muted-foreground marker:text-foreground">
           <li>
             <span className="font-medium text-foreground">
               Service Providers:
             </span>{" "}
-            With third-party providers that support our business systems and
-            operations.
+            Third-party vendors assisting in our operations.
           </li>
           <li>
             <span className="font-medium text-foreground">Internal Use:</span>{" "}
-            Within Wellins Inc. for legitimate business and administrative
+            Information may be shared within Wellins Inc. for administrative
             purposes.
           </li>
           <li>
             <span className="font-medium text-foreground">
               Legal Obligations:
             </span>{" "}
-            When required to comply with law, court order, or legal process.
+            When required by law or legal processes.
           </li>
         </ul>
       </section>
 
       <section className="space-y-4">
         <h3 className="text-2xl font-semibold tracking-tight text-foreground">
-          5. Your Rights
+          5. Wellins Inc.&apos;s Operational Scope
         </h3>
-        <p>Depending on where you are located, you may have the right to:</p>
+        <p>
+          Wellins Inc. is the entity responsible for industrial engineering,
+          piping, HVAC, fire protection, equipment installation, and related
+          project support services. This Global Privacy Notice applies to those
+          business activities and related communications.
+        </p>
+        <p>
+          If you interact with a third-party platform, project owner system, or
+          separate service provider, that party may have its own privacy notice
+          and data practices that apply to your information.
+        </p>
+      </section>
+
+      <section className="space-y-4">
+        <h3 className="text-2xl font-semibold tracking-tight text-foreground">
+          6. Your Rights
+        </h3>
+        <p>
+          Depending on your location, you may have rights under applicable
+          privacy laws, including:
+        </p>
         <ul className="space-y-3 pl-5 text-muted-foreground marker:text-foreground">
           <li>
             <span className="font-medium text-foreground">Access:</span> Request
-            access to the personal information we hold about you.
+            access to personal information we have collected about you.
           </li>
           <li>
             <span className="font-medium text-foreground">Correction:</span>{" "}
-            Request correction of inaccurate personal information.
+            Request corrections to inaccuracies in your personal information.
           </li>
           <li>
             <span className="font-medium text-foreground">Deletion:</span>{" "}
-            Request deletion of personal information, subject to legal
-            exceptions.
+            Request deletion of your personal information, subject to legal
+            requirements.
           </li>
           <li>
             <span className="font-medium text-foreground">Opt-Out:</span> Opt
-            out of certain communications or data uses where permitted.
+            out of certain data processing activities, such as marketing
+            communications.
           </li>
         </ul>
         <p>
@@ -158,52 +190,51 @@ export default function GlobalPrivacyNoticePage() {
 
       <section className="space-y-4">
         <h3 className="text-2xl font-semibold tracking-tight text-foreground">
-          6. International Data Transfers
+          7. International Data Transfers
         </h3>
         <p>
-          Because we may work with partners, clients, and service providers in
-          multiple regions, your information may be processed in countries other
-          than your own. When that occurs, we take reasonable steps to apply
-          appropriate safeguards consistent with applicable law.
+          As a multi-state and cross-border business, your personal information
+          may be transferred and processed in countries other than your own. We
+          ensure such transfers comply with applicable data protection laws and
+          implement appropriate safeguards.
         </p>
       </section>
 
       <section className="space-y-4">
         <h3 className="text-2xl font-semibold tracking-tight text-foreground">
-          7. Security Measures
+          8. Security Measures
         </h3>
         <p>
-          We use reasonable technical, administrative, and organizational
-          measures to protect personal information. No system is completely
-          secure, so we encourage you to use appropriate caution when submitting
-          information online.
+          We use reasonable technical and organizational measures to protect
+          your personal information. However, no system is entirely secure, and
+          we encourage you to take precautions to protect your data.
         </p>
       </section>
 
       <section className="space-y-4">
         <h3 className="text-2xl font-semibold tracking-tight text-foreground">
-          8. Retention of Information
+          9. Retention of Information
         </h3>
         <p>
-          We retain personal information only as long as necessary for the
-          purposes described in this notice, or as required by law, contract, or
-          legitimate business need.
+          We retain personal information only as long as necessary to fulfill
+          the purposes outlined in this Privacy Notice or as required by law.
         </p>
       </section>
 
       <section className="space-y-4">
         <h3 className="text-2xl font-semibold tracking-tight text-foreground">
-          9. Updates to This Notice
+          10. Updates to This Privacy Notice
         </h3>
         <p>
-          We may update this Global Privacy Notice periodically. Any changes will
-          be reflected on this page together with a revised effective date.
+          We may update this Privacy Notice periodically to reflect changes in
+          our practices or applicable laws. Updates will include a revised
+          &ldquo;Last Updated&rdquo; date.
         </p>
       </section>
 
       <section className="space-y-4">
         <h3 className="text-2xl font-semibold tracking-tight text-foreground">
-          10. Contact Us
+          11. Contact Us
         </h3>
         <p>
           If you have questions about this notice or our privacy practices,
