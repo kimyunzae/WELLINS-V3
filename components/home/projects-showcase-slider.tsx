@@ -68,9 +68,6 @@ export function ProjectsShowcaseSlider() {
   const sectionRef = useRef<HTMLElement | null>(null);
 
   const activeSlide = slides[activeIndex];
-  const slideType = activeSlide.featured
-    ? "Flagship Project"
-    : "Regional Project";
 
   const transitionTo = (nextIndex: number) => {
     if (nextIndex === activeIndex) {
@@ -208,15 +205,6 @@ export function ProjectsShowcaseSlider() {
                 )}
                 priority={activeIndex === 0}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/70">
-                  {slideType}
-                </p>
-                <p className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                  {activeSlide.region}
-                </p>
-              </div>
             </div>
 
             <div
