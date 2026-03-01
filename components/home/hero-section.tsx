@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react"
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen">
+    <section className="relative min-h-[calc(100svh-5rem)]">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
@@ -18,7 +18,7 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex min-h-screen flex-col justify-center px-6 pt-20 lg:px-8">
+      <div className="relative z-10 flex min-h-[calc(100svh-5rem)] flex-col justify-center px-6 pt-20 lg:px-8">
         <div className="mx-auto max-w-[1400px]">
           <div className="max-w-3xl">
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-primary-foreground/60">

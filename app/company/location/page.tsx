@@ -9,15 +9,38 @@ export const metadata = {
     "Find our headquarters and facilities across the Southeast.",
 };
 
-const locations = [
+const featuredLocations = [
   {
-    name: "Headquarters",
-    city: "Duluth, GA",
-    address: "3483 Satellite Blvd. Suite 100\nDuluth, GA 30096",
+    label: "Corporate Headquarters",
+    city: "Duluth",
+    state: "Georgia",
+    description:
+      "Our headquarters in Duluth serves as the central hub for all operations, housing leadership, engineering support, and project coordination teams.",
+    addressLines: ["3483 Satellite Blvd. Suite 100", "Duluth, GA 30096"],
+    mapTitle: "Wellins Inc. Headquarters in Duluth, GA",
+    mapSrc:
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3312.149682792209!2d-84.11853602396974!3d33.96063317317882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5aefb7a58cb15%3A0x6af73d1d65eee5d4!2s3483%20Satellite%20Blvd%20%23100%2C%20Duluth%2C%20GA%2030096!5e0!3m2!1sen!2sus!4v1700000000000",
     phone: "+1 (770) 557-0019",
     email: "info@wellinsinc.com",
     hours: "Mon-Fri: 8:00 AM - 6:00 PM ET",
   },
+  {
+    label: "Manufacturing Facility",
+    city: "Buford",
+    state: "Georgia",
+    description:
+      "Our new manufacturing facility in Buford expands fabrication capacity for high-pressure piping, vessels, and specialized production support across the Southeast.",
+    addressLines: ["974 Gainesville Hwy", "Buford, GA 30518"],
+    mapTitle: "Wellins Inc. Manufacturing Facility in Buford, GA",
+    mapSrc:
+      "https://www.google.com/maps?q=974+Gainesville+Hwy,+Buford,+GA+30518&output=embed",
+    phone: "+1 (770) 557-0019",
+    email: "info@wellinsinc.com",
+    hours: "Mon-Fri: 8:00 AM - 6:00 PM ET",
+  },
+];
+
+const locations = [
   {
     name: "Texas Office",
     city: "Houston, TX",
@@ -55,70 +78,69 @@ export default function LocationPage() {
         description="Licensed across GA, TN, SC, AL, TX, and LA. Rapid-response installation teams ready to mobilize nationwide."
       />
 
-      {/* Headquarters */}
+      {/* Primary Locations */}
       <section className="bg-background py-20 lg:py-28">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-            <div className="relative aspect-[4/3] overflow-hidden border border-border bg-muted">
-              <iframe
-                title="Wellins Inc. Headquarters in Duluth, GA"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3312.149682792209!2d-84.11853602396974!3d33.96063317317882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5aefb7a58cb15%3A0x6af73d1d65eee5d4!2s3483%20Satellite%20Blvd%20%23100%2C%20Duluth%2C%20GA%2030096!5e0!3m2!1sen!2sus!4v1700000000000"
-                className="h-full w-full border-0"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
-            <div>
-              <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
-                Corporate Headquarters
-              </p>
-              <h2 className="mt-4 text-3xl font-light tracking-tight text-foreground lg:text-4xl">
-                Duluth, <span className="font-semibold">Georgia</span>
-              </h2>
-              <p className="mt-6 text-base leading-relaxed text-muted-foreground lg:text-lg">
-                Our headquarters in Duluth serves as the central hub for all
-                operations, housing leadership, engineering support, and
-                project coordination teams.
-              </p>
+          <div className="space-y-20">
+            {featuredLocations.map((location) => (
+              <div
+                key={location.label}
+                className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden border border-border bg-muted">
+                  <iframe
+                    title={location.mapTitle}
+                    src={location.mapSrc}
+                    className="h-full w-full border-0"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                </div>
+                <div>
+                  <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                    {location.label}
+                  </p>
+                  <h2 className="mt-4 text-3xl font-light tracking-tight text-foreground lg:text-4xl">
+                    {location.city}, <span className="font-semibold">{location.state}</span>
+                  </h2>
+                  <p className="mt-6 text-base leading-relaxed text-muted-foreground lg:text-lg">
+                    {location.description}
+                  </p>
 
-              <div className="mt-8 space-y-4">
-                <div className="flex items-start gap-4">
-                  <MapPin className="mt-1 h-5 w-5 text-muted-foreground" />
-                  <div>
-                    <p className="text-foreground">
-                      3483 Satellite Blvd. Suite 100
-                    </p>
-                    <p className="text-muted-foreground">
-                      Duluth, GA 30096
-                    </p>
+                  <div className="mt-8 space-y-4">
+                    <div className="flex items-start gap-4">
+                      <MapPin className="mt-1 h-5 w-5 text-muted-foreground" />
+                      <div>
+                        <p className="text-foreground">{location.addressLines[0]}</p>
+                        <p className="text-muted-foreground">{location.addressLines[1]}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <Phone className="h-5 w-5 text-muted-foreground" />
+                      <a
+                        href={`tel:${location.phone.replace(/[^+\d]/g, "")}`}
+                        className="text-foreground hover:text-accent"
+                      >
+                        {location.phone}
+                      </a>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <Mail className="h-5 w-5 text-muted-foreground" />
+                      <a
+                        href={`mailto:${location.email}`}
+                        className="text-foreground hover:text-accent"
+                      >
+                        {location.email}
+                      </a>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <Clock className="h-5 w-5 text-muted-foreground" />
+                      <p className="text-muted-foreground">{location.hours}</p>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <Phone className="h-5 w-5 text-muted-foreground" />
-                  <a
-                    href="tel:+17705570019"
-                    className="text-foreground hover:text-accent"
-                  >
-                    +1 (770) 557-0019
-                  </a>
-                </div>
-                <div className="flex items-center gap-4">
-                  <Mail className="h-5 w-5 text-muted-foreground" />
-                  <a
-                    href="mailto:info@wellinsinc.com"
-                    className="text-foreground hover:text-accent"
-                  >
-                    info@wellinsinc.com
-                  </a>
-                </div>
-                <div className="flex items-center gap-4">
-                  <Clock className="h-5 w-5 text-muted-foreground" />
-                  <p className="text-muted-foreground">
-                    Mon-Fri: 8:00 AM - 6:00 PM ET
-                  </p>
-                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
