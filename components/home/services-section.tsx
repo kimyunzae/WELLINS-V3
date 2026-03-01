@@ -122,7 +122,7 @@ export function ProjectsShowcaseSlider() {
       },
       {
         threshold: 0.1,
-        rootMargin: "0px 0px -8% 0px",
+        rootMargin: "0px 0px 8% 0px",
       },
     );
 
