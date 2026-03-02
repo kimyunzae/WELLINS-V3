@@ -68,8 +68,8 @@ export function ServicesSection() {
         }
       },
       {
-        threshold: 0.3,
-        rootMargin: "0px 0px -12% 0px",
+        threshold: 0.1,
+        rootMargin: "0px 0px -8% 0px",
       }
     )
 

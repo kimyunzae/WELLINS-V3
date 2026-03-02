@@ -11,6 +11,14 @@ export const metadata: Metadata = {
   title: 'Wellins Inc. | Industrial Engineering Excellence',
   description: 'Leading industrial engineering company specializing in piping, HVAC systems, equipment installation, and fire protection. Serving major manufacturers across the United States.',
   keywords: ['industrial engineering', 'piping', 'HVAC', 'equipment installation', 'fire protection', 'industrial contractor'],
+  openGraph: {
+    type: 'website',
+    siteName: 'Wellins Inc.',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
   icons: {
     icon: [
       {
@@ -28,7 +36,7 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-icon.png',
   },
-    generator: 'v0.app'
+  generator: 'v0.app'
 }
 
 export const viewport: Viewport = {
