@@ -41,20 +41,53 @@ const services = [
   "Other",
 ];
 
+const initialFormData = {
+  name: "",
+  company: "",
+  email: "",
+  phone: "",
+  service: "",
+  projectDetails: "",
+};
+
+const EMAILJS_API_URL = "https://api.emailjs.com/api/v1.0/email/send";
+const EMAILJS_PUBLIC_KEY =
+  process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY?.trim() ?? "";
+const EMAILJS_SERVICE_ID =
+  process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID?.trim() ?? "";
+const EMAILJS_TEMPLATE_ID =
+  process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID?.trim() ?? "";
+
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    company: "",
-    email: "",
-    phone: "",
-    service: "",
-    projectDetails: "",
-  });
+  const [formData, setFormData] = useState(initialFormData);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
+  const [isSubmitError, setIsSubmitError] = useState(false);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (
+    event: React.FormEvent<HTMLFormElement>,
+  ): Promise<void> => {
     event.preventDefault();
+    if (isSubmitting) {
+      return;
+    }
 
-    // Form submission logic would go here
+    const form = event.currentTarget;
+    const hp = String(new FormData(form).get("hp") ?? "").trim();
+
+    if (hp) {
+      setIsSubmitError(false);
+      setFormData(initialFormData);
+      form.reset();
+      setSubmitMessage("Your request has been sent. We will contact you soon.");
+      return;
+    }
+
+    if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
+      setIsSubmitError(true);
+      setSubmitMessage("Contact form is not configured yet.");
+      return;
+    }
 
     const payload = {
       fullName: formData.name,
@@ -63,16 +96,54 @@ export default function ContactPage() {
       phone: formData.phone,
       service: formData.service,
       description: formData.projectDetails,
+      hp,
     };
 
-    const data = fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+    setIsSubmitError(false);
+    setSubmitMessage("");
+
+    try {
+      const response = await fetch(EMAILJS_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          service_id: EMAILJS_SERVICE_ID,
+          template_id: EMAILJS_TEMPLATE_ID,
+          user_id: EMAILJS_PUBLIC_KEY,
+          template_params: {
+            full_name: payload.fullName,
+            company: payload.company,
+            email: payload.email,
+            phone: payload.phone,
+            service: payload.service,
+            project_details: payload.description,
+            reply_to: payload.email,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          (await response.text()) || "Unable to send your request right now.",
+        );
+      }
+
+      setFormData(initialFormData);
+      form.reset();
+      setSubmitMessage("Your request has been sent. We will contact you soon.");
+    } catch (error) {
+      setIsSubmitError(true);
+      setSubmitMessage(
+        error instanceof Error && error.message
+          ? error.message
+          : "Unable to send your request right now.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -235,11 +306,20 @@ export default function ContactPage() {
                 />
                 <button
                   type="submit"
-                  className="inline-flex items-center bg-primary px-8 py-4 text-sm font-semibold uppercase tracking-wider text-primary-foreground transition-colors hover:bg-primary/90"
+                  disabled={isSubmitting}
+                  className="inline-flex items-center bg-primary px-8 py-4 text-sm font-semibold uppercase tracking-wider text-primary-foreground transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  Submit Request
+                  {isSubmitting ? "Sending..." : "Submit Request"}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </button>
+                {submitMessage ? (
+                  <p
+                    aria-live="polite"
+                    className={`text-sm ${isSubmitError ? "text-destructive" : "text-muted-foreground"}`}
+                  >
+                    {submitMessage}
+                  </p>
+                ) : null}
               </form>
             </div>
 
