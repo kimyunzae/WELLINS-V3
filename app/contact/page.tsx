@@ -3,17 +3,25 @@
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
-import Script from "next/script";
 import { ArrowRight, Clock, Mail, MapPin, Phone } from "lucide-react";
+import Script from "next/script";
 
 import { useState } from "react";
+
+const PRIMARY_CONTACT_PHONE_DISPLAY = "+1 (770) 557-0019";
+const PRIMARY_CONTACT_PHONE_LINK = "+17705570019";
+const SUBMIT_FAILURE_MESSAGE = `We couldn't send your request right now. Please call ${PRIMARY_CONTACT_PHONE_DISPLAY} so we can assist you directly.`;
+const REQUEST_HISTORY_STORAGE_KEY = "contact-form-request-history";
+const MAX_SUCCESSFUL_SUBMISSIONS = 3;
+const REQUEST_WINDOW_MS = 24 * 60 * 60 * 1000;
+const TOO_MANY_REQUESTS_MESSAGE = `You've sent several requests recently. Please try again later, or call ${PRIMARY_CONTACT_PHONE_DISPLAY} for immediate assistance.`;
 
 const offices = [
   {
     name: "Headquarters",
     city: "Duluth, GA",
     address: "3483 Satellite Blvd. Suite 100\nDuluth, GA 30096",
-    phone: "+1 (770) 557-0019",
+    phone: PRIMARY_CONTACT_PHONE_DISPLAY,
     email: "info@wellinsinc.com",
   },
   {
@@ -53,11 +61,11 @@ const initialFormData = {
 
 const EMAILJS_API_URL = "https://api.emailjs.com/api/v1.0/email/send";
 const EMAILJS_PUBLIC_KEY =
-  process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY?.trim() ?? "";
+  process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY_TEST?.trim() ?? "";
 const EMAILJS_SERVICE_ID =
-  process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID?.trim() ?? "";
+  process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID_TEST?.trim() ?? "";
 const EMAILJS_TEMPLATE_ID =
-  process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID?.trim() ?? "";
+  process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_TEST?.trim() ?? "";
 const RECAPTCHA_SITE_KEY =
   process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY?.trim() ?? "";
 
@@ -66,16 +74,127 @@ type GrecaptchaApi = {
   reset: () => void;
 };
 
+type SubmissionHistory = Record<string, number[]>;
+
+// 함수 
 function getGrecaptcha(): GrecaptchaApi | null {
   if (typeof window === "undefined") {
     return null;
   }
 
   return (
-    (window as Window & {
-      grecaptcha?: GrecaptchaApi;
-    }).grecaptcha ?? null
+    (
+      window as Window & {
+        grecaptcha?: GrecaptchaApi;
+      }
+    ).grecaptcha ?? null
   );
+}
+
+function normalizeEmail(value: string): string {
+  return value.trim().toLowerCase();
+}
+
+function readSubmissionHistory(): SubmissionHistory {
+  if (typeof window === "undefined") {
+    return {};
+  }
+
+  try {
+    const rawHistory = window.localStorage.getItem(REQUEST_HISTORY_STORAGE_KEY);
+
+    if (!rawHistory) {
+      return {};
+    }
+
+    const parsedHistory = JSON.parse(rawHistory) as unknown;
+
+    if (
+      !parsedHistory ||
+      typeof parsedHistory !== "object" ||
+      Array.isArray(parsedHistory)
+    ) {
+      return {};
+    }
+
+    const history: SubmissionHistory = {};
+
+    for (const [email, timestamps] of Object.entries(parsedHistory)) {
+      if (!Array.isArray(timestamps)) {
+        continue;
+      }
+
+      const validTimestamps = timestamps.filter(
+        (timestamp): timestamp is number =>
+          typeof timestamp === "number" && Number.isFinite(timestamp),
+      );
+
+      if (validTimestamps.length > 0) {
+        history[email] = validTimestamps;
+      }
+    }
+
+    return history;
+  } catch {
+    return {};
+  }
+}
+
+function writeSubmissionHistory(history: SubmissionHistory): void {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  try {
+    window.localStorage.setItem(
+      REQUEST_HISTORY_STORAGE_KEY,
+      JSON.stringify(history),
+    );
+  } catch {
+    // ignore
+  }
+}
+
+function getRecentSuccessfulSubmissionCount(email: string): number {
+  const normalizedEmail = normalizeEmail(email);
+
+  if (!normalizedEmail) {
+    return 0;
+  }
+
+  const now = Date.now();
+  const history = readSubmissionHistory();
+  const recentSubmissions = (history[normalizedEmail] ?? []).filter(
+    (timestamp) => now - timestamp < REQUEST_WINDOW_MS,
+  );
+
+  if (recentSubmissions.length > 0) {
+    history[normalizedEmail] = recentSubmissions;
+  } else {
+    delete history[normalizedEmail];
+  }
+
+  writeSubmissionHistory(history);
+
+  return recentSubmissions.length;
+}
+
+function recordSuccessfulSubmission(email: string): void {
+  const normalizedEmail = normalizeEmail(email);
+
+  if (!normalizedEmail) {
+    return;
+  }
+
+  const now = Date.now();
+  const history = readSubmissionHistory();
+  const recentSubmissions = (history[normalizedEmail] ?? []).filter(
+    (timestamp) => now - timestamp < REQUEST_WINDOW_MS,
+  );
+
+  recentSubmissions.push(now);
+  history[normalizedEmail] = recentSubmissions;
+  writeSubmissionHistory(history);
 }
 
 export default function ContactPage() {
@@ -94,7 +213,9 @@ export default function ContactPage() {
 
     const form = event.currentTarget;
     const hp = String(new FormData(form).get("hp") ?? "").trim();
+    
 
+    // 허니팟 필드가 채워진 경우 스팸으로 간주하고 즉시 종료
     if (hp) {
       setIsSubmitError(false);
       setFormData(initialFormData);
@@ -103,24 +224,39 @@ export default function ContactPage() {
       return;
     }
 
+    // 필수 EmailJS 설정이 누락된 경우 사용자에게 알리고 제출 중단  
     if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
       setIsSubmitError(true);
       setSubmitMessage("Contact form is not configured yet.");
       return;
     }
 
+    // reCAPTCHA 사이트 키가 누락된 경우 사용자에게 알리고 제출(테스트 용 추후 변경)
     if (!RECAPTCHA_SITE_KEY) {
       setIsSubmitError(true);
       setSubmitMessage("reCAPTCHA is not configured yet.");
       return;
     }
 
+
     const grecaptcha = getGrecaptcha();
     const captchaToken = grecaptcha?.getResponse().trim() ?? "";
 
+    // reCAPTCHA 응답이 없는 경우 사용자에게 알리고 제출 중단
     if (!captchaToken) {
       setIsSubmitError(true);
-      setSubmitMessage("Please complete the reCAPTCHA verification.");
+      setSubmitMessage("Please confirm you are not a robot.");
+      return;
+    }
+
+    // 동일한 이메일로 최근에 여러 번 성공적으로 제출한 경우 제출을 차단하여 남용 방지
+    if (
+      getRecentSuccessfulSubmissionCount(formData.email) >=
+      MAX_SUCCESSFUL_SUBMISSIONS
+    ) {
+      grecaptcha?.reset();
+      setIsSubmitError(true);
+      setSubmitMessage(TOO_MANY_REQUESTS_MESSAGE);
       return;
     }
 
@@ -130,7 +266,7 @@ export default function ContactPage() {
       email: formData.email,
       phone: formData.phone,
       service: formData.service,
-      description: formData.projectDetails,
+      project_details: formData.projectDetails,
       captchaToken,
     };
 
@@ -144,6 +280,7 @@ export default function ContactPage() {
         headers: {
           "Content-Type": "application/json",
         },
+        // EmailJS API에 필요한 형식으로 페이로드 구성
         body: JSON.stringify({
           service_id: EMAILJS_SERVICE_ID,
           template_id: EMAILJS_TEMPLATE_ID,
@@ -154,32 +291,26 @@ export default function ContactPage() {
             email: payload.email,
             phone: payload.phone,
             service: payload.service,
-            project_details: payload.description,
+            project_details: payload.project_details,
             reply_to: payload.email,
+            "g-recaptcha-response": payload.captchaToken,
           },
-          "g-recaptcha-response": payload.captchaToken,
         }),
       });
 
       if (!response.ok) {
-        grecaptcha?.reset();
-        throw new Error(
-          (await response.text()) || "Unable to send your request right now.",
-        );
+        throw new Error(SUBMIT_FAILURE_MESSAGE);
       }
 
       setFormData(initialFormData);
       form.reset();
       grecaptcha?.reset();
+      recordSuccessfulSubmission(payload.email);
       setSubmitMessage("Your request has been sent. We will contact you soon.");
-    } catch (error) {
+    } catch {
       grecaptcha?.reset();
       setIsSubmitError(true);
-      setSubmitMessage(
-        error instanceof Error && error.message
-          ? error.message
-          : "Unable to send your request right now.",
-      );
+      setSubmitMessage(SUBMIT_FAILURE_MESSAGE);
     } finally {
       setIsSubmitting(false);
     }
@@ -391,10 +522,10 @@ export default function ContactPage() {
                     <div>
                       <p className="text-sm text-muted-foreground">Main Line</p>
                       <a
-                        href="tel:+12055551234"
+                        href={`tel:${PRIMARY_CONTACT_PHONE_LINK}`}
                         className="text-foreground hover:text-accent"
                       >
-                        +1 (205) 555-1234
+                        {PRIMARY_CONTACT_PHONE_DISPLAY}
                       </a>
                     </div>
                   </div>
@@ -476,7 +607,9 @@ export default function ContactPage() {
           <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
             <div className="flex flex-col items-center justify-between gap-6 text-center lg:flex-row lg:text-left">
               <div>
-                <h2 className="text-2xl font-semibold">24/7 Emergency Support</h2>
+                <h2 className="text-2xl font-semibold">
+                  24/7 Emergency Support
+                </h2>
                 <p className="mt-2 text-primary-foreground/70">
                   For urgent plant shutdowns or emergency repairs
                 </p>
