@@ -8,13 +8,15 @@ import Script from "next/script";
 
 import { useState } from "react";
 
-const PRIMARY_CONTACT_PHONE_DISPLAY = "+1 (770) 557-0019";
+const PRIMARY_CONTACT_PHONE_DISPLAY = "+1 (770)-557-0019";
 const PRIMARY_CONTACT_PHONE_LINK = "+17705570019";
 const SUBMIT_FAILURE_MESSAGE = `We couldn't send your request right now. Please call ${PRIMARY_CONTACT_PHONE_DISPLAY} so we can assist you directly.`;
 const REQUEST_HISTORY_STORAGE_KEY = "contact-form-request-history";
-const MAX_SUCCESSFUL_SUBMISSIONS = 3;
+const MAX_SUCCESSFUL_SUBMISSIONS = 7;
+const MAX_SUCCESSFUL_SUBMISSIONS_PER_SERVICE = 1;
 const REQUEST_WINDOW_MS = 24 * 60 * 60 * 1000;
 const TOO_MANY_REQUESTS_MESSAGE = `You've sent several requests recently. Please try again later, or call ${PRIMARY_CONTACT_PHONE_DISPLAY} for immediate assistance.`;
+const DUPLICATE_SERVICE_SUBMISSION_MESSAGE = `You've already submitted an inquiry for this service. For additional assistance, please call ${PRIMARY_CONTACT_PHONE_DISPLAY}.`;
 
 const offices = [
   {
@@ -74,7 +76,12 @@ type GrecaptchaApi = {
   reset: () => void;
 };
 
-type SubmissionHistory = Record<string, number[]>;
+type SubmissionHistoryEntry = {
+  total: number[];
+  services: Record<string, number[]>;
+};
+
+type SubmissionHistory = Record<string, SubmissionHistoryEntry>;
 
 // 함수 
 function getGrecaptcha(): GrecaptchaApi | null {
@@ -95,6 +102,17 @@ function normalizeEmail(value: string): string {
   return value.trim().toLowerCase();
 }
 
+function normalizeService(value: string): string {
+  return value.trim().toLowerCase();
+}
+
+function getRecentTimestamps(timestamps: number[], now: number): number[] {
+  return timestamps.filter((timestamp) => now - timestamp < REQUEST_WINDOW_MS);
+}
+
+// 로컬 스토리지에서 제출 기록을 읽고 유효한 형식으로 정규화하여 반환하는 함수
+// 사용자의 제출횟수를 추적하여 제출 빈도 제한을 구현하는 데 사용 
+  // 데이터가 없거나 형식이 잘못된 경우 빈 객체 반환
 function readSubmissionHistory(): SubmissionHistory {
   if (typeof window === "undefined") {
     return {};
@@ -119,18 +137,69 @@ function readSubmissionHistory(): SubmissionHistory {
 
     const history: SubmissionHistory = {};
 
-    for (const [email, timestamps] of Object.entries(parsedHistory)) {
-      if (!Array.isArray(timestamps)) {
+    // 로컬 스토리지에서 읽은 데이터를 검증하고 정규화하여 유효한 형식으로 변환
+    for (const [email, entry] of Object.entries(parsedHistory)) {
+      if (Array.isArray(entry)) {
+        const validTimestamps = entry.filter(
+          (timestamp): timestamp is number =>
+            typeof timestamp === "number" && Number.isFinite(timestamp),
+        );
+
+        if (validTimestamps.length > 0) {
+          history[email] = {
+            total: validTimestamps,
+            services: {},
+          };
+        }
+
         continue;
       }
 
-      const validTimestamps = timestamps.filter(
-        (timestamp): timestamp is number =>
-          typeof timestamp === "number" && Number.isFinite(timestamp),
-      );
+      if (!entry || typeof entry !== "object") {
+        continue;
+      }
 
-      if (validTimestamps.length > 0) {
-        history[email] = validTimestamps;
+      const total = Array.isArray((entry as { total?: unknown }).total)
+        ? (entry as { total: unknown[] }).total.filter(
+            (timestamp): timestamp is number =>
+              typeof timestamp === "number" && Number.isFinite(timestamp),
+          )
+        : [];
+      const rawServices = (entry as { services?: unknown }).services;
+      const services: Record<string, number[]> = {};
+
+      if (
+        rawServices &&
+        typeof rawServices === "object" &&
+        !Array.isArray(rawServices)
+      ) {
+        for (const [service, timestamps] of Object.entries(rawServices)) {
+          if (!Array.isArray(timestamps)) {
+            continue;
+          }
+
+          const normalizedService = normalizeService(service);
+
+          if (!normalizedService) {
+            continue;
+          }
+
+          const validTimestamps = timestamps.filter(
+            (timestamp): timestamp is number =>
+              typeof timestamp === "number" && Number.isFinite(timestamp),
+          );
+
+          if (validTimestamps.length > 0) {
+            services[normalizedService] = validTimestamps;
+          }
+        }
+      }
+
+      if (total.length > 0 || Object.keys(services).length > 0) {
+        history[email] = {
+          total,
+          services,
+        };
       }
     }
 
@@ -155,32 +224,60 @@ function writeSubmissionHistory(history: SubmissionHistory): void {
   }
 }
 
-function getRecentSuccessfulSubmissionCount(email: string): number {
+function getRecentSuccessfulSubmissionCounts(
+  email: string,
+  service: string,
+): {
+  serviceCount: number;
+  totalCount: number;
+} {
   const normalizedEmail = normalizeEmail(email);
+  const normalizedService = normalizeService(service);
 
   if (!normalizedEmail) {
-    return 0;
+    return {
+      serviceCount: 0,
+      totalCount: 0,
+    };
   }
 
   const now = Date.now();
   const history = readSubmissionHistory();
-  const recentSubmissions = (history[normalizedEmail] ?? []).filter(
-    (timestamp) => now - timestamp < REQUEST_WINDOW_MS,
-  );
+  const existingEntry = history[normalizedEmail] ?? {
+    total: [],
+    services: {},
+  };
+  const total = getRecentTimestamps(existingEntry.total, now);
+  const services: Record<string, number[]> = {};
 
-  if (recentSubmissions.length > 0) {
-    history[normalizedEmail] = recentSubmissions;
+  for (const [serviceKey, timestamps] of Object.entries(existingEntry.services)) {
+    const recentTimestamps = getRecentTimestamps(timestamps, now);
+
+    if (recentTimestamps.length > 0) {
+      services[serviceKey] = recentTimestamps;
+    }
+  }
+
+  if (total.length > 0 || Object.keys(services).length > 0) {
+    history[normalizedEmail] = {
+      total,
+      services,
+    };
   } else {
     delete history[normalizedEmail];
   }
 
   writeSubmissionHistory(history);
 
-  return recentSubmissions.length;
+  return {
+    serviceCount: normalizedService ? (services[normalizedService] ?? []).length : 0,
+    totalCount: total.length,
+  };
 }
 
-function recordSuccessfulSubmission(email: string): void {
+function recordSuccessfulSubmission(email: string, service: string): void {
   const normalizedEmail = normalizeEmail(email);
+  const normalizedService = normalizeService(service);
 
   if (!normalizedEmail) {
     return;
@@ -188,12 +285,34 @@ function recordSuccessfulSubmission(email: string): void {
 
   const now = Date.now();
   const history = readSubmissionHistory();
-  const recentSubmissions = (history[normalizedEmail] ?? []).filter(
-    (timestamp) => now - timestamp < REQUEST_WINDOW_MS,
-  );
+  const existingEntry = history[normalizedEmail] ?? {
+    total: [],
+    services: {},
+  };
+  const total = getRecentTimestamps(existingEntry.total, now);
+  const services: Record<string, number[]> = {};
 
-  recentSubmissions.push(now);
-  history[normalizedEmail] = recentSubmissions;
+  for (const [serviceKey, timestamps] of Object.entries(existingEntry.services)) {
+    const recentTimestamps = getRecentTimestamps(timestamps, now);
+
+    if (recentTimestamps.length > 0) {
+      services[serviceKey] = recentTimestamps;
+    }
+  }
+
+  total.push(now);
+
+  if (normalizedService) {
+    const serviceSubmissions = services[normalizedService] ?? [];
+
+    serviceSubmissions.push(now);
+    services[normalizedService] = serviceSubmissions;
+  }
+
+  history[normalizedEmail] = {
+    total,
+    services,
+  };
   writeSubmissionHistory(history);
 }
 
@@ -203,6 +322,7 @@ export default function ContactPage() {
   const [submitMessage, setSubmitMessage] = useState("");
   const [isSubmitError, setIsSubmitError] = useState(false);
 
+  // 폼 제출 핸들러: 허니팟, reCAPTCHA, 제출 빈도 제한을 포함한 다단계 검증 및 EmailJS API 호출
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>,
   ): Promise<void> => {
@@ -250,13 +370,22 @@ export default function ContactPage() {
     }
 
     // 동일한 이메일로 최근에 여러 번 성공적으로 제출한 경우 제출을 차단하여 남용 방지
-    if (
-      getRecentSuccessfulSubmissionCount(formData.email) >=
-      MAX_SUCCESSFUL_SUBMISSIONS
-    ) {
+    const { serviceCount, totalCount } = getRecentSuccessfulSubmissionCounts(
+      formData.email,
+      formData.service,
+    );
+
+    if (totalCount >= MAX_SUCCESSFUL_SUBMISSIONS) {
       grecaptcha?.reset();
       setIsSubmitError(true);
       setSubmitMessage(TOO_MANY_REQUESTS_MESSAGE);
+      return;
+    }
+
+    if (serviceCount >= MAX_SUCCESSFUL_SUBMISSIONS_PER_SERVICE) {
+      grecaptcha?.reset();
+      setIsSubmitError(true);
+      setSubmitMessage(DUPLICATE_SERVICE_SUBMISSION_MESSAGE);
       return;
     }
 
@@ -305,7 +434,7 @@ export default function ContactPage() {
       setFormData(initialFormData);
       form.reset();
       grecaptcha?.reset();
-      recordSuccessfulSubmission(payload.email);
+      recordSuccessfulSubmission(payload.email, payload.service);
       setSubmitMessage("Your request has been sent. We will contact you soon.");
     } catch {
       grecaptcha?.reset();
@@ -461,6 +590,7 @@ export default function ContactPage() {
                     <textarea
                       id="projectDetails"
                       required
+                      maxLength={3000}
                       rows={5}
                       className="mt-2 w-full resize-none border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none"
                       placeholder="Please describe your project requirements, timeline, and any specific needs..."
@@ -472,6 +602,9 @@ export default function ContactPage() {
                         })
                       }
                     />
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      {formData.projectDetails.length}/3000 characters
+                    </p>
                   </div>
                   <input
                     name="hp"
