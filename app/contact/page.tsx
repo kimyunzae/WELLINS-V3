@@ -63,11 +63,11 @@ const initialFormData = {
 
 const EMAILJS_API_URL = "https://api.emailjs.com/api/v1.0/email/send";
 const EMAILJS_PUBLIC_KEY =
-  process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY_TEST?.trim() ?? "";
+  process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY?.trim() ?? "";
 const EMAILJS_SERVICE_ID =
-  process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID_TEST?.trim() ?? "";
+  process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID?.trim() ?? "";
 const EMAILJS_TEMPLATE_ID =
-  process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_TEST?.trim() ?? "";
+  process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID?.trim() ?? "";
 const RECAPTCHA_SITE_KEY =
   process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY?.trim() ?? "";
 
