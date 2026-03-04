@@ -63,11 +63,11 @@ const initialFormData = {
 
 const EMAILJS_API_URL = "https://api.emailjs.com/api/v1.0/email/send";
 const EMAILJS_PUBLIC_KEY =
-  process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY?.trim() ?? "";
+  process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY_TEST?.trim() ?? "";
 const EMAILJS_SERVICE_ID =
-  process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID?.trim() ?? "";
+  process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID_TEST?.trim() ?? "";
 const EMAILJS_TEMPLATE_ID =
-  process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID?.trim() ?? "";
+  process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_TEST?.trim() ?? "";
 const RECAPTCHA_SITE_KEY =
   process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY?.trim() ?? "";
 
@@ -81,9 +81,13 @@ type SubmissionHistoryEntry = {
   services: Record<string, number[]>;
 };
 
-type SubmissionHistory = Record<string, SubmissionHistoryEntry>;
+type SubmissionHistory = SubmissionHistoryEntry;
 
-// 함수 
+type SubmissionHistoryEntryLike = {
+  total?: unknown;
+  services?: unknown;
+};
+// 함수
 function getGrecaptcha(): GrecaptchaApi | null {
   if (typeof window === "undefined") {
     return null;
@@ -98,117 +102,189 @@ function getGrecaptcha(): GrecaptchaApi | null {
   );
 }
 
-function normalizeEmail(value: string): string {
-  return value.trim().toLowerCase();
-}
-
+// 이메일 주소를 정규화하여
+// 서비스 이름을 정규화
 function normalizeService(value: string): string {
   return value.trim().toLowerCase();
 }
-
+// 주어진 타임스탬프 배열에서 현재 시간과 비교하여 유효한 제출 기록만 반환하는 함수
 function getRecentTimestamps(timestamps: number[], now: number): number[] {
   return timestamps.filter((timestamp) => now - timestamp < REQUEST_WINDOW_MS);
 }
 
+function createEmptySubmissionHistory(): SubmissionHistory {
+  return {
+    total: [],
+    services: {},
+  };
+}
+
+function parseTimestampArray(value: unknown): number[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value.filter(
+    (timestamp): timestamp is number =>
+      typeof timestamp === "number" && Number.isFinite(timestamp),
+  );
+}
+
+
+
+function isSubmissionHistoryEntry(
+  value: unknown,
+): value is SubmissionHistoryEntryLike {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return false;
+  }
+
+  // value가 SubmissionHistoryEntry와 유사한 구조를 가지고 있는지 확인하는 타입 가드 함수
+  const entry = value as SubmissionHistoryEntryLike;
+  // total이 배열인지, services가 객체인지 확인하여 유효한 제출 기록 형식인지 검증
+  const hasTotalArray = Array.isArray(entry.total);
+
+  // services가 객체인지 확인하되, null이 아니고 배열이 아닌 경우에만 유효한 형식으로 간주
+  const hasServicesObject =
+    entry.services !== null &&
+    entry.services !== undefined &&
+    typeof entry.services === "object" &&
+    !Array.isArray(entry.services);
+
+  return hasTotalArray || hasServicesObject;
+}
+
+function parseSubmissionHistoryEntry(value: unknown): SubmissionHistoryEntry {
+  if (Array.isArray(value)) {
+    return {
+      total: parseTimestampArray(value),
+      services: {},
+    };
+  }
+
+  if (!isSubmissionHistoryEntry(value)) {
+    return createEmptySubmissionHistory();
+  }
+
+  const total = parseTimestampArray(value.total);
+  const rawServices = value.services;
+  const services: Record<string, number[]> = {};
+
+  if (
+    rawServices &&
+    typeof rawServices === "object" &&
+    !Array.isArray(rawServices)
+  ) {
+    for (const [service, timestamps] of Object.entries(rawServices)) {
+      if (!Array.isArray(timestamps)) {
+        continue;
+      }
+
+      const normalizedService = normalizeService(service);
+
+      if (!normalizedService) {
+        continue;
+      }
+
+      const validTimestamps = parseTimestampArray(timestamps);
+
+      if (validTimestamps.length > 0) {
+        services[normalizedService] = validTimestamps;
+      }
+    }
+  }
+
+  return {
+    total,
+    services,
+  };
+}
+
+function mergeSubmissionHistoryEntries(
+  base: SubmissionHistory,
+  next: SubmissionHistoryEntry,
+): SubmissionHistory {
+  const merged: SubmissionHistory = {
+    total: [...base.total, ...next.total],
+    services: { ...base.services },
+  };
+
+  for (const [service, timestamps] of Object.entries(next.services)) {
+    merged.services[service] = [
+      ...(merged.services[service] ?? []),
+      ...timestamps,
+    ];
+  }
+
+  return merged;
+}
+
+function pruneSubmissionHistory(
+  history: SubmissionHistory,
+  now: number,
+): SubmissionHistory {
+  const total = getRecentTimestamps(history.total, now);
+  const services: Record<string, number[]> = {};
+
+  for (const [service, timestamps] of Object.entries(history.services)) {
+    const recentTimestamps = getRecentTimestamps(timestamps, now);
+
+    if (recentTimestamps.length > 0) {
+      services[service] = recentTimestamps;
+    }
+  }
+
+  return {
+    total,
+    services,
+  };
+}
+
 // 로컬 스토리지에서 제출 기록을 읽고 유효한 형식으로 정규화하여 반환하는 함수
-// 사용자의 제출횟수를 추적하여 제출 빈도 제한을 구현하는 데 사용 
-  // 데이터가 없거나 형식이 잘못된 경우 빈 객체 반환
+// 사용자의 제출횟수를 추적하여 제출 빈도 제한을 구현하는 데 사용
+// 데이터가 없거나 형식이 잘못된 경우 빈 객체 반환
 function readSubmissionHistory(): SubmissionHistory {
   if (typeof window === "undefined") {
-    return {};
+    return createEmptySubmissionHistory();
   }
 
   try {
     const rawHistory = window.localStorage.getItem(REQUEST_HISTORY_STORAGE_KEY);
 
     if (!rawHistory) {
-      return {};
+      return createEmptySubmissionHistory();
     }
 
     const parsedHistory = JSON.parse(rawHistory) as unknown;
 
     if (
-      !parsedHistory ||
-      typeof parsedHistory !== "object" ||
-      Array.isArray(parsedHistory)
+      Array.isArray(parsedHistory) ||
+      isSubmissionHistoryEntry(parsedHistory)
     ) {
-      return {};
+      return parseSubmissionHistoryEntry(parsedHistory);
     }
 
-    const history: SubmissionHistory = {};
+    if (!parsedHistory || typeof parsedHistory !== "object") {
+      return createEmptySubmissionHistory();
+    }
+
+    let history = createEmptySubmissionHistory();
 
     // 로컬 스토리지에서 읽은 데이터를 검증하고 정규화하여 유효한 형식으로 변환
-    for (const [email, entry] of Object.entries(parsedHistory)) {
-      if (Array.isArray(entry)) {
-        const validTimestamps = entry.filter(
-          (timestamp): timestamp is number =>
-            typeof timestamp === "number" && Number.isFinite(timestamp),
-        );
-
-        if (validTimestamps.length > 0) {
-          history[email] = {
-            total: validTimestamps,
-            services: {},
-          };
-        }
-
-        continue;
-      }
-
-      if (!entry || typeof entry !== "object") {
-        continue;
-      }
-
-      const total = Array.isArray((entry as { total?: unknown }).total)
-        ? (entry as { total: unknown[] }).total.filter(
-            (timestamp): timestamp is number =>
-              typeof timestamp === "number" && Number.isFinite(timestamp),
-          )
-        : [];
-      const rawServices = (entry as { services?: unknown }).services;
-      const services: Record<string, number[]> = {};
-
-      if (
-        rawServices &&
-        typeof rawServices === "object" &&
-        !Array.isArray(rawServices)
-      ) {
-        for (const [service, timestamps] of Object.entries(rawServices)) {
-          if (!Array.isArray(timestamps)) {
-            continue;
-          }
-
-          const normalizedService = normalizeService(service);
-
-          if (!normalizedService) {
-            continue;
-          }
-
-          const validTimestamps = timestamps.filter(
-            (timestamp): timestamp is number =>
-              typeof timestamp === "number" && Number.isFinite(timestamp),
-          );
-
-          if (validTimestamps.length > 0) {
-            services[normalizedService] = validTimestamps;
-          }
-        }
-      }
-
-      if (total.length > 0 || Object.keys(services).length > 0) {
-        history[email] = {
-          total,
-          services,
-        };
-      }
+    for (const entry of Object.values(parsedHistory)) {
+      history = mergeSubmissionHistoryEntries(
+        history,
+        parseSubmissionHistoryEntry(entry),
+      );
     }
 
     return history;
   } catch {
-    return {};
+    return createEmptySubmissionHistory();
   }
 }
 
+// 로컬 스토리지에 제출 기록을 저장하는 함수
 function writeSubmissionHistory(history: SubmissionHistory): void {
   if (typeof window === "undefined") {
     return;
@@ -224,95 +300,41 @@ function writeSubmissionHistory(history: SubmissionHistory): void {
   }
 }
 
-function getRecentSuccessfulSubmissionCounts(
-  email: string,
-  service: string,
-): {
+// 특정 이메일과 서비스에 대해 최근 제출 횟수계산 함수
+function getRecentSuccessfulSubmissionCounts(service: string): {
   serviceCount: number;
   totalCount: number;
 } {
-  const normalizedEmail = normalizeEmail(email);
   const normalizedService = normalizeService(service);
 
-  if (!normalizedEmail) {
-    return {
-      serviceCount: 0,
-      totalCount: 0,
-    };
-  }
-
-  const now = Date.now();
-  const history = readSubmissionHistory();
-  const existingEntry = history[normalizedEmail] ?? {
-    total: [],
-    services: {},
-  };
-  const total = getRecentTimestamps(existingEntry.total, now);
-  const services: Record<string, number[]> = {};
-
-  for (const [serviceKey, timestamps] of Object.entries(existingEntry.services)) {
-    const recentTimestamps = getRecentTimestamps(timestamps, now);
-
-    if (recentTimestamps.length > 0) {
-      services[serviceKey] = recentTimestamps;
-    }
-  }
-
-  if (total.length > 0 || Object.keys(services).length > 0) {
-    history[normalizedEmail] = {
-      total,
-      services,
-    };
-  } else {
-    delete history[normalizedEmail];
-  }
-
+  const history = pruneSubmissionHistory(readSubmissionHistory(), Date.now());
+  // 로컬 스토리지에서 제출 기록을 읽고 현재 시간과 비교하여 유효한 제출 기록만 계산
+  // 이메일 주소에 대한 기존 기록을 가져오고 유효한 제출 기록만 남김
   writeSubmissionHistory(history);
 
   return {
-    serviceCount: normalizedService ? (services[normalizedService] ?? []).length : 0,
-    totalCount: total.length,
+    serviceCount: normalizedService
+      ? (history.services[normalizedService] ?? []).length
+      : 0,
+    totalCount: history.total.length,
   };
 }
 
-function recordSuccessfulSubmission(email: string, service: string): void {
-  const normalizedEmail = normalizeEmail(email);
+// 제출이 성공적으로 완료된 후 해당 이메일과 서비스에 대한 제출 기록을 로컬 스토리지에 저장하는 함수
+function recordSuccessfulSubmission(service: string): void {
   const normalizedService = normalizeService(service);
-
-  if (!normalizedEmail) {
-    return;
-  }
-
   const now = Date.now();
-  const history = readSubmissionHistory();
-  const existingEntry = history[normalizedEmail] ?? {
-    total: [],
-    services: {},
-  };
-  const total = getRecentTimestamps(existingEntry.total, now);
-  const services: Record<string, number[]> = {};
+  const history = pruneSubmissionHistory(readSubmissionHistory(), now);
 
-  for (const [serviceKey, timestamps] of Object.entries(existingEntry.services)) {
-    const recentTimestamps = getRecentTimestamps(timestamps, now);
-
-    if (recentTimestamps.length > 0) {
-      services[serviceKey] = recentTimestamps;
-    }
-  }
-
-  total.push(now);
+  history.total.push(now);
 
   if (normalizedService) {
-    const serviceSubmissions = services[normalizedService] ?? [];
+    const serviceSubmissions = history.services[normalizedService] ?? [];
 
     serviceSubmissions.push(now);
-    services[normalizedService] = serviceSubmissions;
+    history.services[normalizedService] = serviceSubmissions;
   }
 
-  history[normalizedEmail] = {
-    total,
-    services,
-  };
   writeSubmissionHistory(history);
 }
 
@@ -333,7 +355,6 @@ export default function ContactPage() {
 
     const form = event.currentTarget;
     const hp = String(new FormData(form).get("hp") ?? "").trim();
-    
 
     // 허니팟 필드가 채워진 경우 스팸으로 간주하고 즉시 종료
     if (hp) {
@@ -344,7 +365,7 @@ export default function ContactPage() {
       return;
     }
 
-    // 필수 EmailJS 설정이 누락된 경우 사용자에게 알리고 제출 중단  
+    // 필수 EmailJS 설정이 누락된 경우 사용자에게 알리고 제출 중단
     if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
       setIsSubmitError(true);
       setSubmitMessage("Contact form is not configured yet.");
@@ -358,7 +379,6 @@ export default function ContactPage() {
       return;
     }
 
-
     const grecaptcha = getGrecaptcha();
     const captchaToken = grecaptcha?.getResponse().trim() ?? "";
 
@@ -371,7 +391,6 @@ export default function ContactPage() {
 
     // 동일한 이메일로 최근에 여러 번 성공적으로 제출한 경우 제출을 차단하여 남용 방지
     const { serviceCount, totalCount } = getRecentSuccessfulSubmissionCounts(
-      formData.email,
       formData.service,
     );
 
@@ -434,7 +453,7 @@ export default function ContactPage() {
       setFormData(initialFormData);
       form.reset();
       grecaptcha?.reset();
-      recordSuccessfulSubmission(payload.email, payload.service);
+      recordSuccessfulSubmission(payload.service);
       setSubmitMessage("Your request has been sent. We will contact you soon.");
     } catch {
       grecaptcha?.reset();
