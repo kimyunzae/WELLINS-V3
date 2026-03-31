@@ -1,10 +1,14 @@
+"use client";
+
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import { Separator } from "./ui/separator";
+import { cn } from "@/lib/utils";
 
 interface Project {
   name: string;
@@ -25,25 +29,92 @@ interface ProjectDetailProps {
   projects: Project[];
 }
 
+function CountUpNumber({ valueStr, isInView }: { valueStr: string; isInView: boolean }) {
+  const [count, setCount] = useState(0);
+  // Extract number and suffix (e.g., "35+" -> 35 and "+")
+  const numberPart = parseFloat(valueStr.replace(/[^0-9.]/g, ""));
+  const suffix = valueStr.replace(/[0-9.]/g, "");
+  const decimals = valueStr.includes(".") ? valueStr.split(".")[1].length : 0;
+  
+  const duration = 2000;
+  const frameDuration = 1000 / 60;
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    const totalFrames = Math.round(duration / frameDuration);
+    let frame = 0;
+
+    const counter = setInterval(() => {
+      frame++;
+      const progress = frame / totalFrames;
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const currentCount = numberPart * easeOut;
+      
+      if (frame === totalFrames) {
+        setCount(numberPart);
+        clearInterval(counter);
+      } else {
+        setCount(currentCount);
+      }
+    }, frameDuration);
+
+    return () => clearInterval(counter);
+  }, [isInView, numberPart]);
+
+  return (
+    <p className="text-3xl font-light text-foreground lg:text-4xl">
+      {count.toLocaleString(undefined, {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      })}
+      {suffix}
+    </p>
+  );
+}
+
 export function ProjectDetail({
   state,
   description,
   stats,
   projects,
 }: ProjectDetailProps) {
+  const statsRef = useRef<HTMLElement>(null);
+  const [statsInView, setStatsInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStatsInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (statsRef.current) observer.observe(statsRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <main>
       <Navigation />
       <PageHeader eyebrow="Projects" title={`Projects in ${state}`} />
 
-      <section className="bg-muted py-12 lg:py-16">
+      <section ref={statsRef} className="bg-muted py-12 lg:py-16">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
           <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
             {stats.map((stat, index) => (
-              <div key={index}>
-                <p className="text-3xl font-light text-foreground lg:text-4xl">
-                  {stat.value}
-                </p>
+              <div 
+                key={index}
+                className={cn(
+                  "transition-all duration-1000 delay-300",
+                  statsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                )}
+                style={{ transitionDelay: `${index * 100}ms` }}
+              >
+                <CountUpNumber valueStr={stat.value} isInView={statsInView} />
                 <p className="mt-1 text-sm uppercase tracking-wider text-muted-foreground">
                   {stat.label}
                 </p>

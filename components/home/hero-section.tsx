@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
@@ -35,17 +35,34 @@ const slides = [
 ];
 
 export function HeroSection() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 30 });
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: false,
+    duration: 30,
+    startIndex: 0,
+  });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [animatedIndex, setAnimatedIndex] = useState(-1);
   const [isPlaying, setIsPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
+  const selectedIndexRef = useRef(0);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
+    const nextIndex = emblaApi.selectedScrollSnap();
+    selectedIndexRef.current = nextIndex;
+    setSelectedIndex(nextIndex);
     setProgress(0);
   }, [emblaApi]);
+
+  const goToSlide = useCallback(
+    (index: number, immediate = false) => {
+      if (!emblaApi) return;
+      setProgress(0);
+      emblaApi.scrollTo(index, immediate);
+      // selectedIndex는 onSelect 콜백에서만 업데이트
+    },
+    [emblaApi],
+  );
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -53,15 +70,14 @@ export function HeroSection() {
     emblaApi.on('select', onSelect);
 
     const initialize = requestAnimationFrame(() => {
-      emblaApi.scrollTo(0, true);
-      onSelect();
+      goToSlide(0, true);
     });
 
     return () => {
       cancelAnimationFrame(initialize);
       emblaApi.off('select', onSelect);
     };
-  }, [emblaApi, onSelect]);
+  }, [emblaApi, goToSlide, onSelect]);
 
   useEffect(() => {
     setAnimatedIndex(-1);
@@ -81,26 +97,33 @@ export function HeroSection() {
     };
   }, [selectedIndex]);
 
-  // Auto-play and Progress bar logic
+  // 자동 재생 및 진행 표시 로직
   useEffect(() => {
     if (!isPlaying || !emblaApi) return;
 
-    const interval = 50; // Update every 50ms
+    const interval = 50; // Update
     const duration = 6000; // 6 seconds per slide
     const step = (interval / duration) * 100;
+    const progressRef = { current: progress };
 
     const timer = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          emblaApi.scrollPrev();
-          return 0;
-        }
-        return prev + step;
-      });
+      progressRef.current += step;
+
+      if (progressRef.current >= 100) {
+        progressRef.current = 0;
+        const nextIndex =
+          selectedIndexRef.current >= slides.length - 1
+            ? 0
+            : selectedIndexRef.current + 1;
+
+        goToSlide(nextIndex, nextIndex === 0);
+      }
+
+      setProgress(progressRef.current);
     }, interval);
 
     return () => clearInterval(timer);
-  }, [isPlaying, emblaApi]);
+  }, [isPlaying, emblaApi, goToSlide]);
 
   const togglePlay = () => setIsPlaying(!isPlaying);
 
@@ -112,7 +135,7 @@ export function HeroSection() {
           {slides.map((slide, index) => {
             const isActive = selectedIndex === index;
             const isAnimatedActive = animatedIndex === index;
-            
+
             return (
               <div key={slide.id} className="relative min-w-full flex-[0_0_100%] h-full">
                 {/* Background Image with Ken Burns Effect */}
@@ -132,14 +155,14 @@ export function HeroSection() {
                 </div>
 
                 {/* Content Overlay - Re-mounts on index change to restart animations */}
-                <div 
+                <div
                   key={isActive ? `active-${index}` : `inactive-${index}`}
                   className="relative z-10 flex h-full flex-col justify-center px-6 lg:px-12 xl:px-24"
                 >
                   <div className="mx-auto w-full max-w-[1400px]">
                     <div className="max-w-4xl">
                       {/* Animated Text */}
-                      <h1 
+                      <h1
                         className={cn(
                           "text-5xl font-light leading-[1.15] tracking-tight text-white md:text-6xl lg:text-8xl transition-all duration-1000",
                           isAnimatedActive ? "translate-y-0 opacity-100 delay-300" : "translate-y-12 opacity-0"
@@ -147,7 +170,7 @@ export function HeroSection() {
                         dangerouslySetInnerHTML={{ __html: slide.title }}
                       />
 
-                      <p 
+                      <p
                         className={cn(
                           "mt-8 max-w-2xl text-lg leading-relaxed text-white/80 lg:text-2xl transition-all duration-1000",
                           isAnimatedActive ? "translate-y-0 opacity-100 delay-500" : "translate-y-12 opacity-0"
@@ -156,7 +179,7 @@ export function HeroSection() {
                         {slide.subtitle}
                       </p>
 
-                      <div 
+                      <div
                         className={cn(
                           "mt-12 flex flex-wrap gap-6 transition-all duration-1000",
                           isAnimatedActive ? "translate-y-0 opacity-100 delay-700" : "translate-y-12 opacity-0"
@@ -188,11 +211,11 @@ export function HeroSection() {
           {slides.map((_, index) => (
             <button
               key={index}
-              onClick={() => emblaApi?.scrollTo(index)}
+              onClick={() => goToSlide(index)}
               className={cn(
                 "h-[3px] transition-all duration-500",
-                selectedIndex === index 
-                  ? "w-12 bg-white" 
+                selectedIndex === index
+                  ? "w-12 bg-white"
                   : "w-6 bg-white/20 hover:bg-white/40"
               )}
               aria-label={`Go to slide ${index + 1}`}
