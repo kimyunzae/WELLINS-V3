@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Slide = {
   key: string;
@@ -54,16 +54,11 @@ const slides: Slide[] = [
   },
 ];
 
-const AUTO_PLAY_INTERVAL = 6000;
-
 export function ProjectsShowcaseSlider() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-
-  const nextSlide = useCallback(() => {
-    setActiveIndex((current) => (current + 1) % slides.length);
-  }, []);
+  const totalScrollHeightVh = 100 + (slides.length - 1) * 28;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -73,171 +68,169 @@ export function ProjectsShowcaseSlider() {
           observer.disconnect();
         }
       },
-      { threshold: 0.2 },
+      { threshold: 0.15 },
     );
+
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    if (!isVisible) return;
-    const timer = setInterval(nextSlide, AUTO_PLAY_INTERVAL);
-    return () => clearInterval(timer);
-  }, [nextSlide, isVisible]);
+    let frame = 0;
+
+    const updateScrollState = () => {
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const viewportHeight = window.innerHeight || 1;
+      const maxScroll = Math.max(section.offsetHeight - viewportHeight, 1);
+      const rect = section.getBoundingClientRect();
+      const passed = Math.min(Math.max(-rect.top, 0), maxScroll);
+      const stepHeight = maxScroll / Math.max(slides.length - 1, 1);
+      const nextIndex = Math.min(
+        slides.length - 1,
+        Math.max(0, Math.floor(passed / Math.max(stepHeight, 1))),
+      );
+
+      setActiveIndex(nextIndex);
+    };
+
+    const handleScroll = () => {
+      if (frame) return;
+
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        updateScrollState();
+      });
+    };
+
+    updateScrollState();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="bg-white py-24 lg:py-32 overflow-hidden"
+      className="relative bg-[#031a2c]"
+      style={{ height: `${totalScrollHeightVh}vh` }}
     >
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-12 xl:px-24">
-        {/* Main Grid with Bottom Alignment */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-end">
-          {/* Left: Content Area */}
-          <div className="lg:col-span-5 order-2 lg:order-1 h-full flex flex-col justify-between">
+      <div className="sticky top-0 h-screen overflow-hidden">
+        <div className="absolute inset-0">
+          {slides.map((slide, index) => (
             <div
+              key={slide.key}
               className={cn(
-                "transition-all duration-1000 delay-300",
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-12",
+                "absolute inset-0 transition-all duration-700 ease-out",
+                index === activeIndex
+                  ? "opacity-100 scale-100"
+                  : "pointer-events-none opacity-0 scale-105",
               )}
             >
-              <div className="flex items-center gap-4 mb-12">
-                <span className="text-[10px] font-bold tracking-[0.4em] text-[#001A3D]">
-                  FEATURED PROJECTS
-                </span>
-                <div className="h-[1px] w-12 bg-[#001A3D]/20" />
-              </div>
-
-              <div className="relative min-h-[220px] md:min-h-[260px]">
-                {slides.map((slide, index) => (
-                  <div
-                    key={`text-${slide.key}`}
-                    className={cn(
-                      "absolute inset-0 transition-all duration-700 ease-in-out",
-                      index === activeIndex
-                        ? "opacity-100 translate-x-0"
-                        : "opacity-0 -translate-x-8 pointer-events-none",
-                    )}
-                  >
-                    <span className="text-xs font-bold uppercase tracking-[0.3em] mb-6 block">
-                      {slide.region}
-                    </span>
-                    <h3 className="text-4xl md:text-5xl font-bold tracking-tighter text-[#001A3D] mb-6 leading-[1.1]">
-                      {slide.title}
-                    </h3>
-                    <p className="text-lg text-slate-500 line-clamp-2 max-w-md leading-relaxed font-medium">
-                      {slide.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
+              <Image
+                src={slide.image}
+                alt={slide.title}
+                fill
+                priority={index === 0}
+                className="object-cover"
+              />
             </div>
+          ))}
 
-            {/* Bottom Link - Fixed at the bottom to align with right index */}
-            <div
-              className={cn(
-                "mt-12 flex min-h-[40px] items-end lg:mt-0 transition-all duration-1000 delay-500",
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-4",
-              )}
-            >
-              {slides.map((slide, index) => (
-                <Link
-                  key={`link-${slide.key}`}
-                  href={slide.href}
-                  className={cn(
-                    "group inline-flex items-center gap-4 py-2 text-[#001A3D] text-sm font-bold uppercase tracking-widest transition-all duration-500",
-                    index === activeIndex
-                      ? "opacity-100 translate-x-0"
-                      : "opacity-0 -translate-x-4 pointer-events-none absolute",
-                  )}
-                >
-                  <span className="relative">
-                    View Project Details
-                    <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-[#001A3D] origin-right scale-x-0 transition-transform duration-500 group-hover:origin-left group-hover:scale-x-100" />
-                  </span>
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
-                </Link>
-              ))}
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,17,29,0.92)_0%,rgba(2,17,29,0.7)_42%,rgba(2,17,29,0.22)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08)_0%,rgba(0,0,0,0.45)_100%)]" />
+        </div>
+
+        <div className="relative z-10 mx-auto flex h-full w-full max-w-[1400px] flex-col justify-between px-6 py-10 lg:px-12 lg:py-14 xl:px-24">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.48fr)_minmax(0,0.52fr)]">
+            <div className="max-w-[30rem]">
+              <div className="flex items-center gap-4">
+                <span className="text-[10px] font-bold uppercase tracking-[0.38em] text-white/70">
+                  Featured Projects
+                </span>
+                <span className="h-px w-12 bg-white/20" />
+              </div>
+
+              <div className="mt-10 flex gap-5 lg:mt-14">
+                <div className="relative h-32 w-px bg-white/15 lg:h-40">
+                  <span
+                    className="absolute inset-x-0 top-0 origin-top bg-white transition-transform duration-500"
+                    style={{
+                      height: "100%",
+                      transform: `scaleY(${Math.max(
+                        activeIndex / (slides.length - 1 || 1),
+                        0.08,
+                      )})`,
+                    }}
+                  />
+                </div>
+
+                <div className="space-y-4">
+                  {slides.map((slide, index) => (
+                    <div key={slide.key} className="flex items-start gap-4">
+                      <span
+                        className={cn(
+                          "mt-0.5 text-[11px] font-bold tracking-[0.3em] transition-colors duration-300",
+                          index === activeIndex
+                            ? "text-white"
+                            : "text-white/30",
+                        )}
+                      >
+                        0{index + 1}
+                      </span>
+                      <span
+                        className={cn(
+                          "text-sm uppercase tracking-[0.18em] transition-all duration-300 lg:text-base",
+                          index === activeIndex
+                            ? "text-white/86"
+                            : "text-white/34",
+                        )}
+                      >
+                        {slide.region}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Right: Image & Index Area */}
-          <div className="lg:col-span-7 order-1 lg:order-2">
-            <div className="flex flex-col gap-8">
-              {/* Shorter Image Area */}
-              <div
-                className={cn(
-                  "relative aspect-[16/10] w-full max-w-[760px] overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.1)] lg:ml-auto",
-                  isVisible
-                    ? "translate-x-0 opacity-100"
-                    : "translate-x-24 opacity-0",
-                )}
-              >
-                {slides.map((slide, index) => (
-                  <div
-                    key={`img-${slide.key}`}
-                    className={cn(
-                      "absolute inset-0 transition-all duration-1000 ease-in-out",
-                      index === activeIndex
-                        ? "opacity-100 scale-100"
-                        : "opacity-0 scale-105 pointer-events-none",
-                    )}
-                  >
-                    <Image
-                      src={slide.image}
-                      alt={slide.title}
-                      fill
-                      className="object-cover"
-                      priority={index === 0}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#001A3D]/10 to-transparent" />
-                  </div>
-                ))}
-
-                {/* Entrance Mask */}
+          <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,0.28fr)] lg:gap-16">
+            <div className="relative min-h-[240px] lg:min-h-[320px]">
+              {slides.map((slide, index) => (
                 <div
+                  key={`content-${slide.key}`}
                   className={cn(
-                    "absolute inset-0 bg-white z-10 transition-transform duration-1000 delay-500 ease-[cubic-bezier(0.19,1,0.22,1)]",
-                    isVisible ? "translate-x-full" : "translate-x-0",
+                    "absolute inset-x-0 bottom-0 max-w-[54rem] transition-all duration-700 ease-out",
+                    index === activeIndex
+                      ? "translate-y-0 opacity-100"
+                      : "pointer-events-none translate-y-8 opacity-0",
                   )}
-                />
-              </div>
-
-              {/* Numeric Navigation (Now under the photo, left-aligned) */}
-            <div
-              className={cn(
-                "flex min-h-[40px] items-end gap-6 transition-all duration-1000 delay-700",
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-4",
-                )}
-              >
-                {slides.map((_, index) => (
-                  <button
-                    key={`nav-${index}`}
-                    onClick={() => setActiveIndex(index)}
-                    className="group relative py-2"
+                >
+                  <p className="text-xs font-bold uppercase tracking-[0.34em] text-white/66">
+                    {slide.region}
+                  </p>
+                  <h3 className="mt-4 text-4xl font-light leading-[1.05] tracking-tight text-white md:text-5xl lg:text-[4.5rem]">
+                    {slide.title}
+                  </h3>
+                  <p className="mt-6 max-w-[38rem] text-base leading-relaxed text-white/76 lg:text-lg">
+                    {slide.description}
+                  </p>
+                  <Link
+                    href={slide.href}
+                    className="group mt-10 inline-flex items-center gap-3 border-b border-white/20 pb-2 text-sm font-bold uppercase tracking-[0.24em] text-white transition-colors hover:border-white"
                   >
-                    <span
-                      className={cn(
-                        "text-sm font-bold tracking-widest transition-colors duration-300",
-                        index === activeIndex
-                          ? "text-[#001A3D]"
-                          : "text-slate-300 group-hover:text-slate-500",
-                      )}
-                    >
-                      0{index + 1}
-                    </span>
-                    {index === activeIndex && (
-                      <div className="absolute -bottom-1 left-0 w-full h-[2px] bg-[#001A3D] animate-in fade-in zoom-in-95 duration-500" />
-                    )}
-                  </button>
-                ))}
-              </div>
+                    <span>View Project</span>
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Link>
+                </div>
+              ))}
             </div>
           </div>
         </div>

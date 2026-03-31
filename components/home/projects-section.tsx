@@ -61,8 +61,8 @@ export function ProjectsSection() {
         {/* Projects List: Wide Layout (HHI Style) */}
         <div className="space-y-32 lg:space-y-48">
           {projects.map((project, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className={cn(
                 "group flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-24",
                 index % 2 === 1 && "lg:flex-row-reverse"
