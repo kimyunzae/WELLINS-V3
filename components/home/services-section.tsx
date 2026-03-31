@@ -133,7 +133,7 @@ export function ServicesSection() {
                 <Link
                   href={service.href}
                   className={cn(
-                    "group relative z-10 block h-[272px] transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] lg:h-[288px]",
+                    "group relative z-10 block h-[232px] transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] lg:h-[248px]",
                     isVisible
                       ? "opacity-100 translate-x-0 translate-y-0"
                       : cn("opacity-0", config.translate),

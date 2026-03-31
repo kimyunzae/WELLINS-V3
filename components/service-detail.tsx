@@ -33,32 +33,47 @@ export function ServiceDetail({
       <Navigation />
       <PageHeader eyebrow="Services" title={title} description={description} />
 
-      {/* Overview */}
-      <section className="bg-background py-20 lg:py-28">
+      {/* Overview Section */}
+      <section className="bg-background py-24 lg:py-32">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-          <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] lg:gap-16">
-            <div className="relative aspect-[5/4] w-full max-w-[540px] overflow-hidden lg:mx-auto">
-              <Image
-                src={image || "/placeholder.svg"}
-                alt={title}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div>
-              <h2 className="text-3xl font-light tracking-tight text-foreground lg:text-4xl">
-                Service <span className="font-semibold">Overview</span>
+          <div className="grid gap-16 lg:grid-cols-2 lg:items-start lg:gap-24">
+            <div className="relative order-2 lg:order-1">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="h-px w-12 bg-primary/30" />
+                <span className="text-sm font-bold uppercase tracking-widest text-primary/60">
+                  Service Overview
+                </span>
+              </div>
+              <h2 className="text-4xl font-light tracking-tight text-foreground lg:text-5xl">
+                Precision <span className="font-semibold text-primary">Engineering</span>
               </h2>
-              <p className="mt-6 text-base leading-relaxed text-muted-foreground lg:text-lg">
+              <p className="mt-8 text-lg leading-relaxed text-muted-foreground lg:text-xl">
                 {overview}
               </p>
-              <Link
-                href="/contact"
-                className="mt-8 inline-flex items-center bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-wider text-primary-foreground transition-colors hover:bg-primary/90"
-              >
-                Request Quote
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
+              <div className="mt-12">
+                <Link
+                  href="/contact"
+                  className="group/quote relative inline-flex items-center overflow-hidden border border-primary/20 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-primary transition-all duration-300 hover:border-primary focus-visible:outline-none"
+                >
+                  <span className="absolute inset-0 origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover/quote:scale-x-100" />
+                  <span className="relative z-10 inline-flex items-center transition-colors duration-300 group-hover/quote:text-white">
+                    Request a Quote
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </span>
+                </Link>
+              </div>
+            </div>
+            <div className="relative order-1 lg:order-2">
+              <div className="relative aspect-[16/9] overflow-hidden shadow-2xl">
+                <Image
+                  src={image || "/placeholder.svg"}
+                  alt={title}
+                  fill
+                  className="object-cover transition-transform duration-700 hover:scale-105"
+                  priority
+                />
+              </div>
+              <div className="absolute -bottom-6 -right-6 -z-10 h-full w-full border border-primary/10 hidden lg:block" />
             </div>
           </div>
         </div>
@@ -69,17 +84,23 @@ export function ServiceDetail({
         applications={applications}
       />
 
-      {/* Benefits */}
-      <section className="bg-primary py-20 text-primary-foreground lg:py-28">
+      {/* Benefits Section */}
+      <section className="bg-[#001A3D] py-24 text-white lg:py-32">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-          <h2 className="text-3xl font-light tracking-tight lg:text-4xl">
-            Why Choose <span className="font-semibold">Wellins</span>
-          </h2>
-          <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
+          <div className="flex flex-col items-center mb-16 text-center">
+            <span className="text-sm font-bold uppercase tracking-[0.3em] text-white/40 mb-4">
+              Our Value Proposition
+            </span>
+            <h2 className="text-3xl font-light tracking-tight lg:text-5xl">
+              Why Choose <span className="font-semibold text-white">Wellins</span>
+            </h2>
+          </div>
+          <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
             {benefits.map((benefit, index) => (
-              <div key={index}>
-                <h3 className="text-lg font-semibold">{benefit.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-primary-foreground/70">
+              <div key={index} className="group relative">
+                <div className="mb-6 h-px w-12 bg-white/20 transition-all duration-300 group-hover:w-full group-hover:bg-white/40" />
+                <h3 className="text-xl font-semibold tracking-tight">{benefit.title}</h3>
+                <p className="mt-4 text-base leading-relaxed text-white/60">
                   {benefit.description}
                 </p>
               </div>
@@ -88,25 +109,30 @@ export function ServiceDetail({
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-background py-20 lg:py-28">
+      {/* Final CTA */}
+      <section className="bg-background py-24 lg:py-40">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-          <div className="flex flex-col items-center text-center">
-            <h2 className="text-3xl font-light tracking-tight text-foreground lg:text-4xl">
-              Ready to discuss your{" "}
-              <span className="font-semibold">project?</span>
-            </h2>
-            <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-              Contact our team to learn how we can support your industrial
-              engineering needs.
-            </p>
-            <Link
-              href="/contact"
-              className="mt-8 inline-flex items-center bg-primary px-8 py-4 text-sm font-semibold uppercase tracking-wider text-primary-foreground transition-colors hover:bg-primary/90"
-            >
-              Contact Us
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
+          <div className="relative overflow-hidden bg-muted px-6 py-20 text-center lg:px-16 lg:py-28">
+            <div className="relative z-10 flex flex-col items-center">
+              <h2 className="text-3xl font-light tracking-tight text-foreground lg:text-5xl">
+                Ready to discuss your <span className="font-semibold">project?</span>
+              </h2>
+              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground lg:text-xl">
+                Our engineering team is ready to provide tailored solutions for your industrial needs.
+              </p>
+              <Link
+                href="/contact"
+                className="group/quote relative mt-12 inline-flex items-center overflow-hidden border border-primary px-10 py-5 text-sm font-semibold uppercase tracking-[0.14em] text-primary transition-all duration-300 hover:-translate-y-px"
+              >
+                <span className="absolute inset-0 origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover/quote:scale-x-100" />
+                <span className="relative z-10 inline-flex items-center transition-colors duration-300 group-hover/quote:text-white">
+                  Contact Us Now
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </span>
+              </Link>
+            </div>
+            <div className="absolute top-0 right-0 -mr-20 -mt-20 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
+            <div className="absolute bottom-0 left-0 -ml-20 -mb-20 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
           </div>
         </div>
       </section>

@@ -171,7 +171,7 @@ export function ProjectsShowcaseSlider() {
               {/* Shorter Image Area */}
               <div
                 className={cn(
-                  "relative aspect-[16/9] w-full overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.1)]",
+                  "relative aspect-[16/10] w-full max-w-[760px] overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.1)] lg:ml-auto",
                   isVisible
                     ? "translate-x-0 opacity-100"
                     : "translate-x-24 opacity-0",

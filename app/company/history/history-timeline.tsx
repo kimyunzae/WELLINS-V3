@@ -12,9 +12,9 @@ interface HistoryTimelineProps {
   items: HistoryTimelineItem[];
 }
 
-const STEP_DELAY_SECONDS = 0.72;
-const LINE_DRAW_DELAY_SECONDS = 0.22;
-const LINE_DRAW_DURATION_SECONDS = 0.38;
+const STEP_DELAY_SECONDS = 0.48;
+const LINE_DRAW_DELAY_SECONDS = 0.14;
+const LINE_DRAW_DURATION_SECONDS = 0.28;
 
 export function HistoryTimeline({ items }: HistoryTimelineProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -89,19 +89,19 @@ export function HistoryTimeline({ items }: HistoryTimelineProps) {
             <div className="min-w-0 pb-6 lg:pb-8">
               <p
                 className="history-item-reveal text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground lg:text-sm"
-                style={{ animationDelay: `${baseDelay + 0.04}s` }}
+                style={{ animationDelay: `${baseDelay + 0.03}s` }}
               >
                 {item.year}
               </p>
               <h3
                 className="history-item-reveal mt-3 text-xl font-semibold text-foreground lg:text-2xl"
-                style={{ animationDelay: `${baseDelay + 0.1}s` }}
+                style={{ animationDelay: `${baseDelay + 0.07}s` }}
               >
                 {item.title}
               </h3>
               <p
                 className="history-item-reveal mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground lg:text-lg"
-                style={{ animationDelay: `${baseDelay + 0.16}s` }}
+                style={{ animationDelay: `${baseDelay + 0.11}s` }}
               >
                 {item.description}
               </p>

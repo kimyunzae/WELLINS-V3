@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/page-header";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Separator } from "./ui/separator";
 
 interface Project {
   name: string;
@@ -33,11 +34,7 @@ export function ProjectDetail({
   return (
     <main>
       <Navigation />
-      <PageHeader
-        eyebrow="Projects"
-        title={`Projects in ${state}`}
-        description={description}
-      />
+      <PageHeader eyebrow="Projects" title={`Projects in ${state}`} />
 
       <section className="bg-muted py-12 lg:py-16">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
@@ -58,37 +55,45 @@ export function ProjectDetail({
 
       <section className="bg-background py-20 lg:py-28">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-          <div className="grid gap-12 lg:gap-16">
+          <div className="grid lg:grid-cols-2 lg:gap-x-3 xl:gap-x-4">
+            <div className="mx-auto w-full max-w-[36rem] px-3 sm:px-4 lg:px-4 xl:px-5">
+              <h2 className="mt-5 max-w-[18ch] text-3xl font-light tracking-tight text-foreground lg:text-4xl">
+                <Separator className="max-w-18 my-5 bg-[#0c4464] py-0.25" />
+                Regional <span className="font-semibold">Overview</span>
+              </h2>
+              <p className="mt-6 w-full max-w-none text-base leading-relaxed text-muted-foreground lg:text-lg">
+                {description}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-14 grid gap-y-12 lg:grid-cols-2 lg:gap-x-3 lg:gap-y-14 xl:gap-x-4">
             {projects.map((project, index) => (
-              <div
-                key={index}
-                className={`grid items-center gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] lg:gap-14 ${
-                  index % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
-                }`}
-              >
-                <div className="relative aspect-[5/4] w-full max-w-[540px] overflow-hidden lg:mx-auto">
-                  <Image
-                    src={project.image || "/placeholder.svg"}
-                    alt={project.name}
-                    fill
-                    className="object-cover"
-                  />
+              <article key={index} className="group">
+                <div className="mx-auto w-full max-w-[36rem] px-3 sm:px-4 lg:px-4 xl:px-5">
+                  <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">
+                    {project.year} / {project.location}
+                  </p>
                 </div>
-                <div>
-                  <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
-                    {project.type} / {project.year}
-                  </p>
-                  <h2 className="mt-2 text-2xl font-semibold text-foreground lg:text-3xl">
+                <div className="mx-auto mt-3 w-full max-w-[36rem] px-3 sm:px-4 lg:px-4 xl:px-5">
+                  <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+                    <Image
+                      src={project.image || "/placeholder.svg"}
+                      alt={project.name}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                </div>
+                <div className="mx-auto mt-5 w-full max-w-[36rem] px-3 sm:px-4 lg:px-4 xl:px-5">
+                  <h3 className="text-2xl font-semibold text-foreground lg:text-3xl">
                     {project.name}
-                  </h2>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    {project.location}
-                  </p>
-                  <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+                  </h3>
+                  <p className="mt-5 text-base leading-relaxed text-muted-foreground">
                     {project.description}
                   </p>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
@@ -106,10 +111,13 @@ export function ProjectDetail({
             </p>
             <Link
               href="/contact"
-              className="mt-8 inline-flex items-center bg-primary-foreground px-8 py-4 text-sm font-semibold uppercase tracking-wider text-primary transition-colors hover:bg-primary-foreground/90"
+              className="group/quote relative mt-8 inline-flex items-center overflow-hidden border border-primary-foreground/40 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-primary-foreground transition-all duration-200 hover:-translate-y-px hover:border-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground/30"
             >
-              Contact Us
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <span className="absolute inset-0 origin-left scale-x-0 bg-primary-foreground transition-transform duration-200 group-hover/quote:scale-x-100 group-focus-visible/quote:scale-x-100" />
+              <span className="relative z-10 inline-flex items-center transition-colors duration-200 group-hover/quote:text-primary group-focus-visible/quote:text-primary">
+                Contact Us
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </span>
             </Link>
           </div>
         </div>
