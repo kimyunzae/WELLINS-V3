@@ -1,10 +1,11 @@
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
-import { ServiceCapabilitiesSection } from "@/components/service-capabilities-section";
-import { ArrowRight } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { ArrowRight, Check } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface ServiceDetailProps {
   title: string;
@@ -13,10 +14,6 @@ interface ServiceDetailProps {
   overview: string;
   capabilities: string[];
   applications: string[];
-  benefits: {
-    title: string;
-    description: string;
-  }[];
 }
 
 export function ServiceDetail({
@@ -26,113 +23,111 @@ export function ServiceDetail({
   overview,
   capabilities,
   applications,
-  benefits,
 }: ServiceDetailProps) {
   return (
-    <main>
+    <main className="bg-white">
       <Navigation />
       <PageHeader eyebrow="Services" title={title} description={description} />
 
-      {/* Overview Section */}
-      <section className="bg-background py-24 lg:py-32">
-        <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-          <div className="grid gap-16 lg:grid-cols-2 lg:items-start lg:gap-24">
-            <div className="relative order-2 lg:order-1">
-              <div className="flex items-center gap-4 mb-8">
-                <div className="h-px w-12 bg-primary/30" />
-                <span className="text-sm font-bold uppercase tracking-widest text-primary/60">
-                  Service Overview
-                </span>
-              </div>
-              <h2 className="text-4xl font-light tracking-tight text-foreground lg:text-5xl">
-                Precision <span className="font-semibold text-primary">Engineering</span>
-              </h2>
-              <p className="mt-8 text-lg leading-relaxed text-muted-foreground lg:text-xl">
-                {overview}
-              </p>
-              <div className="mt-12">
-                <Link
-                  href="/contact"
-                  className="group/quote relative inline-flex items-center overflow-hidden border border-primary/20 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-primary transition-all duration-300 hover:border-primary focus-visible:outline-none"
-                >
-                  <span className="absolute inset-0 origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover/quote:scale-x-100" />
-                  <span className="relative z-10 inline-flex items-center transition-colors duration-300 group-hover/quote:text-white">
-                    Request a Quote
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </span>
-                </Link>
-              </div>
+      {/* Main Content Container with reduced width for better density */}
+      <section className="mx-auto max-w-5xl px-6 py-16 lg:px-8 lg:py-24">
+        
+        {/* 1. Overview Section */}
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+          <div className="header-reveal">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-px w-8 bg-primary/20" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                Service Overview
+              </span>
             </div>
-            <div className="relative order-1 lg:order-2">
-              <div className="relative aspect-[16/9] overflow-hidden shadow-2xl">
-                <Image
-                  src={image || "/placeholder.svg"}
-                  alt={title}
-                  fill
-                  className="object-cover transition-transform duration-700 hover:scale-105"
-                  priority
-                />
-              </div>
-              <div className="absolute -bottom-6 -right-6 -z-10 h-full w-full border border-primary/10 hidden lg:block" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <ServiceCapabilitiesSection
-        capabilities={capabilities}
-        applications={applications}
-      />
-
-      {/* Benefits Section */}
-      <section className="bg-[#001A3D] py-24 text-white lg:py-32">
-        <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-          <div className="flex flex-col items-center mb-16 text-center">
-            <span className="text-sm font-bold uppercase tracking-[0.3em] text-white/40 mb-4">
-              Our Value Proposition
-            </span>
-            <h2 className="text-3xl font-light tracking-tight lg:text-5xl">
-              Why Choose <span className="font-semibold text-white">Wellins</span>
+            <h2 className="text-2xl font-semibold tracking-tight text-foreground lg:text-3xl">
+              Precision <span className="font-light">Engineering Solutions</span>
             </h2>
+            <p className="mt-8 text-base leading-relaxed text-muted-foreground lg:text-lg">
+              {overview}
+            </p>
           </div>
-          <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="group relative">
-                <div className="mb-6 h-px w-12 bg-white/20 transition-all duration-300 group-hover:w-full group-hover:bg-white/40" />
-                <h3 className="text-xl font-semibold tracking-tight">{benefit.title}</h3>
-                <p className="mt-4 text-base leading-relaxed text-white/60">
-                  {benefit.description}
-                </p>
-              </div>
-            ))}
+          <div className="header-reveal reveal-delay-1 flex justify-center lg:justify-end">
+            <div className="relative aspect-[16/9] w-full overflow-hidden shadow-sm border border-primary/5 lg:max-w-none">
+              <Image
+                src={image || "/placeholder.svg"}
+                alt={title}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
           </div>
         </div>
-      </section>
 
-      {/* Final CTA */}
-      <section className="bg-background py-24 lg:py-40">
-        <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-          <div className="relative overflow-hidden bg-muted px-6 py-20 text-center lg:px-16 lg:py-28">
-            <div className="relative z-10 flex flex-col items-center">
-              <h2 className="text-3xl font-light tracking-tight text-foreground lg:text-5xl">
-                Ready to discuss your <span className="font-semibold">project?</span>
-              </h2>
-              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground lg:text-xl">
-                Our engineering team is ready to provide tailored solutions for your industrial needs.
-              </p>
-              <Link
-                href="/contact"
-                className="group/quote relative mt-12 inline-flex items-center overflow-hidden border border-primary px-10 py-5 text-sm font-semibold uppercase tracking-[0.14em] text-primary transition-all duration-300 hover:-translate-y-px"
-              >
-                <span className="absolute inset-0 origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover/quote:scale-x-100" />
-                <span className="relative z-10 inline-flex items-center transition-colors duration-300 group-hover/quote:text-white">
-                  Contact Us Now
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </span>
-              </Link>
+        <Separator className="my-16 bg-primary/5" />
+
+        {/* 2. Capabilities & Applications Grid */}
+        <div className="grid gap-16 sm:grid-cols-2 lg:gap-20">
+          {/* Capabilities */}
+          <div className="lg:max-w-sm">
+            <h3 className="header-reveal reveal-delay-1 text-[11px] font-bold uppercase tracking-[0.2em] text-primary mb-8">
+              Core Capabilities
+            </h3>
+            <div className="space-y-5">
+              {capabilities.map((item, index) => (
+                <div 
+                  key={index} 
+                  className="header-reveal flex items-start gap-4"
+                  style={{ animationDelay: `${0.4 + index * 0.08}s` }}
+                >
+                  <Check className="h-4 w-4 shrink-0 text-[#0066CC] mt-1" />
+                  <span className="text-base text-muted-foreground leading-relaxed">
+                    {item}
+                  </span>
+                </div>
+              ))}
             </div>
-            <div className="absolute top-0 right-0 -mr-20 -mt-20 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
-            <div className="absolute bottom-0 left-0 -ml-20 -mb-20 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
+          </div>
+
+          {/* Applications - Pushed to the far right edge of the container */}
+          <div className="flex justify-end">
+            <div className="w-full lg:w-[320px]">
+              <h3 className="header-reveal reveal-delay-2 text-[11px] font-bold uppercase tracking-[0.2em] text-primary mb-8">
+                Industry Applications
+              </h3>
+              <div className="space-y-5">
+                {applications.map((item, index) => (
+                  <div 
+                    key={index} 
+                    className="header-reveal flex items-start gap-4"
+                    style={{ animationDelay: `${0.6 + index * 0.08}s` }}
+                  >
+                    <Check className="h-4 w-4 shrink-0 text-[#0066CC] mt-1" />
+                    <span className="text-base text-muted-foreground leading-relaxed">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <Separator className="my-16 bg-primary/5" />
+
+        {/* 3. Inquiry Section */}
+        <div className="text-center py-8">
+          <h2 className="header-reveal reveal-delay-1 text-xl font-light tracking-tight text-foreground lg:text-2xl">
+            Ready to discuss your <span className="font-semibold text-primary">project?</span>
+          </h2>
+          <div className="header-reveal reveal-delay-2 mt-10">
+            <Link
+              href="/contact"
+              className="group/quote relative inline-flex items-center overflow-hidden border border-primary/20 px-10 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-primary transition-all duration-300 hover:border-primary focus-visible:outline-none"
+            >
+              <span className="absolute inset-0 origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover/quote:scale-x-100" />
+              <span className="relative z-10 inline-flex items-center transition-colors duration-300 group-hover/quote:text-white">
+                Inquiry Now
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </span>
+            </Link>
           </div>
         </div>
       </section>
