@@ -74,9 +74,9 @@ export function HistoryTimeline({ items }: HistoryTimelineProps) {
               </div>
 
               {index < items.length - 1 && (
-                <div className="relative mt-4 w-px flex-1 overflow-hidden bg-border/85">
+                <div className="mt-4 flex flex-1 justify-center overflow-hidden">
                   <span
-                    className="history-line-grow absolute inset-x-0 top-0 h-full w-full bg-foreground"
+                    className="history-line-grow block h-full w-px bg-black/85"
                     style={{
                       animationDelay: `${baseDelay + LINE_DRAW_DELAY_SECONDS}s`,
                       animationDuration: `${LINE_DRAW_DURATION_SECONDS}s`,

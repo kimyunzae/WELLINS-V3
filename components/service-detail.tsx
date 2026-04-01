@@ -124,7 +124,7 @@ export function ServiceDetail({
             >
               <span className="absolute inset-0 origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover/quote:scale-x-100" />
               <span className="relative z-10 inline-flex items-center transition-colors duration-300 group-hover/quote:text-white">
-                Inquiry Now
+                Contact Us
                 <ArrowRight className="ml-2 h-4 w-4" />
               </span>
             </Link>

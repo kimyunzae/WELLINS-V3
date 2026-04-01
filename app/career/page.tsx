@@ -76,8 +76,7 @@ export default function CareerPage() {
     <main>
       <Navigation />
       <CareerAnimationObserver />
-
-      <section className="bg-white pb-24 pt-32 lg:pb-32 lg:pt-40">
+      <section className="bg-white pb-24  lg:pb-32">
         <div className="mx-auto max-w-[1180px] px-6 lg:px-8">
           <div className="space-y-16 lg:space-y-20">
             <section className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-[#081724] py-14 text-white lg:min-h-[42rem] lg:py-24">
@@ -90,13 +89,13 @@ export default function CareerPage() {
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,23,36,0.84)_0%,rgba(8,23,36,0.7)_42%,rgba(8,23,36,0.62)_100%)]" />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(143,216,255,0.14),transparent_22%),radial-gradient(circle_at_82%_78%,rgba(33,166,255,0.06),transparent_28%)]" />
               <div
-                className="career-divider-sweep absolute inset-x-0 top-[112px] hidden h-px bg-white/10 lg:block"
+                className="career-divider-sweep absolute inset-x-0 top-[112px] hidden h-px bg-white/10 lg:block mt-10"
                 style={{ animationDelay: "0.08s" }}
               />
 
-              <div className="relative mx-auto max-w-[1280px] px-6 lg:px-8">
+              <div className="relative mx-auto max-w-[1280px] px-6 lg:px-8 ">
                 <div className="flex gap-14 lg:min-h-[32rem] lg:flex-col lg:justify-between">
-                  <div className="max-w-[26rem]">
+                  <div className="max-w-[26rem] pt-20">
                     <h1 className="mt-3 text-[1.95rem] font-light tracking-tight text-white lg:text-[2.55rem] lg:leading-[1.04]">
                       How We Work
                     </h1>
