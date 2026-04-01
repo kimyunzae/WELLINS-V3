@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
-import Image from "next/image";
 import { CareerApplicationForm } from "@/components/career/application-form";
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
+import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Apply | Wellins Inc.",
@@ -26,9 +26,7 @@ export default function CareerApplyPage() {
           <div className="absolute inset-0 bg-[#101828]/45" />
           <div className="absolute inset-x-0 bottom-10">
             <div className="mx-auto max-w-[1180px] px-6 lg:px-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/80">
-                Career
-              </p>
+
               <h1 className="mt-3 text-3xl font-light tracking-tight text-white lg:text-5xl">
                 Join Wellins
               </h1>

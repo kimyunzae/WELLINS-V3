@@ -120,7 +120,7 @@ export function CareerApplicationForm() {
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const uploadedFiles = ["resume", "coverLetter"]
+    const uploadedFiles = ["resume"]
       .map((fieldName) => formData.get(fieldName))
       .filter((file): file is File => file instanceof File && file.size > 0);
     const totalAttachmentBytes = uploadedFiles.reduce(
@@ -181,7 +181,7 @@ export function CareerApplicationForm() {
     >
       <div className="text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#2B6FD6]">
-          Fill out the job application below and attach your resume.
+          Fill out the job application below, upload your resume, and add a cover letter if you'd like.
         </p>
       </div>
 
@@ -411,14 +411,14 @@ export function CareerApplicationForm() {
             htmlFor="coverLetter"
             className="text-xs font-semibold uppercase tracking-[0.18em] text-[#2B6FD6]"
           >
-            Upload Your Cover Letter
+            Cover Letter (Optional)
           </label>
-          <input
+          <textarea
             id="coverLetter"
             name="coverLetter"
-            type="file"
-            accept=".pdf,.doc,.docx"
-            className={`${inputClassName} cursor-pointer file:mr-4 file:border-0 file:bg-[#1C2746] file:px-4 file:py-2 file:text-sm file:font-medium file:text-white`}
+            rows={6}
+            placeholder="Write your cover letter here."
+            className={`${inputClassName} resize-y`}
           />
         </div>
         <div>
@@ -464,7 +464,7 @@ export function CareerApplicationForm() {
           {isSubmitting ? "Sending..." : "Submit"}
         </button>
         <p className="text-sm text-[#6B7280]">
-          Accepted files: PDF, DOC, DOCX. Total attachments up to{" "}
+          Accepted resume files: PDF, DOC, DOCX. Total upload size up to{" "}
           {MAX_TOTAL_ATTACHMENT_LABEL}.
         </p>
       </div>
