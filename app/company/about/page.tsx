@@ -1,6 +1,5 @@
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
-import { PageHeader } from "@/components/page-header";
 import Image from "next/image";
 
 export const metadata = {
@@ -36,45 +35,70 @@ export default function AboutPage() {
   return (
     <main>
       <Navigation />
-      <PageHeader
-        eyebrow="Company"
-        title="Building Industrial Excellence Since 2016"
-        description="Wellins Inc. has grown from a regional contractor to a nationally recognized leader in industrial engineering services."
-      />
+      <section className="relative overflow-hidden pt-36 pb-16 text-primary-foreground lg:pt-44 lg:pb-10">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/headquarters.jpg"
+            alt="Wellins headquarters background"
+            fill
+            className="object-cover scale-105"
+            sizes="100vw"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#001A3D]/90 via-[#001A3D]/74 to-[#001A3D]/28" />
+          <div className="absolute inset-0 bg-black/20" />
+        </div>
 
-      {/* Stats */}
-      <section className="bg-primary pt-0 pb-16 text-primary-foreground lg:pb-10 -mt-10 lg:-mt-12">
-        <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-          <div className="border-t border-primary-foreground/10">
-            <div className="flex items-center py-8 lg:py-10">
-              <div className="grid w-full grid-cols-2 gap-8 lg:grid-cols-4 lg:gap-12 ">
-                <div>
-                  <p className="text-5xl font-light lg:text-6xl">2016</p>
-                  <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">
-                    Founded
-                  </p>
-                </div>
-                <div>
-                  <p className="text-5xl font-light lg:text-6xl">12</p>
-                  <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">
-                    States Licensed
-                  </p>
-                </div>
-                <div>
-                  <p className="text-5xl font-light lg:text-6xl">4.3</p>
-                  <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">
-                    Acres
-                    <span className="mt-1 block text-xs uppercase tracking-wider text-primary-foreground/60">
-                      Buford Facility
-                    </span>
-                  </p>
-                </div>
-                <div>
-                  <p className="text-5xl font-light lg:text-6xl">150+</p>
-                  <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/60">
-                    Major Installations
-                  </p>
-                </div>
+        <div className="absolute right-0 bottom-0 top-0 hidden w-24 border-l border-white/10 lg:block">
+          <div className="flex h-full items-center justify-center">
+            <span className="rotate-90 whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.5em] text-white/20">
+              WELLINS ENGINEERING CO., LTD.
+            </span>
+          </div>
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-[1400px] px-6 lg:px-8">
+          <div className="max-w-4xl">
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-primary-foreground/70">
+              Company
+            </p>
+            <h1 className="mt-4 text-4xl font-light tracking-tight text-balance lg:text-5xl xl:text-6xl">
+              Building Industrial Excellence Since 2016
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-primary-foreground/75 lg:text-xl">
+              Wellins Inc. has grown from a regional contractor to a nationally
+              recognized leader in industrial engineering services.
+            </p>
+          </div>
+
+          <div className="mt-16 border-t border-primary-foreground/12 pt-8 lg:mt-20 lg:pt-10">
+            <div className="grid w-full grid-cols-2 gap-8 lg:grid-cols-4 lg:gap-12">
+              <div>
+                <p className="text-5xl font-light lg:text-6xl">2016</p>
+                <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/68">
+                  Founded
+                </p>
+              </div>
+              <div>
+                <p className="text-5xl font-light lg:text-6xl">12</p>
+                <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/68">
+                  States Licensed
+                </p>
+              </div>
+              <div>
+                <p className="text-5xl font-light lg:text-6xl">4.3</p>
+                <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/68">
+                  Acres
+                  <span className="mt-1 block text-xs uppercase tracking-wider text-primary-foreground/68">
+                    Buford Facility
+                  </span>
+                </p>
+              </div>
+              <div>
+                <p className="text-5xl font-light lg:text-6xl">150+</p>
+                <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/68">
+                  Major Installations
+                </p>
               </div>
             </div>
           </div>

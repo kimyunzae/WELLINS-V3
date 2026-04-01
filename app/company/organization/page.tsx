@@ -1,3 +1,7 @@
+import {
+  OrganizationChart,
+  type OrganizationDivision,
+} from "@/app/company/organization/organization-chart";
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
@@ -8,7 +12,7 @@ export const metadata = {
     "Learn about the organizational structure of Wellins Inc. and our leadership team.",
 };
 
-const divisions = [
+const divisions: OrganizationDivision[] = [
   {
     name: "Management Support Division",
     description: "Company operations and administrative support",
@@ -74,52 +78,7 @@ export default function OrganizationPage() {
 
       <section className="bg-background py-20 lg:py-28">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-          {/* Leadership */}
-          <div className="mb-8 flex flex-col items-center text-center">
-            <div className="border border-primary bg-primary px-10 py-4 text-primary-foreground">
-              <p className="text-sm font-medium tracking-[0.3em]">CEO</p>
-            </div>
-            <div className="mt-4 h-8 w-px bg-border" />
-          </div>
-
-          {/* Divisions Grid */}
-          <div className="grid gap-8 md:grid-cols-2">
-            {divisions.map((division, index) => (
-              <div key={index} className="border border-border bg-card p-8">
-                <h3 className="text-lg font-semibold text-foreground">
-                  {division.name}
-                </h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {division.description}
-                </p>
-                <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                  {division.groups.map((group, groupIndex) => (
-                    <div
-                      key={groupIndex}
-                      className="rounded-md border border-border/70 bg-muted/30 p-4"
-                    >
-                      <p className="text-sm font-semibold text-foreground">
-                        {group.name}
-                      </p>
-                      {group.items.length > 0 && (
-                        <ul className="mt-3 space-y-1 text-sm text-muted-foreground">
-                          {group.items.map((item, itemIndex) => (
-                            <li
-                              key={itemIndex}
-                              className="flex items-start gap-2"
-                            >
-                              <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-accent" />
-                              {item}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
+          <OrganizationChart divisions={divisions} />
         </div>
       </section>
 

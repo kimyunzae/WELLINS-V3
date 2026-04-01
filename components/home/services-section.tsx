@@ -1,134 +1,225 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { type CSSProperties, useEffect, useRef, useState } from "react"
-import { ArrowRight, Wrench, Wind, Flame, Box, Gauge, Shield } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 const services = [
   {
-    icon: Wrench,
     title: "Equipment Installation",
-    description: "Heavy equipment installation executed with strict safety and shutdown control.",
+    description:
+      "Heavy equipment installation executed with strict safety and shutdown control.",
     href: "/services/equipment-installation",
+    image: "/images/service-equipment.jpg",
   },
   {
-    icon: Gauge,
     title: "Industrial Piping",
-    description: "Process and utility piping delivered from layout to turnover.",
+    description:
+      "Process and utility piping delivered from layout to turnover.",
     href: "/services/industrial-piping",
+    image: "/images/service-piping.jpg",
   },
   {
-    icon: Wind,
     title: "HVAC System",
-    description: "Industrial HVAC systems built for stable operation and efficiency.",
+    description:
+      "Industrial HVAC systems built for stable operation and efficiency.",
     href: "/services/hvac-system",
+    image: "/images/service-hvac.jpg",
   },
   {
-    icon: Box,
     title: "Insulation & Jacketing",
-    description: "Thermal insulation and protective jacketing for critical assets.",
+    description:
+      "Thermal insulation and protective jacketing for critical assets.",
     href: "/services/insulation-jacketing",
+    image: "/images/service-insulation.jpg",
   },
   {
-    icon: Flame,
     title: "High-Pressure Vessels",
-    description: "High-pressure vessel delivery aligned with ASME requirements.",
+    description:
+      "High-pressure vessel delivery aligned with ASME requirements.",
     href: "/services/high-pressure-vessels",
+    image: "/images/service-vessels.jpg",
   },
   {
-    icon: Shield,
     title: "Fire Protection",
-    description: "Integrated suppression systems tailored to facility risk conditions.",
+    description:
+      "Integrated suppression systems tailored to facility risk conditions.",
     href: "/services/fire-protection",
+    image: "/images/service-fire.jpg",
   },
-]
+];
 
 export function ServicesSection() {
-  const sectionRef = useRef<HTMLElement | null>(null)
-  const [hasEnteredView, setHasEnteredView] = useState(false)
+  const [isVisible, setIsVisible] = useState(false);
+  const [takeoverProgress, setTakeoverProgress] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const section = sectionRef.current
+    let frame = 0;
 
-    if (!section) {
-      return
-    }
+    const updateTakeover = () => {
+      const section = sectionRef.current;
+      if (!section) return;
 
-    if (typeof IntersectionObserver === "undefined") {
-      setHasEnteredView(true)
-      return
-    }
+      const viewportHeight = window.innerHeight || 1;
+      const rect = section.getBoundingClientRect();
+      const start = viewportHeight * 0.92;
+      const end = viewportHeight * 0.14;
+      const nextProgress = Math.min(
+        Math.max((start - rect.top) / Math.max(start - end, 1), 0),
+        1,
+      );
 
+      setTakeoverProgress(nextProgress);
+    };
+
+    const handleScroll = () => {
+      if (frame) return;
+
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        updateTakeover();
+      });
+    };
+
+    updateTakeover();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setHasEnteredView(true)
-          observer.disconnect()
+          setIsVisible(true);
+          observer.disconnect();
         }
       },
-      {
-        threshold: 0.1,
-        rootMargin: "0px 0px -8% 0px",
-      }
-    )
+      { threshold: 0.3 },
+    );
 
-    observer.observe(section)
-
-    return () => {
-      observer.disconnect()
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
     }
-  }, [])
+
+    return () => observer.disconnect();
+  }, []);
+
+  const animConfig = [
+    { delay: "0ms", translate: "-translate-x-full" }, // 01: L->R
+    { delay: "400ms", translate: "-translate-y-full" }, // 02: T->B
+    { delay: "800ms", translate: "translate-x-full" }, // 03: R->L
+    { delay: "800ms", translate: "-translate-x-full" }, // 04: L->R
+    { delay: "400ms", translate: "translate-y-full" }, // 05: B->T
+    { delay: "0ms", translate: "translate-x-full" }, // 06: R->L
+  ];
+
+  const translateY = (1 - takeoverProgress) * 96;
+  const scale = 0.965 + takeoverProgress * 0.035;
+  const radius = (1 - takeoverProgress) * 34;
 
   return (
-    <section ref={sectionRef} className="border-y border-border/70 bg-muted/45 py-20 lg:py-28">
-      <div className="mx-auto max-w-[1180px] px-6 lg:px-8">
-        <div className="max-w-[1040px]">
-          <p className="text-2xl font-semibold tracking-tight text-primary lg:text-[28px]">
-            Services
-          </p>
-          <h2 className="mt-6 text-4xl font-semibold leading-tight tracking-tight text-foreground lg:text-[56px] lg:leading-[1.24]">
-            Comprehensive Industrial Services
-          </h2>
-          <p className="mt-8 max-w-4xl text-lg leading-relaxed text-muted-foreground lg:text-[22px] lg:leading-[1.5]">
-            From initial design to final installation, we provide end-to-end industrial engineering
-            solutions that meet the highest standards of quality and safety.
-          </p>
+    <section
+      ref={sectionRef}
+      className="relative z-20 -mt-[16vh] overflow-hidden pb-20 pt-[16vh] lg:-mt-[18vh] lg:pb-24 lg:pt-[18vh]"
+    >
+      <div
+        className="relative overflow-hidden bg-[#0c4464]"
+        style={{
+          transform: `translateY(${translateY}px) scale(${scale})`,
+          transformOrigin: "center top",
+          borderTopLeftRadius: `${radius}px`,
+          borderTopRightRadius: `${radius}px`,
+          boxShadow: `0 -24px 70px rgba(4, 15, 28, ${0.18 + takeoverProgress * 0.08})`,
+        }}
+      >
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/hero-industrial.jpg"
+            alt="Background"
+            fill
+            className="object-cover opacity-[0.25] grayscale"
+          />
         </div>
 
-        <div className="mt-20 grid gap-x-8 gap-y-16 md:grid-cols-2 xl:grid-cols-3">
-          {services.map((service, index) => (
-            <article
-              key={index}
-              className={cn(
-                "group flex min-h-[320px] flex-col transition-all duration-700 ease-out lg:min-h-[340px]",
-                hasEnteredView ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-              )}
-              style={{ transitionDelay: `${index < 3 ? index * 110 : 360 + (index - 3) * 110}ms` } as CSSProperties}
-            >
-              <div className="flex h-14 w-14 items-center justify-center">
-                <service.icon
-                  className="h-12 w-12 text-foreground/85 transition-transform duration-300 group-hover:scale-105"
-                  strokeWidth={1.6}
-                />
+        <div className="relative z-10 mx-auto max-w-[1280px] px-6 py-20 lg:px-10 lg:py-24 xl:px-16">
+          <div
+            className={cn(
+              "mb-14 flex items-center justify-between gap-6 transition-all duration-700",
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
+            )}
+          >
+            <div className="max-w-3xl">
+              <div className="mb-4 flex items-center gap-3">
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-sky-100/90">
+                  Our Services
+                </span>
+                <span className="h-[1px] w-8 bg-white/30" />
               </div>
-              <h3 className="mt-6 min-h-[3.3rem] text-2xl font-semibold leading-[1.3] tracking-tight text-foreground lg:min-h-[3.9rem] lg:text-[30px]">
-                {service.title}
-              </h3>
-              <p className="mt-3 flex-1 text-lg leading-relaxed text-muted-foreground lg:text-[21px] lg:leading-[1.55]">
-                {service.description}
-              </p>
-              <Link
-                href={service.href}
-                className="mt-7 inline-flex items-center text-sm font-semibold uppercase tracking-[0.14em] text-foreground/70 transition-colors hover:text-foreground"
-              >
-                View Service
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </article>
-          ))}
+              <h2 className="text-3xl font-bold tracking-tighter text-white lg:text-4xl uppercase">
+                Industrial Solutions
+              </h2>
+            </div>
+            <Link
+              href="/services"
+              className="hidden md:flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/78 transition-all hover:text-sky-100"
+            >
+              View All <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {services.map((service, index) => {
+              const config = animConfig[index];
+              return (
+                <div key={index} className="relative overflow-hidden">
+                  <Link
+                    href={service.href}
+                    className={cn(
+                      "group relative z-10 block h-[232px] transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] lg:h-[248px]",
+                      isVisible
+                        ? "opacity-100 translate-x-0 translate-y-0"
+                        : cn("opacity-0", config.translate),
+                    )}
+                    style={{ transitionDelay: isVisible ? config.delay : "0ms" }}
+                  >
+                    <div className="absolute inset-0 z-0 transition-transform duration-1000 group-hover:scale-105">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-sky-900/20 transition-colors duration-500 group-hover:bg-sky-900/40" />
+                    </div>
+
+                    <div className="relative z-10 flex h-full flex-col justify-end p-8 lg:p-9">
+                      <h3 className="mb-3 text-xl font-bold text-white group-hover:translate-x-1 transition-transform duration-500 uppercase tracking-tight">
+                        {service.title}
+                      </h3>
+                      <p className="mb-6 line-clamp-2 translate-y-2 text-xs leading-relaxed text-white/84 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                        {service.description}
+                      </p>
+                      <div className="flex items-center text-[10px] font-bold uppercase tracking-[0.2em] text-white/92 transition-all group-hover:text-sky-100">
+                        Learn More
+                        <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

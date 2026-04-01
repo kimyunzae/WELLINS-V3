@@ -10,7 +10,7 @@ export default function BufordProjectsPage() {
   return (
     <ProjectDetail
       state="Buford"
-      description="New manufacturing facility planned for Buford, GA"
+      description="Buford anchors our manufacturing and regional fabrication footprint."
       stats={[
         { label: "Projects Completed", value: "75+" },
         { label: "Years Active", value: "29" },

@@ -159,7 +159,7 @@ export default function ProjectsPage() {
               <Link
                 key={index}
                 href={region.href}
-                className="group border border-border transition-colors hover:border-accent"
+                className="group w-full border border-border transition-colors hover:border-accent md:mx-auto md:max-w-[560px]"
               >
                 <div className="relative aspect-[16/9] overflow-hidden">
                   <Image
