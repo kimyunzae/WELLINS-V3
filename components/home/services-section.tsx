@@ -129,7 +129,7 @@ export function ServicesSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative z-20 -mt-[16vh] overflow-hidden pb-20 pt-[16vh] lg:-mt-[18vh] lg:pb-24 lg:pt-[18vh]"
+      className="relative z-20 -mt-[16vh] overflow-hidden pt-[16vh] lg:-mt-[18vh] lg:pt-[18vh]"
     >
       <div
         className="relative overflow-hidden bg-[#0c4464]"
