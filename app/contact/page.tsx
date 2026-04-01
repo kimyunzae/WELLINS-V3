@@ -6,7 +6,16 @@ import { PageHeader } from "@/components/page-header";
 import { ArrowRight, Clock, Mail, MapPin, Phone } from "lucide-react";
 import Script from "next/script";
 
-import { useState } from "react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 const PRIMARY_CONTACT_PHONE_DISPLAY = "+1 (770)-557-0019";
 const PRIMARY_CONTACT_PHONE_LINK = "+17705570019";
@@ -74,6 +83,11 @@ const RECAPTCHA_SITE_KEY =
 type GrecaptchaApi = {
   getResponse: () => string;
   reset: () => void;
+  render: (
+    container: HTMLElement,
+    parameters: { sitekey: string },
+  ) => number;
+  ready: (callback: () => void) => void;
 };
 
 type SubmissionHistoryEntry = {
@@ -100,6 +114,22 @@ function getGrecaptcha(): GrecaptchaApi | null {
       }
     ).grecaptcha ?? null
   );
+}
+
+function safeCaptchaGetResponse(): string {
+  try {
+    return getGrecaptcha()?.getResponse().trim() ?? "";
+  } catch {
+    return "";
+  }
+}
+
+function safeCaptchaReset(): void {
+  try {
+    getGrecaptcha()?.reset();
+  } catch {
+    // 위젯이 DOM에 없는 경우 무시
+  }
 }
 
 // 이메일 주소를 정규화하여
@@ -339,10 +369,48 @@ function recordSuccessfulSubmission(service: string): void {
 }
 
 export default function ContactPage() {
+  const formRef = useRef<HTMLFormElement>(null);
+  const captchaRef = useRef<HTMLDivElement>(null);
+  const captchaWidgetId = useRef<number | null>(null);
   const [formData, setFormData] = useState(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isConfirmingSubmit, setIsConfirmingSubmit] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
   const [isSubmitError, setIsSubmitError] = useState(false);
+
+  const renderCaptcha = useCallback(() => {
+    const grecaptcha = getGrecaptcha();
+    if (!grecaptcha || !captchaRef.current || !RECAPTCHA_SITE_KEY) return;
+    grecaptcha.ready(() => {
+      if (!captchaRef.current) return;
+      // 기존 내용을 비우고 새 div를 만들어서 렌더링 (Google 내부 추적 우회)
+      captchaRef.current.innerHTML = "";
+      const freshDiv = document.createElement("div");
+      captchaRef.current.appendChild(freshDiv);
+      captchaWidgetId.current = grecaptcha.render(freshDiv, {
+        sitekey: RECAPTCHA_SITE_KEY,
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!RECAPTCHA_SITE_KEY) return;
+
+    // grecaptcha가 이미 로드되어 있으면 ready 콜백으로 렌더링
+    if (getGrecaptcha()) {
+      renderCaptcha();
+      return;
+    }
+
+    // 아직 로드되지 않았으면 onload 콜백을 등록하여 로드 완료 시 렌더링
+    (window as Window & { onRecaptchaLoad?: () => void }).onRecaptchaLoad =
+      renderCaptcha;
+
+    return () => {
+      (window as Window & { onRecaptchaLoad?: () => void }).onRecaptchaLoad =
+        undefined;
+    };
+  }, [renderCaptcha]);
 
   // 폼 제출 핸들러: 허니팟, reCAPTCHA, 제출 빈도 제한을 포함한 다단계 검증 및 EmailJS API 호출
   const handleSubmit = async (
@@ -379,8 +447,7 @@ export default function ContactPage() {
       return;
     }
 
-    const grecaptcha = getGrecaptcha();
-    const captchaToken = grecaptcha?.getResponse().trim() ?? "";
+    const captchaToken = safeCaptchaGetResponse();
 
     // reCAPTCHA 응답이 없는 경우 사용자에게 알리고 제출 중단
     if (!captchaToken) {
@@ -395,16 +462,33 @@ export default function ContactPage() {
     );
 
     if (totalCount >= MAX_SUCCESSFUL_SUBMISSIONS) {
-      grecaptcha?.reset();
+      safeCaptchaReset();
       setIsSubmitError(true);
       setSubmitMessage(TOO_MANY_REQUESTS_MESSAGE);
       return;
     }
 
     if (serviceCount >= MAX_SUCCESSFUL_SUBMISSIONS_PER_SERVICE) {
-      grecaptcha?.reset();
+      safeCaptchaReset();
       setIsSubmitError(true);
       setSubmitMessage(DUPLICATE_SERVICE_SUBMISSION_MESSAGE);
+      return;
+    }
+
+    setIsConfirmingSubmit(true);
+  };
+
+  const handleConfirmSubmit = async () => {
+    if (isSubmitting || !formRef.current) {
+      return;
+    }
+
+    const captchaToken = safeCaptchaGetResponse();
+
+    if (!captchaToken) {
+      setIsConfirmingSubmit(false);
+      setIsSubmitError(true);
+      setSubmitMessage("Please confirm you are not a robot.");
       return;
     }
 
@@ -428,7 +512,6 @@ export default function ContactPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        // EmailJS API에 필요한 형식으로 페이로드 구성
         body: JSON.stringify({
           service_id: EMAILJS_SERVICE_ID,
           template_id: EMAILJS_TEMPLATE_ID,
@@ -451,13 +534,15 @@ export default function ContactPage() {
       }
 
       setFormData(initialFormData);
-      form.reset();
-      grecaptcha?.reset();
+      formRef.current.reset();
+      safeCaptchaReset();
       recordSuccessfulSubmission(payload.service);
+      setIsConfirmingSubmit(false);
       setSubmitMessage("Your request has been sent. We will contact you soon.");
     } catch {
-      grecaptcha?.reset();
+      safeCaptchaReset();
       setIsSubmitError(true);
+      setIsConfirmingSubmit(false);
       setSubmitMessage(SUBMIT_FAILURE_MESSAGE);
     } finally {
       setIsSubmitting(false);
@@ -468,7 +553,7 @@ export default function ContactPage() {
     <>
       {RECAPTCHA_SITE_KEY ? (
         <Script
-          src="https://www.google.com/recaptcha/api.js"
+          src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit"
           strategy="afterInteractive"
         />
       ) : null}
@@ -492,7 +577,7 @@ export default function ContactPage() {
                   touch within 24 hours.
                 </p>
 
-                <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+                <form ref={formRef} onSubmit={handleSubmit} className="mt-8 space-y-6">
                   <div className="grid gap-6 md:grid-cols-2">
                     <div>
                       <label
@@ -633,8 +718,8 @@ export default function ContactPage() {
                   />
                   {RECAPTCHA_SITE_KEY ? (
                     <div
-                      className="g-recaptcha overflow-x-auto"
-                      data-sitekey={RECAPTCHA_SITE_KEY}
+                      ref={captchaRef}
+                      className="overflow-x-auto"
                     />
                   ) : (
                     <p className="text-sm text-destructive">
@@ -658,6 +743,66 @@ export default function ContactPage() {
                     </p>
                   ) : null}
                 </form>
+
+                <Dialog open={isConfirmingSubmit} onOpenChange={(open) => !isSubmitting && setIsConfirmingSubmit(open)}>
+                  <DialogContent className="p-4 border-none bg-transparent shadow-none max-w-[34rem] flex items-center justify-center">
+                    <Card className="border-border bg-background shadow-2xl rounded-2xl overflow-hidden w-full p-0 gap-0 py-0">
+                      <div className="max-h-[90vh] overflow-y-auto pr-0.5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-track]:bg-transparent">
+                        <CardHeader className="gap-2 border-b border-border bg-muted/30 py-6">
+                          <DialogHeader>
+                            <DialogTitle className="text-xl font-bold text-foreground">
+                              Confirm Your Request
+                            </DialogTitle>
+                            <DialogDescription className="text-sm text-muted-foreground">
+                              Please review the project details before sending.
+                            </DialogDescription>
+                          </DialogHeader>
+                        </CardHeader>
+                        <CardContent className="py-6 space-y-6">
+                          <div className="grid grid-cols-2 gap-x-4 gap-y-4 text-sm">
+                            <div className="space-y-1">
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Name</span>
+                              <p className="font-medium text-foreground">{formData.name}</p>
+                            </div>
+                            <div className="space-y-1">
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Company</span>
+                              <p className="font-medium text-foreground">{formData.company}</p>
+                            </div>
+                            <div className="col-span-2 space-y-1">
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Service</span>
+                              <p className="font-medium text-foreground">{formData.service}</p>
+                            </div>
+                            <div className="col-span-2 space-y-1">
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Email</span>
+                              <p className="font-medium text-foreground">{formData.email}</p>
+                            </div>
+                          </div>
+                          
+                          <div className="rounded-lg bg-accent/5 p-4 text-xs leading-relaxed text-muted-foreground border border-border/50">
+                            <p>One of our team members will review your requirements and get back to you within 24 hours.</p>
+                          </div>
+                        </CardContent>
+                        <CardFooter className="flex flex-col-reverse gap-3 border-t border-border bg-muted/30 py-4 px-6 sm:flex-row sm:justify-end">
+                          <button
+                            type="button"
+                            onClick={() => setIsConfirmingSubmit(false)}
+                            className="inline-flex w-full justify-center border border-border bg-background px-6 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-foreground transition-all hover:bg-muted rounded-md sm:w-auto"
+                          >
+                            Edit Details
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleConfirmSubmit}
+                            disabled={isSubmitting}
+                            className="inline-flex w-full justify-center bg-primary px-8 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-md active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 rounded-md sm:w-auto"
+                          >
+                            {isSubmitting ? "Sending..." : "Confirm & Send"}
+                          </button>
+                        </CardFooter>
+                      </div>
+                    </Card>
+                  </DialogContent>
+                </Dialog>
               </div>
 
               <div>
