@@ -69,7 +69,7 @@ export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
           <div className="absolute right-0 bottom-0 top-0 hidden w-24 border-l border-white/10 lg:block">
             <div className="flex h-full items-center justify-center">
               <span className="rotate-90 whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.5em] text-white/20">
-                WELLINS ENGINEERING CO., LTD.
+                WELLINS INC
               </span>
             </div>
           </div>
