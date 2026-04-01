@@ -30,7 +30,7 @@ export function CTASection() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden border-t border-slate-100 bg-white py-24 lg:py-32"
+      className="relative overflow-hidden bg-white py-24 lg:py-32"
     >
       <div className="relative z-10 mx-auto max-w-[1400px] px-6 lg:px-12 xl:px-24">
         <div className="mx-auto max-w-[760px] text-center">

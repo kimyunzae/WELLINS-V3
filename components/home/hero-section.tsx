@@ -11,7 +11,7 @@ const slides = [
   {
     id: 1,
     title: 'Future on the <br /><span className="font-bold text-white">Industrial Sea</span>',
-    subtitle: 'Leading the global industrial engineering with precision and innovation since 1984.',
+    subtitle: 'Leading the global industrial engineering with precision and innovation since 2016.',
     image: '/images/hero-industrial.jpg',
     link: '/projects',
     linkLabel: 'View Projects',
@@ -228,7 +228,7 @@ export function HeroSection() {
       <div className="absolute right-0 bottom-0 top-0 hidden w-24 border-l border-white/10 lg:block">
         <div className="flex h-full items-center justify-center">
           <span className="rotate-90 whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.5em] text-white/20">
-            WELLINS ENGINEERING CO., LTD.
+            WELLINS INC.
           </span>
         </div>
       </div>
