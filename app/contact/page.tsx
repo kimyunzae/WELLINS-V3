@@ -15,7 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 const PRIMARY_CONTACT_PHONE_DISPLAY = "+1 (770)-557-0019";
 const PRIMARY_CONTACT_PHONE_LINK = "+17705570019";
@@ -83,6 +83,11 @@ const RECAPTCHA_SITE_KEY =
 type GrecaptchaApi = {
   getResponse: () => string;
   reset: () => void;
+  render: (
+    container: HTMLElement,
+    parameters: { sitekey: string },
+  ) => number;
+  ready: (callback: () => void) => void;
 };
 
 type SubmissionHistoryEntry = {
@@ -109,6 +114,22 @@ function getGrecaptcha(): GrecaptchaApi | null {
       }
     ).grecaptcha ?? null
   );
+}
+
+function safeCaptchaGetResponse(): string {
+  try {
+    return getGrecaptcha()?.getResponse().trim() ?? "";
+  } catch {
+    return "";
+  }
+}
+
+function safeCaptchaReset(): void {
+  try {
+    getGrecaptcha()?.reset();
+  } catch {
+    // 위젯이 DOM에 없는 경우 무시
+  }
 }
 
 // 이메일 주소를 정규화하여
@@ -349,11 +370,47 @@ function recordSuccessfulSubmission(service: string): void {
 
 export default function ContactPage() {
   const formRef = useRef<HTMLFormElement>(null);
+  const captchaRef = useRef<HTMLDivElement>(null);
+  const captchaWidgetId = useRef<number | null>(null);
   const [formData, setFormData] = useState(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isConfirmingSubmit, setIsConfirmingSubmit] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
   const [isSubmitError, setIsSubmitError] = useState(false);
+
+  const renderCaptcha = useCallback(() => {
+    const grecaptcha = getGrecaptcha();
+    if (!grecaptcha || !captchaRef.current || !RECAPTCHA_SITE_KEY) return;
+    grecaptcha.ready(() => {
+      if (!captchaRef.current) return;
+      // 기존 내용을 비우고 새 div를 만들어서 렌더링 (Google 내부 추적 우회)
+      captchaRef.current.innerHTML = "";
+      const freshDiv = document.createElement("div");
+      captchaRef.current.appendChild(freshDiv);
+      captchaWidgetId.current = grecaptcha.render(freshDiv, {
+        sitekey: RECAPTCHA_SITE_KEY,
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!RECAPTCHA_SITE_KEY) return;
+
+    // grecaptcha가 이미 로드되어 있으면 ready 콜백으로 렌더링
+    if (getGrecaptcha()) {
+      renderCaptcha();
+      return;
+    }
+
+    // 아직 로드되지 않았으면 onload 콜백을 등록하여 로드 완료 시 렌더링
+    (window as Window & { onRecaptchaLoad?: () => void }).onRecaptchaLoad =
+      renderCaptcha;
+
+    return () => {
+      (window as Window & { onRecaptchaLoad?: () => void }).onRecaptchaLoad =
+        undefined;
+    };
+  }, [renderCaptcha]);
 
   // 폼 제출 핸들러: 허니팟, reCAPTCHA, 제출 빈도 제한을 포함한 다단계 검증 및 EmailJS API 호출
   const handleSubmit = async (
@@ -390,8 +447,7 @@ export default function ContactPage() {
       return;
     }
 
-    const grecaptcha = getGrecaptcha();
-    const captchaToken = grecaptcha?.getResponse().trim() ?? "";
+    const captchaToken = safeCaptchaGetResponse();
 
     // reCAPTCHA 응답이 없는 경우 사용자에게 알리고 제출 중단
     if (!captchaToken) {
@@ -406,14 +462,14 @@ export default function ContactPage() {
     );
 
     if (totalCount >= MAX_SUCCESSFUL_SUBMISSIONS) {
-      grecaptcha?.reset();
+      safeCaptchaReset();
       setIsSubmitError(true);
       setSubmitMessage(TOO_MANY_REQUESTS_MESSAGE);
       return;
     }
 
     if (serviceCount >= MAX_SUCCESSFUL_SUBMISSIONS_PER_SERVICE) {
-      grecaptcha?.reset();
+      safeCaptchaReset();
       setIsSubmitError(true);
       setSubmitMessage(DUPLICATE_SERVICE_SUBMISSION_MESSAGE);
       return;
@@ -427,8 +483,7 @@ export default function ContactPage() {
       return;
     }
 
-    const grecaptcha = getGrecaptcha();
-    const captchaToken = grecaptcha?.getResponse().trim() ?? "";
+    const captchaToken = safeCaptchaGetResponse();
 
     if (!captchaToken) {
       setIsConfirmingSubmit(false);
@@ -480,12 +535,12 @@ export default function ContactPage() {
 
       setFormData(initialFormData);
       formRef.current.reset();
-      grecaptcha?.reset();
+      safeCaptchaReset();
       recordSuccessfulSubmission(payload.service);
       setIsConfirmingSubmit(false);
       setSubmitMessage("Your request has been sent. We will contact you soon.");
     } catch {
-      grecaptcha?.reset();
+      safeCaptchaReset();
       setIsSubmitError(true);
       setIsConfirmingSubmit(false);
       setSubmitMessage(SUBMIT_FAILURE_MESSAGE);
@@ -498,7 +553,7 @@ export default function ContactPage() {
     <>
       {RECAPTCHA_SITE_KEY ? (
         <Script
-          src="https://www.google.com/recaptcha/api.js"
+          src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit"
           strategy="afterInteractive"
         />
       ) : null}
@@ -663,8 +718,8 @@ export default function ContactPage() {
                   />
                   {RECAPTCHA_SITE_KEY ? (
                     <div
-                      className="g-recaptcha overflow-x-auto"
-                      data-sitekey={RECAPTCHA_SITE_KEY}
+                      ref={captchaRef}
+                      className="overflow-x-auto"
                     />
                   ) : (
                     <p className="text-sm text-destructive">
