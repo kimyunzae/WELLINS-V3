@@ -39,6 +39,7 @@ const footerLinks = {
       { name: "Brochure", href: "/pr-center/brochure" },
       { name: "News", href: "/pr-center/news" },
       { name: "PR Video", href: "/pr-center/video" },
+      { name: "Career", href: "/career" },
       { name: "Contact", href: "/contact" },
     ],
   },

@@ -16,7 +16,7 @@ const stateData: Record<string, {
 }> = {
   indiana: {
     state: "Indiana",
-    description: "Strategic location for serving the Midwest's manufacturing heartland, with expertise in automotive and steel production facilities.",
+    description: "Indiana connects us to the Midwest's core manufacturing corridor.",
     stats: [
       { label: "Projects Completed", value: "35+" },
       { label: "Years Active", value: "15" },
@@ -44,7 +44,7 @@ const stateData: Record<string, {
   },
   michigan: {
     state: "Michigan",
-    description: "Supporting the automotive industry's evolution with installations for both traditional and electric vehicle manufacturing.",
+    description: "Michigan supports both legacy automotive and EV production projects.",
     stats: [
       { label: "Projects Completed", value: "40+" },
       { label: "Years Active", value: "12" },
@@ -72,7 +72,7 @@ const stateData: Record<string, {
   },
   ohio: {
     state: "Ohio",
-    description: "Serving Ohio's diverse industrial landscape from distribution to chemical processing and advanced manufacturing.",
+    description: "Ohio covers distribution, process facilities, and advanced manufacturing.",
     stats: [
       { label: "Projects Completed", value: "50+" },
       { label: "Years Active", value: "16" },
@@ -100,7 +100,7 @@ const stateData: Record<string, {
   },
   "south-carolina": {
     state: "South Carolina",
-    description: "Supporting the Southeast's growing manufacturing sector with industrial engineering services across multiple industries.",
+    description: "South Carolina supports fast-growing manufacturing and industrial programs.",
     stats: [
       { label: "Projects Completed", value: "30+" },
       { label: "Years Active", value: "10" },
@@ -128,7 +128,7 @@ const stateData: Record<string, {
   },
   tennessee: {
     state: "Tennessee",
-    description: "Central location for automotive manufacturing support and logistics facility construction across the state.",
+    description: "Tennessee supports automotive and logistics work across the state.",
     stats: [
       { label: "Projects Completed", value: "42+" },
       { label: "Years Active", value: "14" },
@@ -156,7 +156,7 @@ const stateData: Record<string, {
   },
   texas: {
     state: "Texas",
-    description: "Our Houston office provides specialized services to the petrochemical and energy sectors along the Gulf Coast.",
+    description: "Texas serves petrochemical and energy projects along the Gulf Coast.",
     stats: [
       { label: "Projects Completed", value: "60+" },
       { label: "Years Active", value: "9" },

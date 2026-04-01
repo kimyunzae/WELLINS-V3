@@ -17,7 +17,8 @@ type Props = {
   navigation: {
     [key: string]: {
       label: string;
-      items: { name: string; href: string }[];
+      href?: string;
+      items?: { name: string; href: string }[];
     };
   };
   forceVisible?: boolean;
@@ -83,7 +84,25 @@ export default function NavigationMobile({
             </p>
           </div>
           <div className="px-6 py-4">
-            {Object.entries(navigation).map(([key, { label, items }]) => {
+            {Object.entries(navigation).map(([key, { label, href, items }]) => {
+              const menuItems = items ?? [];
+              const isDirectLink = Boolean(href) && menuItems.length === 0;
+
+              if (isDirectLink && href) {
+                return (
+                  <div key={key} className="border-b border-border/60">
+                    <SheetClose asChild>
+                      <Link
+                        href={href}
+                        className="block py-4 text-sm font-medium tracking-wider text-foreground"
+                      >
+                        {label}
+                      </Link>
+                    </SheetClose>
+                  </div>
+                );
+              }
+
               const isOpen = activeSection === key;
               const panelId = `nav-mobile-${key}`;
 
@@ -110,7 +129,7 @@ export default function NavigationMobile({
                       isOpen ? "mt-2 max-h-[400px]" : "max-h-0"
                     )}
                   >
-                    {items.map((item) => (
+                    {menuItems.map((item) => (
                       <SheetClose asChild key={item.name}>
                         <Link
                           href={item.href}

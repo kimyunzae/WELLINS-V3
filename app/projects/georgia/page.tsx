@@ -9,7 +9,7 @@ export default function GeorgiaProjectsPage() {
   return (
     <ProjectDetail
       state="Georgia"
-      description="Our Atlanta regional office serves Georgia's diverse industrial base, from food processing to logistics and advanced manufacturing."
+      description="Georgia supports food, logistics, and advanced manufacturing projects."
       stats={[
         { label: "Projects Completed", value: "45+" },
         { label: "Years Active", value: "18" },

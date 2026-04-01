@@ -72,11 +72,11 @@ export default function ServicesPage() {
             {services.map((service, index) => (
               <div
                 key={index}
-                className={`grid items-center gap-8 lg:grid-cols-2 lg:gap-16 ${
+                className={`grid items-center gap-8 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1fr)] lg:gap-14 ${
                   index % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
                 }`}
               >
-                <div className="relative aspect-[4/3] overflow-hidden">
+                <div className="relative aspect-[3/2] w-full max-w-[480px] overflow-hidden lg:mx-auto">
                   <Image
                     src={service.image || "/placeholder.svg"}
                     alt={service.title}

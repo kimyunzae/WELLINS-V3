@@ -13,246 +13,224 @@ type Slide = {
   description: string;
   image: string;
   href: string;
-  featured?: boolean;
 };
 
 const slides: Slide[] = [
   {
     key: "buford",
-    region: "Buford",
-    title: "Buford Manufacturing Hub Opening In 2026",
+    region: "Buford, GA",
+    title: "Buford Manufacturing Hub Expansion",
     description:
-      "Our new 4.3-acre manufacturing hub in Buford is designed to expand production capacity for high-pressure piping, vessels, and specialized fabrication across the Southeast.",
+      "A new 4.3-acre manufacturing facility designed to expand production capacity for high-pressure piping.",
     image: "/images/facility-expansion.jpg",
     href: "/projects/buford",
-    featured: true,
   },
   {
     key: "georgia",
-    region: "Georgia",
-    title: "Atlanta Regional Project Portfolio",
+    region: "Atlanta, GA",
+    title: "Regional Industrial Portfolio",
     description:
-      "Our Atlanta regional office supports Georgia's industrial base with food processing, distribution, and advanced manufacturing installations.",
+      "Supporting Georgia's industrial base with food processing and advanced manufacturing installations.",
     image: "/images/project-1.jpg",
     href: "/projects/georgia",
   },
   {
     key: "texas",
-    region: "Texas",
-    title: "Gulf Coast Industrial Delivery",
+    region: "Houston, TX",
+    title: "Gulf Coast Energy Projects",
     description:
-      "Our Houston office delivers specialized engineering services for petrochemical and energy facilities throughout the Gulf Coast region.",
+      "Specialized engineering services for petrochemical facilities throughout the Gulf Coast region.",
     image: "/images/project-2.jpg",
     href: "/projects/texas",
   },
   {
     key: "ohio",
     region: "Ohio",
-    title: "Midwest Distribution & Process Expertise",
+    title: "Midwest Distribution Expertise",
     description:
-      "Serving Ohio's industrial landscape with fire protection and piping solutions for large-scale distribution and advanced process facilities.",
+      "Serving Ohio's industrial landscape with fire protection and piping solutions for large-scale facilities.",
     image: "/images/project-3.jpg",
     href: "/projects/ohio",
   },
 ];
 
-const FADE_DURATION_MS = 180;
-
 export function ProjectsShowcaseSlider() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [hasEnteredView, setHasEnteredView] = useState(false);
-  const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
-    null,
-  );
-  const sectionRef = useRef<HTMLElement | null>(null);
-
-  const activeSlide = slides[activeIndex];
-
-  const transitionTo = (nextIndex: number) => {
-    if (nextIndex === activeIndex) {
-      return;
-    }
-
-    if (transitionTimeoutRef.current) {
-      clearTimeout(transitionTimeoutRef.current);
-      transitionTimeoutRef.current = null;
-    }
-
-    setIsTransitioning(true);
-
-    transitionTimeoutRef.current = setTimeout(() => {
-      setActiveIndex(nextIndex);
-      requestAnimationFrame(() => {
-        setIsTransitioning(false);
-      });
-      transitionTimeoutRef.current = null;
-    }, FADE_DURATION_MS);
-  };
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const totalScrollHeightVh = 100 + (slides.length - 1) * 28;
 
   useEffect(() => {
-    return () => {
-      if (transitionTimeoutRef.current) {
-        clearTimeout(transitionTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-
-    if (!section) {
-      return;
-    }
-
-    if (typeof IntersectionObserver === "undefined") {
-      setHasEnteredView(true);
-      return;
-    }
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setHasEnteredView(true);
+          setIsVisible(true);
           observer.disconnect();
         }
       },
-      {
-        threshold: 0.45,
-        rootMargin: "0px 0px -10% 0px",
-      },
+      { threshold: 0.15 },
     );
 
-    observer.observe(section);
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    let frame = 0;
+
+    const updateScrollState = () => {
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const viewportHeight = window.innerHeight || 1;
+      const maxScroll = Math.max(section.offsetHeight - viewportHeight, 1);
+      const rect = section.getBoundingClientRect();
+      const passed = Math.min(Math.max(-rect.top, 0), maxScroll);
+      const stepHeight = maxScroll / Math.max(slides.length - 1, 1);
+      const nextIndex = Math.min(
+        slides.length - 1,
+        Math.max(0, Math.floor(passed / Math.max(stepHeight, 1))),
+      );
+
+      setActiveIndex(nextIndex);
+    };
+
+    const handleScroll = () => {
+      if (frame) return;
+
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        updateScrollState();
+      });
+    };
+
+    updateScrollState();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
 
     return () => {
-      observer.disconnect();
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
     };
   }, []);
 
-  const slideControls = (
-    <div className="w-full max-w-full overflow-x-auto lg:overflow-visible">
-      <div className="flex w-max gap-2 lg:w-full lg:min-w-0 lg:flex-col lg:gap-2">
-        {slides.map((slide, index) => {
-          const isActive = index === activeIndex;
-
-          return (
-            <button
-              key={slide.key}
-              type="button"
-              onClick={() => transitionTo(index)}
-              onMouseEnter={() => transitionTo(index)}
-              onFocus={() => transitionTo(index)}
-              className={cn(
-                "flex shrink-0 flex-col border px-3 py-3 text-left transition-all duration-200 lg:w-full lg:px-4 lg:py-4",
-                isActive
-                  ? "border-foreground/15 bg-background text-foreground shadow-[0_18px_40px_-32px_rgba(0,0,0,0.45)]"
-                  : "border-border/80 bg-background/35 text-foreground/65 hover:border-foreground/15 hover:bg-background/70 hover:text-foreground",
-              )}
-              aria-label={`Show ${slide.region} project slide`}
-            >
-              <span className="text-sm font-semibold tracking-tight sm:text-[15px] lg:text-lg">
-                {slide.region}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-
   return (
-    <section ref={sectionRef} className="bg-muted py-20 lg:py-28">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-        <div className="mb-10 max-w-[1040px]">
-          <p className="text-2xl font-semibold tracking-tight text-primary lg:text-[28px]">
-            Projects
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start lg:gap-10">
-          <div
-            className={cn(
-              "min-w-0 transition-all duration-700 ease-out",
-              hasEnteredView
-                ? "translate-y-0 opacity-100"
-                : "translate-y-6 opacity-0",
-            )}
-          >
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
-              Project Regions
-            </p>
-            <div className="mt-5">{slideControls}</div>
-          </div>
-
-          <div
-            className={cn(
-              "min-w-0 overflow-hidden border border-black/10 bg-background shadow-[0_32px_80px_-52px_rgba(0,0,0,0.35)] transition-all duration-200 ease-out",
-              isTransitioning
-                ? "translate-y-1 opacity-0"
-                : "translate-y-0 opacity-100",
-            )}
-          >
-            <div className="relative aspect-[16/10] overflow-hidden bg-black/5 md:aspect-[16/8] lg:aspect-[16/7] xl:aspect-[16/6]">
+    <section
+      ref={sectionRef}
+      className="relative bg-[#031a2c]"
+      style={{ height: `${totalScrollHeightVh}vh` }}
+    >
+      <div className="sticky top-0 h-screen overflow-hidden">
+        <div className="absolute inset-0">
+          {slides.map((slide, index) => (
+            <div
+              key={slide.key}
+              className={cn(
+                "absolute inset-0 transition-all duration-700 ease-out",
+                index === activeIndex
+                  ? "opacity-100 scale-100"
+                  : "pointer-events-none opacity-0 scale-105",
+              )}
+            >
               <Image
-                key={activeSlide.key}
-                src={activeSlide.image}
-                alt={`${activeSlide.region} project`}
+                src={slide.image}
+                alt={slide.title}
                 fill
-                className={cn(
-                  "object-cover transition-all duration-200 ease-out",
-                  isTransitioning ? "opacity-0" : "opacity-100",
-                )}
-                priority={activeIndex === 0}
+                priority={index === 0}
+                className="object-cover"
               />
             </div>
+          ))}
 
-            <div
-              className={cn(
-                "grid min-h-[230px] gap-5 p-5 sm:min-h-[250px] sm:p-6 lg:min-h-[240px] lg:grid-cols-[minmax(0,1fr)_220px] lg:items-stretch xl:min-h-[280px]",
-                hasEnteredView
-                  ? "translate-x-0 opacity-100"
-                  : "translate-x-6 opacity-0",
-              )}
-            >
-              <div className="flex h-full flex-col">
-                <div className="min-h-[96px] sm:min-h-[112px]">
-                  <h3 className="max-w-2xl overflow-hidden pb-1 text-3xl font-semibold leading-tight tracking-tight text-foreground [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] lg:text-4xl xl:text-5xl">
-                    {activeSlide.title}
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,17,29,0.92)_0%,rgba(2,17,29,0.7)_42%,rgba(2,17,29,0.22)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08)_0%,rgba(0,0,0,0.45)_100%)]" />
+        </div>
+
+        <div className="relative z-10 mx-auto flex h-full w-full max-w-[1400px] flex-col justify-between px-6 py-10 lg:px-12 lg:py-14 xl:px-24">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.48fr)_minmax(0,0.52fr)]">
+            <div className="max-w-[30rem]">
+              <div className="flex items-center gap-4">
+                <span className="text-[10px] font-bold uppercase tracking-[0.38em] text-white/70">
+                  Featured Projects
+                </span>
+                <span className="h-px w-12 bg-white/20" />
+              </div>
+
+              <div className="mt-10 flex gap-5 lg:mt-14">
+                <div className="relative h-32 w-px bg-white/15 lg:h-40">
+                  <span
+                    className="absolute inset-x-0 top-0 origin-top bg-white transition-transform duration-500"
+                    style={{
+                      height: "100%",
+                      transform: `scaleY(${Math.max(
+                        activeIndex / (slides.length - 1 || 1),
+                        0.08,
+                      )})`,
+                    }}
+                  />
+                </div>
+
+                <div className="space-y-4">
+                  {slides.map((slide, index) => (
+                    <div key={slide.key} className="flex items-start gap-4">
+                      <span
+                        className={cn(
+                          "mt-0.5 text-[11px] font-bold tracking-[0.3em] transition-colors duration-300",
+                          index === activeIndex
+                            ? "text-white"
+                            : "text-white/30",
+                        )}
+                      >
+                        0{index + 1}
+                      </span>
+                      <span
+                        className={cn(
+                          "text-sm uppercase tracking-[0.18em] transition-all duration-300 lg:text-base",
+                          index === activeIndex
+                            ? "text-white/86"
+                            : "text-white/34",
+                        )}
+                      >
+                        {slide.region}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,0.28fr)] lg:gap-16">
+            <div className="relative min-h-[240px] lg:min-h-[320px]">
+              {slides.map((slide, index) => (
+                <div
+                  key={`content-${slide.key}`}
+                  className={cn(
+                    "absolute inset-x-0 bottom-0 max-w-[54rem] transition-all duration-700 ease-out",
+                    index === activeIndex
+                      ? "translate-y-0 opacity-100"
+                      : "pointer-events-none translate-y-8 opacity-0",
+                  )}
+                >
+                  <p className="text-xs font-bold uppercase tracking-[0.34em] text-white/66">
+                    {slide.region}
+                  </p>
+                  <h3 className="mt-4 text-4xl font-light leading-[1.05] tracking-tight text-white md:text-5xl lg:text-[4.5rem]">
+                    {slide.title}
                   </h3>
-                </div>
-                <div className="mt-5 h-[72px] overflow-hidden sm:h-[84px]">
-                  <p className="max-w-xl text-sm leading-relaxed text-muted-foreground [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] lg:text-base">
-                    {activeSlide.description}
+                  <p className="mt-6 max-w-[38rem] text-base leading-relaxed text-white/76 lg:text-lg">
+                    {slide.description}
                   </p>
-                </div>
-              </div>
-
-              <div className="flex h-full flex-col border-t border-border pt-5 lg:border-t-0 lg:border-l lg:pl-6 lg:pt-0">
-                <div className="flex-1">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-foreground/45">
-                    Current Focus
-                  </p>
-                  <p className="mt-3 text-lg font-semibold tracking-tight text-foreground">
-                    {activeSlide.region}
-                  </p>
-                </div>
-                <div className="flex flex-col items-start gap-4 pt-6">
                   <Link
-                    href={activeSlide.href}
-                    className="inline-flex items-center text-sm font-semibold uppercase tracking-wider text-foreground transition-colors hover:text-accent"
+                    href={slide.href}
+                    className="group mt-10 inline-flex items-center gap-3 border-b border-white/20 pb-2 text-sm font-bold uppercase tracking-[0.24em] text-white transition-colors hover:border-white"
                   >
-                    View Project
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                  <Link
-                    href="/projects"
-                    className="inline-flex items-center text-sm font-medium uppercase tracking-wider text-foreground/60 transition-colors hover:text-foreground"
-                  >
-                    All Projects
+                    <span>View Project</span>
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

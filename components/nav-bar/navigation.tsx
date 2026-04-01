@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { MouseEvent } from "react";
 import { cn } from "@/lib/utils";
+import { HOME_PAGE_REPLAY_EVENT } from "@/lib/home-hero-replay";
 import NavigationDesktop from "./navigation-desktop";
 import NavigationMobile from "./navigation-mobile";
 
@@ -116,6 +118,10 @@ const navigation = {
       { name: "Texas", href: "/projects/texas" },
     ],
   },
+  career: {
+    label: "CAREER",
+    href: "/career",
+  },
   prCenter: {
     label: "PR CENTER",
     items: [
@@ -133,6 +139,7 @@ const resolveActiveMenuKey = (
     { prefix: "/company", key: "company" },
     { prefix: "/services", key: "services" },
     { prefix: "/projects", key: "projects" },
+    { prefix: "/career", key: "career" },
     { prefix: "/pr-center", key: "prCenter" },
   ] as const;
 
@@ -253,6 +260,26 @@ export function Navigation() {
     };
   }, []);
 
+  const handleLogoClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (
+      pathname !== "/" ||
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: "auto" });
+    requestAnimationFrame(() => {
+      window.dispatchEvent(new Event(HOME_PAGE_REPLAY_EVENT));
+    });
+  };
+
   return (
     <header
       ref={headerRef}
@@ -269,7 +296,7 @@ export function Navigation() {
       >
         {/* Logo */}
         <div ref={logoRef} className="z-10 flex shrink-0 items-center">
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3" onClick={handleLogoClick}>
             <Image
               src="/images/logos/logo-wellins.png"
               alt="Wellins Inc."
