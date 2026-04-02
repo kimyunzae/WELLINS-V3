@@ -6,7 +6,6 @@ const footerLinks = {
     label: "Company",
     links: [
       { name: "About Us", href: "/company/about" },
-      { name: "CEO Greeting", href: "/company/ceo-greeting" },
       { name: "History", href: "/company/history" },
       { name: "Organization", href: "/company/organization" },
       { name: "Location", href: "/company/location" },

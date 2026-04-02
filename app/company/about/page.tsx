@@ -173,6 +173,70 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <section className="bg-background py-20 lg:py-28">
+        <div className="mx-auto max-w-[960px] px-6 lg:px-8">
+          <div className="border-t border-border pt-12 lg:pt-16">
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
+              Leadership Message
+            </p>
+            <h2 className="mt-4 text-3xl font-light tracking-tight text-foreground lg:text-4xl">
+              A Message From Our CEO
+            </h2>
+
+            <div className="mt-10 space-y-4 text-base leading-relaxed text-muted-foreground lg:text-lg">
+              <p className="text-foreground">Dear Valued Partners and Stakeholders,</p>
+
+              <p>
+                For nearly three decades, Wellins Inc. has been at the forefront
+                of industrial engineering, delivering precision-driven solutions
+                that power American manufacturing. What started as a small team
+                with big ambitions has grown into a nationally recognized leader
+                in industrial piping, HVAC systems, equipment installation, and
+                fire protection.
+              </p>
+
+              <p>
+                Our success is built on a simple foundation: we treat every
+                project as if it were our own facility. This means never
+                compromising on safety, always pursuing the highest standards of
+                quality, and continuously investing in our people and
+                capabilities.
+              </p>
+
+              <p>
+                As we look to the future, we see tremendous opportunity to
+                support the reindustrialization of America. From automotive
+                plants to food processing facilities, from petrochemical
+                complexes to distribution centers, we are ready to help our
+                partners build the infrastructure that drives economic growth.
+              </p>
+
+              <p>
+                I invite you to explore what Wellins Inc. can do for your next
+                project. Our team of expert engineers, project managers, and
+                skilled tradespeople are ready to bring your vision to life with
+                the precision and reliability that has defined our company for
+                over 25 years.
+              </p>
+
+              <p className="pt-2 font-medium text-foreground">
+                Thank you for considering Wellins Inc. as your industrial
+                engineering partner.
+              </p>
+            </div>
+
+            <div className="mt-10 border-l border-accent pl-6">
+              <p className="text-lg font-semibold text-foreground">
+                Jeongsu Park
+              </p>
+              <p className="mt-1 text-sm uppercase tracking-[0.18em] text-muted-foreground">
+                Chief Executive Officer, Wellins Inc.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </main>
   );
