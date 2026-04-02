@@ -32,17 +32,20 @@ type SubmissionConfirmDialogProps = {
   onConfirm: () => void; // 확인 버튼 클릭 시 실행될 콜백 함수
 };
 
+
 function hasDisplayValue(value: ReactNode | undefined) {
+  // null, undefined, false는 화면에 표시할 값이 없는 것으로 간주
   if (value === null || value === undefined || value === false) {
     return false;
   }
-
+  // 문자열인 경우, 공백만 있는 문자열은 표시할 값이 없는 것으로 간주
   if (typeof value === "string") {
     return value.trim().length > 0;
   }
 
   return true;
 }
+
 
 export function SubmissionConfirmDialog({
   open,

@@ -404,24 +404,12 @@ export default function ContactPage() {
     };
   }, [renderCaptcha]);
 
-  // 폼 제출 핸들러: 허니팟, reCAPTCHA, 제출 빈도 제한을 포함한 다단계 검증 및 EmailJS API 호출
+  // 폼 제출 핸들러: reCAPTCHA, 제출 빈도 제한을 포함한 다단계 검증 및 EmailJS API 호출
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>,
   ): Promise<void> => {
     event.preventDefault();
     if (isSubmitting) {
-      return;
-    }
-
-    const form = event.currentTarget;
-    const hp = String(new FormData(form).get("hp") ?? "").trim();
-
-    // 허니팟 필드가 채워진 경우 스팸으로 간주하고 즉시 종료
-    if (hp) {
-      setIsSubmitError(false);
-      setFormData(initialFormData);
-      form.reset();
-      setSubmitMessage("Your request has been sent. We will contact you.");
       return;
     }
 
@@ -701,12 +689,6 @@ export default function ContactPage() {
                       {formData.projectDetails.length}/3000 characters
                     </p>
                   </div>
-                  <input
-                    name="hp"
-                    className="hidden"
-                    tabIndex={-1}
-                    autoComplete="off"
-                  />
                   {RECAPTCHA_SITE_KEY ? (
                     <div
                       ref={captchaRef}
