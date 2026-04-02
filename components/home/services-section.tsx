@@ -53,47 +53,7 @@ const services = [
 
 export function ServicesSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const [takeoverProgress, setTakeoverProgress] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    let frame = 0;
-
-    const updateTakeover = () => {
-      const section = sectionRef.current;
-      if (!section) return;
-
-      const viewportHeight = window.innerHeight || 1;
-      const rect = section.getBoundingClientRect();
-      const start = viewportHeight * 0.92;
-      const end = viewportHeight * 0.14;
-      const nextProgress = Math.min(
-        Math.max((start - rect.top) / Math.max(start - end, 1), 0),
-        1,
-      );
-
-      setTakeoverProgress(nextProgress);
-    };
-
-    const handleScroll = () => {
-      if (frame) return;
-
-      frame = window.requestAnimationFrame(() => {
-        frame = 0;
-        updateTakeover();
-      });
-    };
-
-    updateTakeover();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll);
-
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
-  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -114,33 +74,20 @@ export function ServicesSection() {
   }, []);
 
   const animConfig = [
-    { delay: "0ms", translate: "-translate-x-full" }, // 01: L->R
-    { delay: "400ms", translate: "-translate-y-full" }, // 02: T->B
-    { delay: "800ms", translate: "translate-x-full" }, // 03: R->L
-    { delay: "800ms", translate: "-translate-x-full" }, // 04: L->R
-    { delay: "400ms", translate: "translate-y-full" }, // 05: B->T
-    { delay: "0ms", translate: "translate-x-full" }, // 06: R->L
+    { delay: "0ms", translate: "-translate-x-full" },
+    { delay: "400ms", translate: "-translate-y-full" },
+    { delay: "800ms", translate: "translate-x-full" },
+    { delay: "800ms", translate: "-translate-x-full" },
+    { delay: "400ms", translate: "translate-y-full" },
+    { delay: "0ms", translate: "translate-x-full" },
   ];
-
-  const translateY = (1 - takeoverProgress) * 96;
-  const scale = 0.965 + takeoverProgress * 0.035;
-  const radius = (1 - takeoverProgress) * 34;
 
   return (
     <section
       ref={sectionRef}
-      className="relative z-20 -mt-[16vh] overflow-hidden pt-[16vh] lg:-mt-[18vh] lg:pt-[18vh]"
+      className="relative overflow-hidden bg-[#165b83]"
     >
-      <div
-        className="relative overflow-hidden bg-[#0c4464]"
-        style={{
-          transform: `translateY(${translateY}px) scale(${scale})`,
-          transformOrigin: "center top",
-          borderTopLeftRadius: `${radius}px`,
-          borderTopRightRadius: `${radius}px`,
-          boxShadow: `0 -24px 70px rgba(4, 15, 28, ${0.18 + takeoverProgress * 0.08})`,
-        }}
-      >
+      <div className="relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/hero-industrial.jpg"
@@ -180,7 +127,7 @@ export function ServicesSection() {
             {services.map((service, index) => {
               const config = animConfig[index];
               return (
-                <div key={index} className="relative overflow-hidden">
+                <div key={service.title} className="relative overflow-hidden">
                   <Link
                     href={service.href}
                     className={cn(

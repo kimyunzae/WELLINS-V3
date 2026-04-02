@@ -1,15 +1,7 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { type FormEvent, useEffect, useRef, useState } from "react";
+import { SubmissionConfirmDialog } from "@/components/ui/submission-confirm-dialog";
+import { type FormEvent, useRef, useState } from "react";
 
 const states = [
   "Alabama",
@@ -553,65 +545,33 @@ export function CareerApplicationForm() {
         ) : null}
       </form>
 
-      <Dialog open={isConfirmingSubmit} onOpenChange={(open) => !isSubmitting && setIsConfirmingSubmit(open)}>
-        <DialogContent className="p-4 border-none bg-transparent shadow-none max-w-[34rem] flex items-center justify-center">
-          <Card className="border-[#D8DEE6] bg-white shadow-2xl rounded-2xl overflow-hidden w-full p-0 gap-0 py-0">
-            <div className="max-h-[90vh] overflow-y-auto pr-0.5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-track]:bg-transparent">
-              <CardHeader className="gap-2 border-b border-[#F3F4F6] bg-[#F9FAFB] py-6">
-                <DialogHeader>
-                  <DialogTitle className="text-xl font-bold text-[#1C2746]">
-                    Confirm Application Submission
-                  </DialogTitle>
-                  <DialogDescription className="text-sm text-[#6B7280]">
-                    Please review your details before submitting your application.
-                  </DialogDescription>
-                </DialogHeader>
-              </CardHeader>
-              <CardContent className="py-6 space-y-6">
-                <div className="grid grid-cols-2 gap-x-4 gap-y-4 text-sm">
-                  <div className="space-y-1">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#9AA4B2]">Name</span>
-                    <p className="font-medium text-[#1F2937]">{previewData?.name}</p>
-                  </div>
-                  <div className="space-y-1">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#9AA4B2]">Phone</span>
-                    <p className="font-medium text-[#1F2937]">{previewData?.phone}</p>
-                  </div>
-                  <div className="col-span-2 space-y-1">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#9AA4B2]">Email</span>
-                    <p className="font-medium text-[#1F2937]">{previewData?.email}</p>
-                  </div>
-                  <div className="col-span-2 space-y-1">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#9AA4B2]">How you found us</span>
-                    <p className="font-medium text-[#1F2937]">{previewData?.positionSource}</p>
-                  </div>
-                </div>
-                
-                <div className="rounded-lg bg-[#EFF6FF] p-4 text-xs leading-relaxed text-[#1E40AF]">
-                  <p>By clicking "Submit", your application and attached resume will be sent to Wellins Recruiting team. You cannot edit your response after submission.</p>
-                </div>
-              </CardContent>
-              <CardFooter className="flex flex-col-reverse gap-3 border-t border-[#F3F4F6] bg-[#F9FAFB] py-4 px-6 sm:flex-row sm:justify-end">
-                <button
-                  type="button"
-                  onClick={() => setIsConfirmingSubmit(false)}
-                  className="inline-flex w-full justify-center border border-[#D8DEE6] bg-white px-6 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-[#1C2746] transition-all hover:bg-[#F1F5F9] rounded-md sm:w-auto"
-                >
-                  Back to Edit
-                </button>
-                <button
-                  type="button"
-                  onClick={handleConfirmSubmit}
-                  disabled={isSubmitting}
-                  className="inline-flex w-full justify-center bg-[#1C2746] px-8 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-white transition-all hover:bg-[#2B6FD6] hover:shadow-md active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 rounded-md sm:w-auto"
-                >
-                  {isSubmitting ? "Sending..." : "Confirm & Submit"}
-                </button>
-              </CardFooter>
-            </div>
-          </Card>
-        </DialogContent>
-      </Dialog>
+      <SubmissionConfirmDialog
+        open={isConfirmingSubmit}
+        onOpenChange={setIsConfirmingSubmit}
+        isSubmitting={isSubmitting}
+        title="Confirm Application Submission"
+        description="Please review your details before submitting your application."
+        fields={[
+          { label: "Name", value: previewData?.name },
+          { label: "Phone", value: previewData?.phone },
+          { label: "Email", value: previewData?.email, fullWidth: true },
+          {
+            label: "How you found us",
+            value: previewData?.positionSource,
+            fullWidth: true,
+          },
+        ]}
+        notice={
+          <p>
+            By clicking "Submit", your application and attached resume will be
+            sent to Wellins Recruiting team. You cannot edit your response after
+            submission.
+          </p>
+        }
+        cancelLabel="Back to Edit"
+        confirmLabel="Confirm & Submit"
+        onConfirm={handleConfirmSubmit}
+      />
     </>
   );
 }

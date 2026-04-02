@@ -6,15 +6,7 @@ import { PageHeader } from "@/components/page-header";
 import { ArrowRight, Clock, Mail, MapPin, Phone } from "lucide-react";
 import Script from "next/script";
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { SubmissionConfirmDialog } from "@/components/ui/submission-confirm-dialog";
 import { useState, useRef, useEffect, useCallback } from "react";
 
 const PRIMARY_CONTACT_PHONE_DISPLAY = "+1 (770)-557-0019";
@@ -412,24 +404,12 @@ export default function ContactPage() {
     };
   }, [renderCaptcha]);
 
-  // 폼 제출 핸들러: 허니팟, reCAPTCHA, 제출 빈도 제한을 포함한 다단계 검증 및 EmailJS API 호출
+  // 폼 제출 핸들러: reCAPTCHA, 제출 빈도 제한을 포함한 다단계 검증 및 EmailJS API 호출
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>,
   ): Promise<void> => {
     event.preventDefault();
     if (isSubmitting) {
-      return;
-    }
-
-    const form = event.currentTarget;
-    const hp = String(new FormData(form).get("hp") ?? "").trim();
-
-    // 허니팟 필드가 채워진 경우 스팸으로 간주하고 즉시 종료
-    if (hp) {
-      setIsSubmitError(false);
-      setFormData(initialFormData);
-      form.reset();
-      setSubmitMessage("Your request has been sent. We will contact you soon.");
       return;
     }
 
@@ -538,7 +518,7 @@ export default function ContactPage() {
       safeCaptchaReset();
       recordSuccessfulSubmission(payload.service);
       setIsConfirmingSubmit(false);
-      setSubmitMessage("Your request has been sent. We will contact you soon.");
+      setSubmitMessage("Your request has been sent. We will contact you.");
     } catch {
       safeCaptchaReset();
       setIsSubmitError(true);
@@ -573,8 +553,7 @@ export default function ContactPage() {
                   Request a <span className="font-semibold">Quote</span>
                 </h2>
                 <p className="mt-4 text-muted-foreground">
-                  Fill out the form below and one of our team members will be in
-                  touch within 24 hours.
+                  Fill out the form below and we will contact you.
                 </p>
 
                 <form ref={formRef} onSubmit={handleSubmit} className="mt-8 space-y-6">
@@ -710,12 +689,6 @@ export default function ContactPage() {
                       {formData.projectDetails.length}/3000 characters
                     </p>
                   </div>
-                  <input
-                    name="hp"
-                    className="hidden"
-                    tabIndex={-1}
-                    autoComplete="off"
-                  />
                   {RECAPTCHA_SITE_KEY ? (
                     <div
                       ref={captchaRef}
@@ -744,65 +717,23 @@ export default function ContactPage() {
                   ) : null}
                 </form>
 
-                <Dialog open={isConfirmingSubmit} onOpenChange={(open) => !isSubmitting && setIsConfirmingSubmit(open)}>
-                  <DialogContent className="p-4 border-none bg-transparent shadow-none max-w-[34rem] flex items-center justify-center">
-                    <Card className="border-border bg-background shadow-2xl rounded-2xl overflow-hidden w-full p-0 gap-0 py-0">
-                      <div className="max-h-[90vh] overflow-y-auto pr-0.5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-track]:bg-transparent">
-                        <CardHeader className="gap-2 border-b border-border bg-muted/30 py-6">
-                          <DialogHeader>
-                            <DialogTitle className="text-xl font-bold text-foreground">
-                              Confirm Your Request
-                            </DialogTitle>
-                            <DialogDescription className="text-sm text-muted-foreground">
-                              Please review the project details before sending.
-                            </DialogDescription>
-                          </DialogHeader>
-                        </CardHeader>
-                        <CardContent className="py-6 space-y-6">
-                          <div className="grid grid-cols-2 gap-x-4 gap-y-4 text-sm">
-                            <div className="space-y-1">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Name</span>
-                              <p className="font-medium text-foreground">{formData.name}</p>
-                            </div>
-                            <div className="space-y-1">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Company</span>
-                              <p className="font-medium text-foreground">{formData.company}</p>
-                            </div>
-                            <div className="col-span-2 space-y-1">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Service</span>
-                              <p className="font-medium text-foreground">{formData.service}</p>
-                            </div>
-                            <div className="col-span-2 space-y-1">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Email</span>
-                              <p className="font-medium text-foreground">{formData.email}</p>
-                            </div>
-                          </div>
-                          
-                          <div className="rounded-lg bg-accent/5 p-4 text-xs leading-relaxed text-muted-foreground border border-border/50">
-                            <p>One of our team members will review your requirements and get back to you within 24 hours.</p>
-                          </div>
-                        </CardContent>
-                        <CardFooter className="flex flex-col-reverse gap-3 border-t border-border bg-muted/30 py-4 px-6 sm:flex-row sm:justify-end">
-                          <button
-                            type="button"
-                            onClick={() => setIsConfirmingSubmit(false)}
-                            className="inline-flex w-full justify-center border border-border bg-background px-6 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-foreground transition-all hover:bg-muted rounded-md sm:w-auto"
-                          >
-                            Edit Details
-                          </button>
-                          <button
-                            type="button"
-                            onClick={handleConfirmSubmit}
-                            disabled={isSubmitting}
-                            className="inline-flex w-full justify-center bg-primary px-8 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-md active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 rounded-md sm:w-auto"
-                          >
-                            {isSubmitting ? "Sending..." : "Confirm & Send"}
-                          </button>
-                        </CardFooter>
-                      </div>
-                    </Card>
-                  </DialogContent>
-                </Dialog>
+                <SubmissionConfirmDialog
+                  open={isConfirmingSubmit}
+                  onOpenChange={setIsConfirmingSubmit}
+                  isSubmitting={isSubmitting}
+                  title="Confirm Your Request"
+                  description="Please review the project details before sending."
+                  fields={[
+                    { label: "Name", value: formData.name },
+                    { label: "Company", value: formData.company },
+                    { label: "Service", value: formData.service, fullWidth: true },
+                    { label: "Email", value: formData.email, fullWidth: true },
+                  ]}
+                  notice={<p>We will review your requirements and contact you.</p>}
+                  cancelLabel="Edit Details"
+                  confirmLabel="Confirm & Send"
+                  onConfirm={handleConfirmSubmit}
+                />
               </div>
 
               <div>

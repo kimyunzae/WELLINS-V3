@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(find /c/PF/RE/WELLINS-V3 -type f -name *.env* -o -name .env)",
-      "Bash(npx next:*)"
-    ]
-  }
-}
