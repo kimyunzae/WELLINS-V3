@@ -429,7 +429,7 @@ export default function ContactPage() {
       setIsSubmitError(false);
       setFormData(initialFormData);
       form.reset();
-      setSubmitMessage("Your request has been sent. We will contact you soon.");
+      setSubmitMessage("Your request has been sent. We will contact you.");
       return;
     }
 
@@ -538,7 +538,7 @@ export default function ContactPage() {
       safeCaptchaReset();
       recordSuccessfulSubmission(payload.service);
       setIsConfirmingSubmit(false);
-      setSubmitMessage("Your request has been sent. We will contact you soon.");
+      setSubmitMessage("Your request has been sent. We will contact you.");
     } catch {
       safeCaptchaReset();
       setIsSubmitError(true);
@@ -573,8 +573,7 @@ export default function ContactPage() {
                   Request a <span className="font-semibold">Quote</span>
                 </h2>
                 <p className="mt-4 text-muted-foreground">
-                  Fill out the form below and one of our team members will be in
-                  touch within 24 hours.
+                  Fill out the form below and we will contact you.
                 </p>
 
                 <form ref={formRef} onSubmit={handleSubmit} className="mt-8 space-y-6">
@@ -746,14 +745,14 @@ export default function ContactPage() {
 
                 <Dialog open={isConfirmingSubmit} onOpenChange={(open) => !isSubmitting && setIsConfirmingSubmit(open)}>
                   <DialogContent className="p-4 border-none bg-transparent shadow-none max-w-[34rem] flex items-center justify-center">
-                    <Card className="border-border bg-background shadow-2xl rounded-2xl overflow-hidden w-full p-0 gap-0 py-0">
-                      <div className="max-h-[90vh] overflow-y-auto pr-0.5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-track]:bg-transparent">
-                        <CardHeader className="gap-2 border-b border-border bg-muted/30 py-6">
+                    <Card className="border-[#D8DEE6] bg-white shadow-2xl rounded-2xl overflow-hidden w-full p-0 gap-0 py-0">
+                      <div className="max-h-[90vh] overflow-y-auto pr-0.5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#B8C2CF] [&::-webkit-scrollbar-track]:bg-transparent">
+                        <CardHeader className="gap-2 border-b border-[#F3F4F6] bg-[#F9FAFB] py-6">
                           <DialogHeader>
-                            <DialogTitle className="text-xl font-bold text-foreground">
+                            <DialogTitle className="text-xl font-bold text-[#1C2746]">
                               Confirm Your Request
                             </DialogTitle>
-                            <DialogDescription className="text-sm text-muted-foreground">
+                            <DialogDescription className="text-sm text-[#6B7280]">
                               Please review the project details before sending.
                             </DialogDescription>
                           </DialogHeader>
@@ -761,32 +760,32 @@ export default function ContactPage() {
                         <CardContent className="py-6 space-y-6">
                           <div className="grid grid-cols-2 gap-x-4 gap-y-4 text-sm">
                             <div className="space-y-1">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Name</span>
-                              <p className="font-medium text-foreground">{formData.name}</p>
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-[#9AA4B2]">Name</span>
+                              <p className="font-medium text-[#1F2937]">{formData.name}</p>
                             </div>
                             <div className="space-y-1">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Company</span>
-                              <p className="font-medium text-foreground">{formData.company}</p>
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-[#9AA4B2]">Company</span>
+                              <p className="font-medium text-[#1F2937]">{formData.company}</p>
                             </div>
                             <div className="col-span-2 space-y-1">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Service</span>
-                              <p className="font-medium text-foreground">{formData.service}</p>
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-[#9AA4B2]">Service</span>
+                              <p className="font-medium text-[#1F2937]">{formData.service}</p>
                             </div>
                             <div className="col-span-2 space-y-1">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Email</span>
-                              <p className="font-medium text-foreground">{formData.email}</p>
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-[#9AA4B2]">Email</span>
+                              <p className="font-medium text-[#1F2937]">{formData.email}</p>
                             </div>
                           </div>
                           
-                          <div className="rounded-lg bg-accent/5 p-4 text-xs leading-relaxed text-muted-foreground border border-border/50">
-                            <p>One of our team members will review your requirements and get back to you within 24 hours.</p>
+                          <div className="rounded-lg border border-[#DBEAFE] bg-[#EFF6FF] p-4 text-xs leading-relaxed text-[#1E40AF]">
+                            <p>We will review your requirements and contact you.</p>
                           </div>
                         </CardContent>
-                        <CardFooter className="flex flex-col-reverse gap-3 border-t border-border bg-muted/30 py-4 px-6 sm:flex-row sm:justify-end">
+                        <CardFooter className="flex flex-col-reverse gap-3 border-t border-[#F3F4F6] bg-[#F9FAFB] py-4 px-6 sm:flex-row sm:justify-end">
                           <button
                             type="button"
                             onClick={() => setIsConfirmingSubmit(false)}
-                            className="inline-flex w-full justify-center border border-border bg-background px-6 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-foreground transition-all hover:bg-muted rounded-md sm:w-auto"
+                            className="inline-flex w-full justify-center border border-[#D8DEE6] bg-white px-6 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-[#1C2746] transition-all hover:bg-[#F1F5F9] rounded-md sm:w-auto"
                           >
                             Edit Details
                           </button>
@@ -794,7 +793,7 @@ export default function ContactPage() {
                             type="button"
                             onClick={handleConfirmSubmit}
                             disabled={isSubmitting}
-                            className="inline-flex w-full justify-center bg-primary px-8 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-md active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 rounded-md sm:w-auto"
+                            className="inline-flex w-full justify-center bg-[#1C2746] px-8 py-2.5 text-xs font-bold uppercase tracking-[0.15em] text-white transition-all hover:bg-[#2B6FD6] hover:shadow-md active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 rounded-md sm:w-auto"
                           >
                             {isSubmitting ? "Sending..." : "Confirm & Send"}
                           </button>
