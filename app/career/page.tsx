@@ -399,7 +399,7 @@ export default function CareerPage() {
                       style={{ animationDelay: "0.56s" }}
                     />
                     <path
-                      d="M 74 398 C 174 390 266 314 362 248 C 456 220 584 254 698 240 C 810 226 918 190 1042 156"
+                      d="M 74 398 C 174 390 266 314 362 248 S 584 254 698 240 S 918 190 1042 156"
                       fill="none"
                       stroke="url(#career-constellation-line)"
                       strokeWidth="2.45"
