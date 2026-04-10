@@ -86,18 +86,18 @@ export default function AboutPage() {
                 </p>
               </div>
               <div>
-                <p className="text-5xl font-light lg:text-6xl">4.3</p>
+                <p className="text-5xl font-light lg:text-6xl">150+</p>
                 <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/68">
-                  Acres
+                  Major
                   <span className="mt-1 block text-xs uppercase tracking-wider text-primary-foreground/68">
-                    Buford Facility
+                    Installations
                   </span>
                 </p>
               </div>
               <div>
-                <p className="text-5xl font-light lg:text-6xl">150+</p>
+                <p className="text-5xl font-light lg:text-6xl">500+</p>
                 <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/68">
-                  Major Installations
+                  Contractors Appointed
                 </p>
               </div>
             </div>
