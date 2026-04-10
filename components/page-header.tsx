@@ -92,7 +92,7 @@ export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
               {title}
             </h1>
           )}
-          
+
           {description && (
             <p
               className={cn(

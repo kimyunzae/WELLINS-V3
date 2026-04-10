@@ -111,7 +111,7 @@ export default function AboutPage() {
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
             <div className="relative aspect-[4/3] overflow-hidden">
               <Image
-                src="/images/team-workers.jpg"
+                src="/images/images/image-hq.jpg"
                 alt="Wellins Inc. team members at work"
                 fill
                 className="object-cover"
@@ -216,7 +216,7 @@ export default function AboutPage() {
                 project. Our team of expert engineers, project managers, and
                 skilled tradespeople are ready to bring your vision to life with
                 the precision and reliability that has defined our company for
-                over 25 years.
+                over a decade.
               </p>
 
               <p className="pt-2 font-medium text-foreground">
