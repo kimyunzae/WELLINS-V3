@@ -13,12 +13,12 @@ export function FacilitySection() {
               <span className="h-[2px] w-8 bg-blue-400" />
               <span className="text-sm font-bold uppercase tracking-[0.2em] text-blue-500">Featured Expansion</span>
             </div>
-            
+
             <h2 className="text-4xl font-bold tracking-tight text-[#001A3D] lg:text-5xl mb-8">
               Buford <br />
               <span className="text-blue-500">Manufacturing Hub</span>
             </h2>
-            
+
             <div className="space-y-6 text-lg text-slate-600 leading-relaxed max-w-xl">
               <p>
                 Our new 4.3-acre manufacturing facility in Buford, GA, represents a significant milestone in our commitment to industrial excellence.
@@ -61,10 +61,10 @@ export function FacilitySection() {
               />
               <div className="absolute inset-0 ring-1 ring-inset ring-black/10" />
             </div>
-            
+
             {/* Decorative Background Box */}
             <div className="absolute -right-8 -bottom-8 w-full h-full border-2 border-blue-400/10 -z-0" />
-            
+
             {/* Year Badge */}
             <div className="absolute -left-8 top-12 bg-blue-500 text-white p-6 z-20 shadow-xl hidden md:block">
               <p className="text-xs font-bold uppercase tracking-[0.2em] mb-1">Coming Soon</p>
