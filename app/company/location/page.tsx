@@ -42,30 +42,32 @@ const featuredLocations = [
 
 const locations = [
   {
-    name: "Texas Office",
-    city: "Houston, TX",
-    address: "5678 Energy Boulevard\nHouston, TX 77001",
-    phone: "+1 (713) 555-5678",
-    email: "texas@wellinsinc.com",
-    hours: "Mon-Fri: 7:00 AM - 5:00 PM",
+    name: "Head Office",
+    city: "Duluth, GA",
+    address: "3483 Satellite Boulevard, Ste 100\nDuluth, GA 30096",
+    phone: "+1 (770)-557-0019)",
+    email: "info@wellinsinc.com",
+    hours: "Mon-Fri: 8:00 AM - 6:00 PM",
   },
   {
-    name: "Georgia Office",
-    city: "Atlanta, GA",
-    address: "9012 Manufacturing Way\nAtlanta, GA 30303",
-    phone: "+1 (404) 555-9012",
-    email: "georgia@wellinsinc.com",
-    hours: "Mon-Fri: 7:00 AM - 5:00 PM",
+    name: "Production Facility",
+    city: "Buford, GA",
+    address: "974 Gainseville Hwy\nBuford, GA 30518",
+    phone: "+1 (770)-881-8991",
+    email: "info@wellinsinc.com",
+    hours: "Mon-Fri: 8:00 AM - 6:00 PM",
   },
 ];
 
 const serviceStates = [
-  "Georgia",
-  "Tennessee",
-  "South Carolina",
-  "Alabama",
-  "Texas",
-  "Louisiana",
+  "ARIZONA",
+  "ALABAMA",
+  "GEORGIA",
+  "LOUISIANA",
+  "OHIO",
+  "SOUTH CAROLINA",
+  "TENNESSEE",
+  "TEXAS"
 ];
 
 export default function LocationPage() {
@@ -192,7 +194,7 @@ export default function LocationPage() {
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
           <div className="max-w-2xl">
             <h2 className="text-3xl font-light tracking-tight lg:text-4xl">
-              Service <span className="font-semibold">Area</span>
+              Serviced <span className="font-semibold">Area</span>
             </h2>
             <p className="mt-4 text-base leading-relaxed text-primary-foreground/70 lg:text-lg">
               Wellins Inc. is licensed to operate in eight states across the

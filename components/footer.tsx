@@ -62,7 +62,8 @@ export function Footer() {
               />
             </Link>
             <p className="mt-6 text-sm leading-relaxed text-[#4B5563]">
-              Industrial engineering excellence since 1995. Delivering
+              Industrial engineering excellence since 2016.
+              Delivering
               precision, safety, and performance across the United States.
             </p>
             <div className="mt-6 space-y-2 text-sm text-[#4B5563]">
