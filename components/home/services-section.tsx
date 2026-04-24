@@ -93,7 +93,7 @@ export function ServicesSection() {
             src="/images/hero-industrial.jpg"
             alt="Background"
             fill
-            className="object-cover opacity-[0.25] grayscale"
+            className="object-cover opacity-[0.14] grayscale contrast-[1.1] brightness-[0.95]"
           />
         </div>
 
