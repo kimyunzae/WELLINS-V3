@@ -85,7 +85,7 @@ export function ServicesSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-[#165b83]"
+      className="relative overflow-hidden bg-[#2174a5]"
     >
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 z-0">
