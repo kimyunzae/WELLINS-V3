@@ -105,6 +105,33 @@ const SUBMIT_SUCCESS_MESSAGE =
   "Your application has been sent. We will review it and follow up if there is a fit.";
 const SUBMIT_FAILURE_MESSAGE =
   "We couldn't send your application right now. Please try again or contact us directly.";
+const SUBMIT_RATE_LIMIT_MESSAGE =
+  "Your last application was already sent. Wait a few seconds and try again.";
+const SUBMIT_ATTACHMENT_LIMIT_MESSAGE =
+  "Your resume exceeds the EmailJS attachment limit for this plan. Upload a smaller file and try again.";
+
+function getEmailJsFailureMessage(status: number, responseText: string) {
+  const normalizedResponse = responseText.trim();
+  const lowerResponse = normalizedResponse.toLowerCase();
+
+  if (status === 429 || lowerResponse.includes("limit")) {
+    return SUBMIT_RATE_LIMIT_MESSAGE;
+  }
+
+  if (
+    lowerResponse.includes("attachment") ||
+    lowerResponse.includes("file size") ||
+    lowerResponse.includes("payload too large")
+  ) {
+    return SUBMIT_ATTACHMENT_LIMIT_MESSAGE;
+  }
+
+  if (normalizedResponse.length > 0) {
+    return `Email service rejected the application: ${normalizedResponse}`;
+  }
+
+  return SUBMIT_FAILURE_MESSAGE;
+}
 
 export function CareerApplicationForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -178,16 +205,21 @@ export function CareerApplicationForm() {
       });
 
       if (!response.ok) {
-        throw new Error(SUBMIT_FAILURE_MESSAGE);
+        const responseText = await response.text();
+        throw new Error(getEmailJsFailureMessage(response.status, responseText));
       }
 
       form.reset();
       setIsConfirmingSubmit(false);
       setSubmitMessage(SUBMIT_SUCCESS_MESSAGE);
-    } catch {
+    } catch (error) {
       setIsSubmitError(true);
       setIsConfirmingSubmit(false);
-      setSubmitMessage(SUBMIT_FAILURE_MESSAGE);
+      setSubmitMessage(
+        error instanceof Error && error.message
+          ? error.message
+          : SUBMIT_FAILURE_MESSAGE,
+      );
     } finally {
       setIsSubmitting(false);
     }

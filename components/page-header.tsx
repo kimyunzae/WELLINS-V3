@@ -6,6 +6,7 @@ interface PageHeaderProps {
   eyebrow?: string
   title: string
   description?: string
+  compact?: boolean
 }
 
 const headerBackgrounds: Record<
@@ -33,7 +34,12 @@ const headerBackgrounds: Record<
   },
 }
 
-export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
+export function PageHeader({
+  eyebrow,
+  title,
+  description,
+  compact = false,
+}: PageHeaderProps) {
   const background = eyebrow
     ? headerBackgrounds[eyebrow.trim().toLowerCase()]
     : undefined
@@ -47,7 +53,9 @@ export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
       className={cn(
         "relative overflow-hidden text-primary-foreground",
         background
-          ? "bg-primary pt-36 pb-24 lg:pt-48 lg:pb-36"
+          ? compact
+            ? "bg-primary pt-28 pb-16 lg:pt-36 lg:pb-20"
+            : "bg-primary pt-36 pb-24 lg:pt-48 lg:pb-36"
           : "bg-primary pt-32 pb-20 lg:pt-40 lg:pb-28"
       )}
     >
@@ -88,7 +96,14 @@ export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
               </h1>
             </div>
           ) : (
-            <h1 className="header-reveal mt-4 text-4xl font-light tracking-tight text-balance lg:text-5xl xl:text-6xl">
+            <h1
+              className={cn(
+                "header-reveal mt-4 font-light tracking-tight text-balance",
+                compact
+                  ? "text-4xl lg:text-5xl"
+                  : "text-4xl lg:text-5xl xl:text-6xl"
+              )}
+            >
               {title}
             </h1>
           )}
@@ -97,6 +112,7 @@ export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
             <p
               className={cn(
                 "header-reveal mt-8 text-lg leading-relaxed lg:text-xl",
+                compact && "mt-6 max-w-xl text-base lg:text-lg",
                 isProjectPage ? "reveal-delay-2" : "reveal-delay-1",
                 background
                   ? "max-w-2xl text-primary-foreground/75"
