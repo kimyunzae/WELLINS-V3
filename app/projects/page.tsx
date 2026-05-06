@@ -197,7 +197,7 @@ export default function ProjectsPage() {
                     ))}
                   </div>
                   <div className="mt-6 flex items-center text-sm font-medium text-muted-foreground transition-colors group-hover:text-accent">
-                    More View
+                    View More
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </div>
                 </div>
