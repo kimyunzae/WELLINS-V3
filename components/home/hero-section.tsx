@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
-import { Play, Pause, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const slides = [
@@ -42,8 +42,6 @@ export function HeroSection() {
   });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [animatedIndex, setAnimatedIndex] = useState(-1);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [progress, setProgress] = useState(0);
   const selectedIndexRef = useRef(0);
 
   const onSelect = useCallback(() => {
@@ -51,13 +49,11 @@ export function HeroSection() {
     const nextIndex = emblaApi.selectedScrollSnap();
     selectedIndexRef.current = nextIndex;
     setSelectedIndex(nextIndex);
-    setProgress(0);
   }, [emblaApi]);
 
   const goToSlide = useCallback(
     (index: number, immediate = false) => {
       if (!emblaApi) return;
-      setProgress(0);
       emblaApi.scrollTo(index, immediate);
       // selectedIndex는 onSelect 콜백에서만 업데이트
     },
@@ -99,33 +95,19 @@ export function HeroSection() {
 
   // 자동 재생 및 진행 표시 로직
   useEffect(() => {
-    if (!isPlaying || !emblaApi) return;
-
-    const interval = 50; // Update
-    const duration = 6000; // 6 seconds per slide
-    const step = (interval / duration) * 100;
-    const progressRef = { current: progress };
+    if (!emblaApi) return;
 
     const timer = setInterval(() => {
-      progressRef.current += step;
+      const nextIndex =
+        selectedIndexRef.current >= slides.length - 1
+          ? 0
+          : selectedIndexRef.current + 1;
 
-      if (progressRef.current >= 100) {
-        progressRef.current = 0;
-        const nextIndex =
-          selectedIndexRef.current >= slides.length - 1
-            ? 0
-            : selectedIndexRef.current + 1;
-
-        goToSlide(nextIndex, nextIndex === 0);
-      }
-
-      setProgress(progressRef.current);
-    }, interval);
+      goToSlide(nextIndex, nextIndex === 0);
+    }, 6000);
 
     return () => clearInterval(timer);
-  }, [isPlaying, emblaApi, goToSlide]);
-
-  const togglePlay = () => setIsPlaying(!isPlaying);
+  }, [emblaApi, goToSlide]);
 
   return (
     <section className="relative h-screen min-h-[700px] w-full overflow-hidden bg-black">
