@@ -71,11 +71,11 @@ export function Footer() {
               />
             </Link>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/78">
-              Industrial engineering excellence since 1995. Delivering
-              precision, safety, and performance across the United States.
+              Industrial systems expertise built on precise planning, safe
+              execution, and reliable field delivery.
             </p>
             <div className="mt-6 space-y-2 text-sm text-white/72">
-              <p>3483 Satellite Blvd. Suite 100</p>
+              <p>3483 Satellite Blvd, Ste 100</p>
               <p>Duluth, GA 30096</p>
               <p className="mt-4">
                 <a

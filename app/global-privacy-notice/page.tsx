@@ -242,7 +242,7 @@ export default function GlobalPrivacyNoticePage() {
         </p>
         <div className="space-y-1 text-foreground">
           <p>Wellins Inc.</p>
-          <p>3483 Satellite Blvd. Suite 100</p>
+          <p>3483 Satellite Blvd, Ste 100</p>
           <p>Duluth, GA 30096</p>
           <p>info@wellinsinc.com</p>
           <p>+1 (770) 557-0019</p>

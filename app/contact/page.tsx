@@ -11,23 +11,9 @@ const offices = [
   {
     name: "Headquarters",
     city: "Duluth, GA",
-    address: "3483 Satellite Blvd. Suite 100\nDuluth, GA 30096",
+    address: "3483 Satellite Blvd, Ste 100\nDuluth, GA 30096",
     phone: PRIMARY_CONTACT_PHONE_DISPLAY,
     email: "info@wellinsinc.com",
-  },
-  {
-    name: "Texas Office",
-    city: "Houston, TX",
-    address: "5678 Energy Boulevard\nHouston, TX 77001",
-    phone: "+1 (713) 555-5678",
-    email: "texas@wellinsinc.com",
-  },
-  {
-    name: "Georgia Office",
-    city: "Atlanta, GA",
-    address: "9012 Manufacturing Way\nAtlanta, GA 30303",
-    phone: "+1 (404) 555-9012",
-    email: "georgia@wellinsinc.com",
   },
 ];
 
