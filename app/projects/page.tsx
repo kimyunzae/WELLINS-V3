@@ -5,13 +5,27 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+type ProjectSummary = {
+  name: string;
+  year: string;
+  type?: string;
+  scopes?: string[];
+};
+
+type ProjectRegion = {
+  state: string;
+  projects: ProjectSummary[];
+  image: string;
+  href: string;
+};
+
 export const metadata = {
   title: "Projects | Wellins Inc.",
   description:
-    "Explore our portfolio of industrial engineering projects across the United States.",
+    "Explore representative industrial project work across regional manufacturing markets.",
 };
 
-const projects = [
+const projects: ProjectRegion[] = [
   {
     state: "Buford",
     projects: [
@@ -33,111 +47,99 @@ const projects = [
     state: "Georgia",
     projects: [
       {
-        name: "Atlanta Food Processing Center",
-        type: "HVAC System",
-        year: "2024",
+        name: "LGES Hyundai Plant",
+        scopes: ["Process Pipe Installation"],
+        year: "2024~",
       },
       {
-        name: "Savannah Distribution Hub",
-        type: "Fire Protection",
-        year: "2023",
+        name: "SK Battery America Plant-2",
+        scopes: ["Hot Oil Pipe", "HVAC Installation"],
+        year: "2024~",
       },
     ],
-    image: "/images/project-2.jpg",
+    image: "/images/projects/project-3.png",
     href: "/projects/georgia",
   },
   {
     state: "Indiana",
     projects: [
       {
-        name: "Indianapolis Manufacturing Complex",
-        type: "Industrial Piping",
-        year: "2024",
-      },
-      {
-        name: "Fort Wayne Steel Mill",
-        type: "Equipment Installation",
-        year: "2022",
+        name: "Soulbrain Plant",
+        scopes: ["Process Pipe Installation"],
+        year: "2023~2024",
       },
     ],
-    image: "/images/project-3.jpg",
+    image: "/images/projects/project-5.png",
     href: "/projects/indiana",
   },
   {
     state: "Michigan",
     projects: [
       {
-        name: "Detroit Electric Vehicle Plant",
-        type: "Equipment Installation",
-        year: "2024",
-      },
-      {
-        name: "Grand Rapids Pharmaceutical Facility",
-        type: "HVAC System",
-        year: "2023",
+        name: "LG Chemical Plant",
+        scopes: ["NMP System Installation"],
+        year: "2019",
       },
     ],
-    image: "/images/project-1.jpg",
+    image: "/images/projects/project-14.png",
     href: "/projects/michigan",
   },
   {
     state: "Ohio",
     projects: [
       {
-        name: "Columbus Distribution Center",
-        type: "Fire Protection",
-        year: "2024",
+        name: "LGES Honda JV Battery",
+        scopes: ["Process Pipe Installation"],
+        year: "2024~",
       },
       {
-        name: "Cincinnati Chemical Plant",
-        type: "Industrial Piping",
+        name: "LGES Honda JV Battery",
+        scopes: ["Hot Oil Pipe Installation"],
         year: "2023",
       },
     ],
-    image: "/images/project-2.jpg",
+    image: "/images/projects/project-1.png",
     href: "/projects/ohio",
   },
   {
     state: "South Carolina",
     projects: [
       {
-        name: "Charleston Port Facility",
-        type: "Equipment Installation",
-        year: "2024",
+        name: "Samsung Plant",
+        scopes: ["Duct System Installation", "Utility Pipe Installation"],
+        year: "2018",
       },
-      { name: "Greenville Textile Mill", type: "HVAC System", year: "2022" },
     ],
-    image: "/images/project-3.jpg",
+    image: "/images/projects/project-16.png",
     href: "/projects/south-carolina",
   },
   {
     state: "Tennessee",
     projects: [
       {
-        name: "Nashville Automotive Assembly",
-        type: "Industrial Piping",
-        year: "2024",
+        name: "Ultium Cells-2",
+        scopes: ["Hot Oil Pipe Installation"],
+        year: "2022~2024",
       },
       {
-        name: "Memphis Logistics Center",
-        type: "Fire Protection",
-        year: "2023",
+        name: "LG Electronics Plant",
+        scopes: ["High Pressure Water Line Installation"],
+        year: "2019",
       },
     ],
-    image: "/images/project-1.jpg",
+    image: "/images/projects/project-7.png",
     href: "/projects/tennessee",
   },
   {
     state: "Texas",
     projects: [
       {
-        name: "Houston Petrochemical Complex",
-        type: "High-Pressure Vessels",
-        year: "2024",
+        name: "Dongwoo Fine-Chem",
+        scopes: ["Process Pipe Installation"],
+        year: "2023~2024",
       },
-      { name: "Dallas Semiconductor Fab", type: "HVAC System", year: "2023" },
     ],
-    image: "/images/project-2.jpg",
+    image: "/images/projects/project-6.png",
     href: "/projects/texas",
   },
 ];
@@ -149,7 +151,7 @@ export default function ProjectsPage() {
       <PageHeader
         eyebrow="Projects"
         title="Our Work Across America"
-        description="Over 500 successful installations across eight states, serving the nation's leading manufacturers."
+        description="Representative industrial project work across eight regional markets, organized by project location and scope."
       />
 
       <section className="bg-background py-20 lg:py-28">
@@ -186,9 +188,23 @@ export default function ProjectsPage() {
                           <p className="text-sm font-medium text-foreground">
                             {project.name}
                           </p>
-                          <p className="text-xs text-muted-foreground">
-                            {project.type}
-                          </p>
+                          <ul className="mt-1 space-y-0.5">
+                            {(project.scopes ?? [project.type]).map(
+                              (scope) =>
+                                scope ? (
+                                  <li
+                                    key={scope}
+                                    className="flex items-start gap-1.5 text-[10px] uppercase tracking-[0.08em] text-muted-foreground"
+                                  >
+                                    <span
+                                      className="mt-[0.5em] h-1 w-1 shrink-0 rounded-full bg-muted-foreground"
+                                      aria-hidden="true"
+                                    />
+                                    <span>{scope}</span>
+                                  </li>
+                                ) : null
+                            )}
+                          </ul>
                         </div>
                         <p className="text-xs text-muted-foreground">
                           {project.year}

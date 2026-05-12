@@ -18,16 +18,17 @@ const projects = [
     }
   },
   {
-    title: "Georgia Manufacturing Plant",
-    category: "Industrial Piping",
-    location: "Atlanta, GA",
-    description: "Process piping installation for a major automotive supplier, including compressed air and cooling systems.",
-    image: "/images/project-1.jpg",
+    title: "LGES Hyundai Plant",
+    category: "Process Pipe Installation",
+    location: "Savannah, GA",
+    description:
+      "Process pipe installation in the utility area for battery manufacturing work.",
+    image: "/images/projects/project-3.png",
     href: "/projects/georgia",
     stats: {
-      site: "Main Plant",
-      capacity: "Multi-system",
-      year: "2024"
+      site: "Savannah, GA",
+      capacity: "Process Pipe",
+      year: "2024~"
     }
   }
 ];
