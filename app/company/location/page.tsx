@@ -41,12 +41,14 @@ const featuredLocations = [
 ];
 
 const serviceStates = [
-  "Georgia",
-  "Tennessee",
-  "South Carolina",
-  "Alabama",
-  "Texas",
-  "Louisiana",
+  "ARIZONA",
+  "ALABAMA",
+  "GEORGIA",
+  "LOUISIANA",
+  "OHIO",
+  "SOUTH CAROLINA",
+  "TENNESSEE",
+  "TEXAS"
 ];
 
 export default function LocationPage() {
@@ -131,7 +133,7 @@ export default function LocationPage() {
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
           <div className="max-w-2xl">
             <h2 className="text-3xl font-light tracking-tight lg:text-4xl">
-              Service <span className="font-semibold">Area</span>
+              Serviced <span className="font-semibold">Area</span>
             </h2>
             <p className="mt-4 text-base leading-relaxed text-primary-foreground/70 lg:text-lg">
               Wellins Inc. is licensed to operate in eight states across the

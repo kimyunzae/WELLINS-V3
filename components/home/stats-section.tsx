@@ -6,14 +6,14 @@ import { cn } from "@/lib/utils";
 const stats = [
   { value: 2016, label: "Founded", prefix: "", suffix: "", decimals: 0, useGrouping: false },
   { value: 12, label: "States Licensed", prefix: "", suffix: "", decimals: 0, useGrouping: true },
-  { value: 4.3, label: "Acres (Buford Facility)", prefix: "", suffix: "", decimals: 1, useGrouping: true },
   { value: 150, label: "Major Installations", prefix: "", suffix: "+", decimals: 0, useGrouping: true },
+  { value: 500, label: "Contractors Appointed", prefix: "", suffix: "", decimals: 0, useGrouping: true },
 ];
 
-function CountUpNumber({ value, decimals, suffix, prefix, useGrouping, isInView }: { 
-  value: number; 
-  decimals: number; 
-  suffix: string; 
+function CountUpNumber({ value, decimals, suffix, prefix, useGrouping, isInView }: {
+  value: number;
+  decimals: number;
+  suffix: string;
   prefix: string;
   useGrouping: boolean;
   isInView: boolean;
@@ -33,7 +33,7 @@ function CountUpNumber({ value, decimals, suffix, prefix, useGrouping, isInView 
       const progress = frame / totalFrames;
       const easeOut = 1 - Math.pow(1 - progress, 3);
       const currentCount = value * easeOut;
-      
+
       if (frame === totalFrames) {
         setCount(value);
         clearInterval(counter);
@@ -85,8 +85,8 @@ export function StatsSection() {
       <div className="mx-auto max-w-[1400px] px-6 lg:px-12 xl:px-24">
         <div className="grid grid-cols-2 gap-y-16 gap-x-8 md:grid-cols-4 lg:gap-16">
           {stats.map((stat, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className={cn(
                 "relative group transition-all duration-1000 delay-300",
                 isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -100,10 +100,10 @@ export function StatsSection() {
               )} />
 
               <div className="flex flex-col">
-                <CountUpNumber 
-                  value={stat.value} 
-                  decimals={stat.decimals} 
-                  suffix={stat.suffix} 
+                <CountUpNumber
+                  value={stat.value}
+                  decimals={stat.decimals}
+                  suffix={stat.suffix}
                   prefix={stat.prefix}
                   useGrouping={stat.useGrouping}
                   isInView={isInView}

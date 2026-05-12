@@ -86,18 +86,18 @@ export default function AboutPage() {
                 </p>
               </div>
               <div>
-                <p className="text-5xl font-light lg:text-6xl">4.3</p>
+                <p className="text-5xl font-light lg:text-6xl">150+</p>
                 <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/68">
-                  Acres
+                  Major
                   <span className="mt-1 block text-xs uppercase tracking-wider text-primary-foreground/68">
-                    Buford Facility
+                    Installations
                   </span>
                 </p>
               </div>
               <div>
-                <p className="text-5xl font-light lg:text-6xl">150+</p>
+                <p className="text-5xl font-light lg:text-6xl">500+</p>
                 <p className="mt-2 text-sm uppercase tracking-wider text-primary-foreground/68">
-                  Major Installations
+                  Contractors Appointed
                 </p>
               </div>
             </div>
@@ -111,7 +111,7 @@ export default function AboutPage() {
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
             <div className="relative aspect-[4/3] overflow-hidden">
               <Image
-                src="/images/team-workers.jpg"
+                src="/images/images/image-hq.jpg"
                 alt="Wellins Inc. team members at work"
                 fill
                 className="object-cover"
@@ -216,6 +216,8 @@ export default function AboutPage() {
                 skilled tradespeople are ready to bring your vision to life with
                 the precision, planning, and reliability our clients expect from
                 a dedicated industrial systems partner.
+                the precision and reliability that has defined our company for
+                over a decade.
               </p>
 
               <p className="pt-2 font-medium text-foreground">
