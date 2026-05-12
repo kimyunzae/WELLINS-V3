@@ -16,7 +16,7 @@ const featuredLocations = [
     state: "Georgia",
     description:
       "Our headquarters in Duluth serves as the central hub for all operations, housing leadership, engineering support, and project coordination teams.",
-    addressLines: ["3483 Satellite Blvd. Suite 100", "Duluth, GA 30096"],
+    addressLines: ["3483 Satellite Blvd, Ste 100", "Duluth, GA 30096"],
     mapTitle: "Wellins Inc. Headquarters in Duluth, GA",
     mapSrc:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3312.149682792209!2d-84.11853602396974!3d33.96063317317882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5aefb7a58cb15%3A0x6af73d1d65eee5d4!2s3483%20Satellite%20Blvd%20%23100%2C%20Duluth%2C%20GA%2030096!5e0!3m2!1sen!2sus!4v1700000000000",
@@ -37,25 +37,6 @@ const featuredLocations = [
     phone: "+1 (770) 557-0019",
     email: "info@wellinsinc.com",
     hours: "Mon-Fri: 8:00 AM - 6:00 PM ET",
-  },
-];
-
-const locations = [
-  {
-    name: "Head Office",
-    city: "Duluth, GA",
-    address: "3483 Satellite Boulevard, Ste 100\nDuluth, GA 30096",
-    phone: "+1 (770)-557-0019)",
-    email: "info@wellinsinc.com",
-    hours: "Mon-Fri: 8:00 AM - 6:00 PM",
-  },
-  {
-    name: "Production Facility",
-    city: "Buford, GA",
-    address: "974 Gainseville Hwy\nBuford, GA 30518",
-    phone: "+1 (770)-881-8991",
-    email: "info@wellinsinc.com",
-    hours: "Mon-Fri: 8:00 AM - 6:00 PM",
   },
 ];
 
@@ -140,48 +121,6 @@ export default function LocationPage() {
                       <p className="text-muted-foreground">{location.hours}</p>
                     </div>
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Facilities */}
-      <section className="bg-muted py-20 lg:py-28">
-        <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-          <h2 className="text-3xl font-light tracking-tight text-foreground lg:text-4xl">
-            Our <span className="font-semibold">Facilities</span>
-          </h2>
-          <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {locations.map((location, index) => (
-              <div key={index} className="border border-border bg-card p-8">
-                <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
-                  {location.name}
-                </p>
-                <h3 className="mt-2 text-xl font-semibold text-foreground">
-                  {location.city}
-                </h3>
-                <div className="mt-6 space-y-3 text-sm">
-                  <p className="whitespace-pre-line text-muted-foreground">
-                    {location.address}
-                  </p>
-                  <p>
-                    <a
-                      href={`tel:${location.phone}`}
-                      className="text-foreground hover:text-accent"
-                    >
-                      {location.phone}
-                    </a>
-                  </p>
-                  <p>
-                    <a
-                      href={`mailto:${location.email}`}
-                      className="text-foreground hover:text-accent"
-                    >
-                      {location.email}
-                    </a>
-                  </p>
                 </div>
               </div>
             ))}

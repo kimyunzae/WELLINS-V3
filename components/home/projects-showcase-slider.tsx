@@ -27,29 +27,28 @@ const slides: Slide[] = [
   },
   {
     key: "georgia",
-    region: "Atlanta, GA",
-    title: "Regional Industrial Portfolio",
+    region: "Savannah, GA",
+    title: "LGES Hyundai Plant",
     description:
-      "Supporting Georgia's industrial base with food processing and advanced manufacturing installations.",
-    image: "/images/project-1.jpg",
+      "Process pipe installation in the utility area for battery manufacturing work.",
+    image: "/images/projects/project-3.png",
     href: "/projects/georgia",
   },
   {
     key: "texas",
     region: "Houston, TX",
-    title: "Gulf Coast Energy Projects",
-    description:
-      "Specialized engineering services for petrochemical facilities throughout the Gulf Coast region.",
-    image: "/images/project-2.jpg",
+    title: "Dongwoo Fine-Chem",
+    description: "Process pipe installation for Texas project work.",
+    image: "/images/projects/project-6.png",
     href: "/projects/texas",
   },
   {
     key: "ohio",
-    region: "Ohio",
-    title: "Midwest Distribution Expertise",
+    region: "Jeffersonville, OH",
+    title: "LGES Honda JV Battery",
     description:
-      "Serving Ohio's industrial landscape with fire protection and piping solutions for large-scale facilities.",
-    image: "/images/project-3.jpg",
+      "Process pipe and hot oil pipe installation for battery manufacturing systems.",
+    image: "/images/projects/project-1.png",
     href: "/projects/ohio",
   },
 ];

@@ -86,6 +86,7 @@ const navigation = {
   },
   services: {
     label: "SERVICES",
+    href: "/services",
     items: [
       {
         name: "Equipment Installation",
@@ -106,6 +107,7 @@ const navigation = {
   },
   projects: {
     label: "PROJECTS",
+    href: "/projects",
     items: [
       { name: "Buford", href: "/projects/buford" },
       { name: "Georgia", href: "/projects/georgia" },

@@ -5,7 +5,11 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowRight, Check } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+
+type ServiceBenefit = {
+  title: string;
+  description: string;
+};
 
 interface ServiceDetailProps {
   title: string;
@@ -14,6 +18,7 @@ interface ServiceDetailProps {
   overview: string;
   capabilities: string[];
   applications: string[];
+  benefits?: ServiceBenefit[];
 }
 
 export function ServiceDetail({
@@ -23,19 +28,17 @@ export function ServiceDetail({
   overview,
   capabilities,
   applications,
+  benefits = [],
 }: ServiceDetailProps) {
   return (
     <main className="bg-white">
       <Navigation />
       <PageHeader eyebrow="Services" title={title} description={description} />
 
-      {/* Main Content Container with reduced width for better density */}
       <section className="mx-auto max-w-5xl px-6 py-16 lg:px-8 lg:py-24">
-        
-        {/* 1. Overview Section */}
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div className="header-reveal">
-            <div className="flex items-center gap-3 mb-6">
+            <div className="mb-6 flex items-center gap-3">
               <div className="h-px w-8 bg-primary/20" />
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
                 Service Overview
@@ -49,7 +52,7 @@ export function ServiceDetail({
             </p>
           </div>
           <div className="header-reveal reveal-delay-1 flex justify-center lg:justify-end">
-            <div className="relative aspect-[16/9] w-full overflow-hidden shadow-sm border border-primary/5 lg:max-w-none">
+            <div className="relative aspect-[16/9] w-full overflow-hidden border border-primary/5 shadow-sm lg:max-w-none">
               <Image
                 src={image || "/placeholder.svg"}
                 alt={title}
@@ -63,22 +66,20 @@ export function ServiceDetail({
 
         <Separator className="my-16 bg-primary/5" />
 
-        {/* 2. Capabilities & Applications Grid */}
         <div className="grid gap-16 sm:grid-cols-2 lg:gap-20">
-          {/* Capabilities */}
           <div className="lg:max-w-sm">
-            <h3 className="header-reveal reveal-delay-1 text-[11px] font-bold uppercase tracking-[0.2em] text-primary mb-8">
+            <h3 className="header-reveal reveal-delay-1 mb-8 text-[11px] font-bold uppercase tracking-[0.2em] text-primary">
               Core Capabilities
             </h3>
             <div className="space-y-5">
               {capabilities.map((item, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={item}
                   className="header-reveal flex items-start gap-4"
                   style={{ animationDelay: `${0.4 + index * 0.08}s` }}
                 >
-                  <Check className="h-4 w-4 shrink-0 text-[#0066CC] mt-1" />
-                  <span className="text-base text-muted-foreground leading-relaxed">
+                  <Check className="mt-1 h-4 w-4 shrink-0 text-[#0066CC]" />
+                  <span className="text-base leading-relaxed text-muted-foreground">
                     {item}
                   </span>
                 </div>
@@ -86,21 +87,20 @@ export function ServiceDetail({
             </div>
           </div>
 
-          {/* Applications - Pushed to the far right edge of the container */}
           <div className="flex justify-end">
             <div className="w-full lg:w-[320px]">
-              <h3 className="header-reveal reveal-delay-2 text-[11px] font-bold uppercase tracking-[0.2em] text-primary mb-8">
+              <h3 className="header-reveal reveal-delay-2 mb-8 text-[11px] font-bold uppercase tracking-[0.2em] text-primary">
                 Industry Applications
               </h3>
               <div className="space-y-5">
                 {applications.map((item, index) => (
-                  <div 
-                    key={index} 
+                  <div
+                    key={item}
                     className="header-reveal flex items-start gap-4"
                     style={{ animationDelay: `${0.6 + index * 0.08}s` }}
                   >
-                    <Check className="h-4 w-4 shrink-0 text-[#0066CC] mt-1" />
-                    <span className="text-base text-muted-foreground leading-relaxed">
+                    <Check className="mt-1 h-4 w-4 shrink-0 text-[#0066CC]" />
+                    <span className="text-base leading-relaxed text-muted-foreground">
                       {item}
                     </span>
                   </div>
@@ -110,12 +110,40 @@ export function ServiceDetail({
           </div>
         </div>
 
+        {benefits.length > 0 ? (
+          <>
+            <Separator className="my-16 bg-primary/5" />
+
+            <div>
+              <h3 className="header-reveal reveal-delay-1 mb-8 text-[11px] font-bold uppercase tracking-[0.2em] text-primary">
+                Project Benefits
+              </h3>
+              <div className="grid gap-5 sm:grid-cols-2">
+                {benefits.map((benefit, index) => (
+                  <div
+                    key={benefit.title}
+                    className="header-reveal border border-primary/10 bg-white p-6"
+                    style={{ animationDelay: `${0.35 + index * 0.08}s` }}
+                  >
+                    <h4 className="text-base font-semibold text-foreground">
+                      {benefit.title}
+                    </h4>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                      {benefit.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        ) : null}
+
         <Separator className="my-16 bg-primary/5" />
 
-        {/* 3. Inquiry Section */}
-        <div className="text-center py-8">
+        <div className="py-8 text-center">
           <h2 className="header-reveal reveal-delay-1 text-xl font-light tracking-tight text-foreground lg:text-2xl">
-            Ready to discuss your <span className="font-semibold text-primary">project?</span>
+            Ready to discuss your{" "}
+            <span className="font-semibold text-primary">project?</span>
           </h2>
           <div className="header-reveal reveal-delay-2 mt-10">
             <Link

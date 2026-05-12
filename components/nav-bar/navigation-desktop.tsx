@@ -1,5 +1,8 @@
+"use client";
+
 import type { CSSProperties } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -31,6 +34,8 @@ export default function NavigationDesktop({
   activeMenuKey = null,
   className,
 }: Props) {
+  const router = useRouter();
+
   return (
     <NavigationMenu
       viewport={false}
@@ -72,6 +77,11 @@ export default function NavigationDesktop({
           return (
             <NavigationMenuItem key={label}>
               <NavigationMenuTrigger
+                onClick={() => {
+                  if (href) {
+                    router.push(href);
+                  }
+                }}
                 className={cn(
                   "relative h-auto !px-0 !py-0 font-medium text-zinc-700 transition-colors duration-200 hover:text-black data-[state=open]:text-black",
                   "after:pointer-events-none after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-full after:origin-center after:scale-x-0 after:bg-black after:transition-transform after:duration-200 after:content-['']",

@@ -12,10 +12,11 @@ import { cn } from "@/lib/utils";
 
 interface Project {
   name: string;
-  type: string;
+  type?: string;
+  scopes?: string[];
   location: string;
   year: string;
-  description: string;
+  description?: string;
   image: string;
 }
 
@@ -31,16 +32,19 @@ interface ProjectDetailProps {
 
 function CountUpNumber({ valueStr, isInView }: { valueStr: string; isInView: boolean }) {
   const [count, setCount] = useState(0);
-  // Extract number and suffix (e.g., "35+" -> 35 and "+")
-  const numberPart = parseFloat(valueStr.replace(/[^0-9.]/g, ""));
-  const suffix = valueStr.replace(/[0-9.]/g, "");
-  const decimals = valueStr.includes(".") ? valueStr.split(".")[1].length : 0;
+  const shouldAnimate = /^\d+(?:\.\d+)?\+?$/.test(valueStr.trim());
+  const numberPart = shouldAnimate
+    ? parseFloat(valueStr.replace(/[^0-9.]/g, ""))
+    : 0;
+  const suffix = shouldAnimate ? valueStr.replace(/[0-9.]/g, "") : "";
+  const decimals =
+    shouldAnimate && valueStr.includes(".") ? valueStr.split(".")[1].length : 0;
   
   const duration = 2000;
   const frameDuration = 1000 / 60;
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || !shouldAnimate) return;
 
     const totalFrames = Math.round(duration / frameDuration);
     let frame = 0;
@@ -60,7 +64,15 @@ function CountUpNumber({ valueStr, isInView }: { valueStr: string; isInView: boo
     }, frameDuration);
 
     return () => clearInterval(counter);
-  }, [isInView, numberPart]);
+  }, [isInView, numberPart, shouldAnimate]);
+
+  if (!shouldAnimate) {
+    return (
+      <p className="text-3xl font-light text-foreground lg:text-4xl">
+        {valueStr}
+      </p>
+    );
+  }
 
   return (
     <p className="text-3xl font-light text-foreground lg:text-4xl">
@@ -160,9 +172,24 @@ export function ProjectDetail({
                   <h3 className="text-2xl font-semibold text-foreground lg:text-3xl">
                     {project.name}
                   </h3>
-                  <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-                    {project.description}
-                  </p>
+                  {project.scopes?.length ? (
+                    <ul className="mt-5 space-y-2 text-sm font-medium uppercase tracking-[0.1em] text-muted-foreground">
+                      {project.scopes.map((scope) => (
+                        <li key={scope} className="flex items-start gap-2">
+                          <span
+                            className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-muted-foreground"
+                            aria-hidden="true"
+                          />
+                          <span>{scope}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  {project.description ? (
+                    <p className="mt-5 text-base leading-relaxed text-muted-foreground">
+                      {project.description}
+                    </p>
+                  ) : null}
                 </div>
               </article>
             ))}

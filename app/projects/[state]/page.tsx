@@ -1,214 +1,203 @@
-import { ProjectDetail } from "@/components/project-detail"
-import { notFound } from "next/navigation"
+import { ProjectDetail } from "@/components/project-detail";
+import { notFound } from "next/navigation";
 
-const stateData: Record<string, {
-  state: string
-  description: string
-  stats: { label: string; value: string }[]
+type StateProjectData = {
+  state: string;
+  description: string;
+  stats: { label: string; value: string }[];
   projects: {
-    name: string
-    type: string
-    location: string
-    year: string
-    description: string
-    image: string
-  }[]
-}> = {
+    name: string;
+    scopes: string[];
+    location: string;
+    year: string;
+    image: string;
+  }[];
+};
+
+const stateData: Record<string, StateProjectData> = {
   indiana: {
     state: "Indiana",
-    description: "Indiana connects us to the Midwest's core manufacturing corridor.",
+    description:
+      "Indiana project work is represented by process pipe installation for battery-material manufacturing.",
     stats: [
-      { label: "Projects Completed", value: "35+" },
-      { label: "Years Active", value: "15" },
-      { label: "Major Clients", value: "12+" },
-      { label: "Team Members", value: "15+" },
+      { label: "Representative Works", value: "1" },
+      { label: "Project Locations", value: "1" },
+      { label: "Source Years", value: "2023-2024" },
+      { label: "Scope Areas", value: "1" },
     ],
     projects: [
       {
-        name: "Indianapolis Manufacturing Complex",
-        type: "Industrial Piping",
-        location: "Indianapolis, IN",
-        year: "2024",
-        description: "Process piping installation for a major automotive supplier, including compressed air, cooling water, and process chemical systems.",
-        image: "/images/project-1.jpg",
-      },
-      {
-        name: "Fort Wayne Steel Mill",
-        type: "Equipment Installation",
-        location: "Fort Wayne, IN",
-        year: "2022",
-        description: "Heavy equipment rigging and installation for steel processing line modernization, including hydraulic systems and cooling infrastructure.",
-        image: "/images/project-2.jpg",
+        name: "Soulbrain Plant",
+        scopes: ["Process Pipe Installation"],
+        location: "Kokomo, IN",
+        year: "2023~2024",
+        image: "/images/projects/project-5.png",
       },
     ],
   },
   michigan: {
     state: "Michigan",
-    description: "Michigan supports both legacy automotive and EV production projects.",
+    description:
+      "Michigan project work includes industrial system installation for chemical manufacturing facilities.",
     stats: [
-      { label: "Projects Completed", value: "40+" },
-      { label: "Years Active", value: "12" },
-      { label: "Major Clients", value: "18+" },
-      { label: "Team Members", value: "18+" },
+      { label: "Representative Works", value: "1" },
+      { label: "Project Locations", value: "1" },
+      { label: "Source Years", value: "2019" },
+      { label: "Scope Areas", value: "1" },
     ],
     projects: [
       {
-        name: "Detroit Electric Vehicle Plant",
-        type: "Equipment Installation",
-        location: "Detroit, MI",
-        year: "2024",
-        description: "Comprehensive mechanical installation for EV battery assembly facility, including climate-controlled clean rooms and specialized material handling.",
-        image: "/images/project-3.jpg",
-      },
-      {
-        name: "Grand Rapids Pharmaceutical Facility",
-        type: "HVAC System",
-        location: "Grand Rapids, MI",
-        year: "2023",
-        description: "Complete HVAC and cleanroom systems for pharmaceutical manufacturing expansion, meeting FDA validation requirements.",
-        image: "/images/project-1.jpg",
+        name: "LG Chemical Plant",
+        scopes: ["NMP System Installation"],
+        location: "Holland, MI",
+        year: "2019",
+        image: "/images/projects/project-14.png",
       },
     ],
   },
   ohio: {
     state: "Ohio",
-    description: "Ohio covers distribution, process facilities, and advanced manufacturing.",
+    description:
+      "Ohio project work includes process pipe and hot oil pipe installation for battery manufacturing.",
     stats: [
-      { label: "Projects Completed", value: "50+" },
-      { label: "Years Active", value: "16" },
-      { label: "Major Clients", value: "20+" },
-      { label: "Team Members", value: "22+" },
+      { label: "Representative Works", value: "2" },
+      { label: "Project Locations", value: "1" },
+      { label: "Source Years", value: "2023-2024" },
+      { label: "Scope Areas", value: "2" },
     ],
     projects: [
       {
-        name: "Columbus Distribution Center",
-        type: "Fire Protection",
-        location: "Columbus, OH",
-        year: "2024",
-        description: "Multi-level fire protection system for 750,000 sq ft e-commerce fulfillment center with high-bay storage and mezzanine levels.",
-        image: "/images/project-2.jpg",
+        name: "LGES Honda JV Battery",
+        scopes: ["Process Pipe Installation"],
+        location: "Jeffersonville, OH",
+        year: "2024~",
+        image: "/images/projects/project-1.png",
       },
       {
-        name: "Cincinnati Chemical Plant",
-        type: "Industrial Piping",
-        location: "Cincinnati, OH",
+        name: "LGES Honda JV Battery",
+        scopes: ["Hot Oil Pipe Installation in Electrode Area"],
+        location: "Jeffersonville, OH",
         year: "2023",
-        description: "Specialty alloy piping installation for chemical processing expansion, including hastelloy and titanium systems.",
-        image: "/images/project-3.jpg",
+        image: "/images/projects/project-2.png",
       },
     ],
   },
   "south-carolina": {
     state: "South Carolina",
-    description: "South Carolina supports fast-growing manufacturing and industrial programs.",
+    description:
+      "South Carolina project work includes duct, cooling-water, and utility-pipe installation for Samsung's Newberry plant.",
     stats: [
-      { label: "Projects Completed", value: "30+" },
-      { label: "Years Active", value: "10" },
-      { label: "Major Clients", value: "10+" },
-      { label: "Team Members", value: "12+" },
+      { label: "Representative Works", value: "3" },
+      { label: "Project Locations", value: "1" },
+      { label: "Source Years", value: "2018" },
+      { label: "Scope Areas", value: "3" },
     ],
     projects: [
       {
-        name: "Charleston Port Facility",
-        type: "Equipment Installation",
-        location: "Charleston, SC",
-        year: "2024",
-        description: "Heavy equipment installation for port logistics facility including crane systems and material handling equipment.",
-        image: "/images/project-1.jpg",
+        name: "Samsung Plant",
+        scopes: ["Duct System Installation"],
+        location: "Newberry, SC",
+        year: "2018",
+        image: "/images/projects/project-16.png",
       },
       {
-        name: "Greenville Textile Mill",
-        type: "HVAC System",
-        location: "Greenville, SC",
-        year: "2022",
-        description: "Industrial HVAC modernization for textile manufacturing, optimizing humidity control and energy efficiency.",
-        image: "/images/project-2.jpg",
+        name: "Samsung Plant",
+        scopes: ["Cooling Water Pipe Installation"],
+        location: "Newberry, SC",
+        year: "2018",
+        image: "/images/projects/project-17.png",
+      },
+      {
+        name: "Samsung Plant",
+        scopes: ["Utility Pipe Installation"],
+        location: "Newberry, SC",
+        year: "2018",
+        image: "/images/projects/project-18.png",
       },
     ],
   },
   tennessee: {
     state: "Tennessee",
-    description: "Tennessee supports automotive and logistics work across the state.",
+    description:
+      "Tennessee project work includes hot oil pipe and high-pressure water line installation.",
     stats: [
-      { label: "Projects Completed", value: "42+" },
-      { label: "Years Active", value: "14" },
-      { label: "Major Clients", value: "15+" },
-      { label: "Team Members", value: "16+" },
+      { label: "Representative Works", value: "2" },
+      { label: "Project Locations", value: "2" },
+      { label: "Source Years", value: "2019-2024" },
+      { label: "Scope Areas", value: "2" },
     ],
     projects: [
       {
-        name: "Nashville Automotive Assembly",
-        type: "Industrial Piping",
-        location: "Nashville, TN",
-        year: "2024",
-        description: "Complete process piping installation for automotive paint shop expansion including paint circulation and solvent recovery systems.",
-        image: "/images/project-3.jpg",
+        name: "Ultium Cells-2",
+        scopes: ["Hot Oil Pipe Installation in Electrode Area"],
+        location: "Spring Hill, TN",
+        year: "2022~2024",
+        image: "/images/projects/project-7.png",
       },
       {
-        name: "Memphis Logistics Center",
-        type: "Fire Protection",
-        location: "Memphis, TN",
-        year: "2023",
-        description: "Fire suppression systems for major logistics hub near Memphis International Airport, including specialized aircraft cargo areas.",
-        image: "/images/project-1.jpg",
+        name: "LG Electronics Plant",
+        scopes: ["High Pressure Water Line Installation in QC System"],
+        location: "Clarksville, TN",
+        year: "2019",
+        image: "/images/projects/project-15.png",
       },
     ],
   },
   texas: {
     state: "Texas",
-    description: "Texas serves petrochemical and energy projects along the Gulf Coast.",
+    description:
+      "Texas project work is represented by process pipe installation for Dongwoo Fine-Chem.",
     stats: [
-      { label: "Projects Completed", value: "60+" },
-      { label: "Years Active", value: "9" },
-      { label: "Major Clients", value: "25+" },
-      { label: "Team Members", value: "30+" },
+      { label: "Representative Works", value: "1" },
+      { label: "Project Locations", value: "1" },
+      { label: "Source Years", value: "2023-2024" },
+      { label: "Scope Areas", value: "1" },
     ],
     projects: [
       {
-        name: "Houston Petrochemical Complex",
-        type: "High-Pressure Vessels",
+        name: "Dongwoo Fine-Chem",
+        scopes: ["Process Pipe Installation"],
         location: "Houston, TX",
-        year: "2024",
-        description: "Pressure vessel installation and process piping for petrochemical facility expansion, including ASME code welding and testing.",
-        image: "/images/project-2.jpg",
-      },
-      {
-        name: "Dallas Semiconductor Fab",
-        type: "HVAC System",
-        location: "Dallas, TX",
-        year: "2023",
-        description: "Ultra-clean HVAC systems for semiconductor manufacturing cleanroom, meeting ISO Class 1-4 specifications.",
-        image: "/images/project-3.jpg",
+        year: "2023~2024",
+        image: "/images/projects/project-6.png",
       },
     ],
   },
-}
+};
 
 export function generateStaticParams() {
   return Object.keys(stateData).map((state) => ({
     state,
-  }))
+  }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ state: string }> }) {
-  const { state } = await params
-  const data = stateData[state]
-  if (!data) return {}
-  
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ state: string }>;
+}) {
+  const { state } = await params;
+  const data = stateData[state];
+  if (!data) return {};
+
   return {
     title: `${data.state} Projects | Wellins Inc.`,
     description: data.description,
-  }
+  };
 }
 
-export default async function StatePage({ params }: { params: Promise<{ state: string }> }) {
-  const { state } = await params
-  const data = stateData[state]
-  
+export default async function StatePage({
+  params,
+}: {
+  params: Promise<{ state: string }>;
+}) {
+  const { state } = await params;
+  const data = stateData[state];
+
   if (!data) {
-    notFound()
+    notFound();
   }
-  
+
   return (
     <ProjectDetail
       state={data.state}
@@ -216,5 +205,5 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
       stats={data.stats}
       projects={data.projects}
     />
-  )
+  );
 }

@@ -192,7 +192,7 @@ export default function TermsOfUsePage() {
         <div className="space-y-1 text-foreground">
           <p>Email: info@wellinsinc.com</p>
           <p>Phone: +1 (770) 557-0019</p>
-          <p>Address: 3483 Satellite Blvd. Suite 100, Duluth, GA 30096</p>
+          <p>Address: 3483 Satellite Blvd, Ste 100, Duluth, GA 30096</p>
         </div>
       </section>
 

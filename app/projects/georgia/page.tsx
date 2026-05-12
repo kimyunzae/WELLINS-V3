@@ -2,44 +2,70 @@ import { ProjectDetail } from "@/components/project-detail"
 
 export const metadata = {
   title: "Georgia Projects | Wellins Inc.",
-  description: "Industrial engineering projects in Georgia including food processing, distribution, and manufacturing facilities.",
+  description:
+    "Representative Georgia project work including Hyundai, SK Battery, Enchem, and related industrial scopes.",
 }
 
 export default function GeorgiaProjectsPage() {
   return (
     <ProjectDetail
       state="Georgia"
-      description="Georgia supports food, logistics, and advanced manufacturing projects."
+      description="Georgia project work includes battery, automotive, chemical, and advanced manufacturing facilities."
       stats={[
-        { label: "Projects Completed", value: "45+" },
-        { label: "Years Active", value: "18" },
-        { label: "Major Clients", value: "15+" },
-        { label: "Team Members", value: "20+" },
+        { label: "Representative Works", value: "6" },
+        { label: "Project Locations", value: "5" },
+        { label: "Source Years", value: "2017-2024" },
+        { label: "Scope Areas", value: "6+" },
       ]}
       projects={[
         {
-          name: "Atlanta Food Processing Center",
-          type: "HVAC System",
-          location: "Atlanta, GA",
-          year: "2024",
-          description: "Complete refrigeration and HVAC installation for a 180,000 sq ft food processing facility, including temperature-controlled zones and sanitary piping systems.",
-          image: "/images/project-2.jpg",
-        },
-        {
-          name: "Savannah Distribution Hub",
-          type: "Fire Protection",
+          name: "LGES Hyundai Plant",
+          scopes: ["Process Pipe Installation in Utility Area"],
           location: "Savannah, GA",
-          year: "2023",
-          description: "ESFR sprinkler system installation for a 500,000 sq ft distribution center near the Port of Savannah, designed for high-rack storage configuration.",
-          image: "/images/project-3.jpg",
+          year: "2024~",
+          image: "/images/projects/project-3.png",
         },
         {
-          name: "Augusta Pharmaceutical Plant",
-          type: "Industrial Piping",
-          location: "Augusta, GA",
-          year: "2022",
-          description: "High-purity stainless steel piping installation for pharmaceutical manufacturing, including WFI systems and process utilities.",
-          image: "/images/project-1.jpg",
+          name: "SK Battery America Plant-2",
+          scopes: ["Hot Oil Pipe", "HVAC Installation in Electrode Area"],
+          location: "Kingston, GA",
+          year: "2024~",
+          image: "/images/projects/project-4.png",
+        },
+        {
+          name: "Enchem America Plant",
+          scopes: ["Process Pipe Installation"],
+          location: "Commerce, GA",
+          year: "2021~2022",
+          image: "/images/projects/project-8.png",
+        },
+        {
+          name: "SK Battery America Plant-2",
+          scopes: [
+            "Plumbing & HVAC Installation in Electrode & Assembly Area",
+            "Hot Oil Pipe Installation in Hot Oil Boiler Area",
+          ],
+          location: "Commerce, GA",
+          year: "2021~2022",
+          image: "/images/projects/project-9.png",
+        },
+        {
+          name: "SK Battery America Plant-1",
+          scopes: [
+            "Process Pipe Line Installation in CR/DR Area",
+            "Hot Oil Pipe Installation in Hot Oil Boiler Area",
+            "Cooling Tower Installation",
+          ],
+          location: "Commerce, GA",
+          year: "2019~2020",
+          image: "/images/projects/project-11.png",
+        },
+        {
+          name: "Hyundai Powertech Plant",
+          scopes: ["Clean Room Duct System Installation"],
+          location: "West Point, GA",
+          year: "2017",
+          image: "/images/projects/project-20.png",
         },
       ]}
     />

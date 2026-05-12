@@ -62,44 +62,43 @@ export default function ServicesPage() {
       <Navigation />
       <PageHeader
         eyebrow="Services"
-        title="Comprehensive Industrial Engineering Solutions"
+        title="Industrial Engineering Services"
         description="From initial design to final installation, we deliver end-to-end solutions that meet the highest standards of quality and safety."
+        compact
       />
 
-      <section className="bg-background py-20 lg:py-28">
+      <section className="bg-[#F6F8FB] py-10 lg:py-14">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-          <div className="grid gap-12 md:gap-16">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className={`grid items-center gap-8 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1fr)] lg:gap-14 ${
-                  index % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
-                }`}
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+            {services.map((service) => (
+              <Link
+                key={service.title}
+                href={service.href}
+                className="group overflow-hidden rounded-md border border-[#E2E8F0] bg-white shadow-[0_14px_34px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_44px_rgba(15,23,42,0.13)]"
               >
-                <div className="relative aspect-[3/2] w-full max-w-[480px] overflow-hidden lg:mx-auto">
+                <div className="relative aspect-[16/7] overflow-hidden bg-slate-200">
                   <Image
                     src={service.image || "/placeholder.svg"}
                     alt={service.title}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#001A3D]/15 to-transparent" />
                 </div>
-                <div>
-                  <h2 className="text-2xl font-light tracking-tight text-foreground lg:text-3xl">
-                    <span className="font-semibold">{service.title}</span>
+                <div className="p-6">
+                  <h2 className="text-lg font-semibold tracking-tight text-[#071B3A]">
+                    {service.title}
                   </h2>
-                  <p className="mt-4 text-base leading-relaxed text-muted-foreground lg:text-lg">
+                  <p className="mt-3 min-h-[4.5rem] text-sm leading-relaxed text-[#42526B]">
                     {service.description}
                   </p>
-                  <Link
-                    href={service.href}
-                    className="mt-6 inline-flex items-center text-sm font-semibold uppercase tracking-wider text-foreground transition-colors hover:text-accent"
-                  >
+                  <div className="mt-5 inline-flex items-center text-xs font-bold uppercase tracking-[0.16em] text-[#071B3A]">
                     Learn More
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

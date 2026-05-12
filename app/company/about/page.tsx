@@ -187,12 +187,11 @@ export default function AboutPage() {
               <p className="text-foreground">Dear Valued Partners and Stakeholders,</p>
 
               <p>
-                For nearly three decades, Wellins Inc. has been at the forefront
-                of industrial engineering, delivering precision-driven solutions
-                that power American manufacturing. What started as a small team
-                with big ambitions has grown into a nationally recognized leader
-                in industrial piping, HVAC systems, equipment installation, and
-                fire protection.
+                Since our establishment in Georgia, Wellins Inc. has continued
+                to grow as an industrial systems partner for manufacturing and
+                facility projects. Our work brings together industrial piping,
+                HVAC systems, equipment installation, insulation, jacketing, and
+                fire protection capabilities.
               </p>
 
               <p>
@@ -215,6 +214,8 @@ export default function AboutPage() {
                 I invite you to explore what Wellins Inc. can do for your next
                 project. Our team of expert engineers, project managers, and
                 skilled tradespeople are ready to bring your vision to life with
+                the precision, planning, and reliability our clients expect from
+                a dedicated industrial systems partner.
                 the precision and reliability that has defined our company for
                 over a decade.
               </p>

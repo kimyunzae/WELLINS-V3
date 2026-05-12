@@ -108,20 +108,49 @@ export default function NavigationMobile({
 
               return (
                 <div key={key} className="border-b border-border/60">
-                  <button
-                    onClick={() => handleToggle(key)}
-                    className="flex w-full items-center justify-between py-4 text-sm font-medium tracking-wider text-foreground"
-                    aria-expanded={isOpen}
-                    aria-controls={panelId}
-                  >
-                    {label}
-                    <ChevronDown
-                      className={cn(
-                        "h-4 w-4 transition-transform",
-                        isOpen && "rotate-180"
-                      )}
-                    />
-                  </button>
+                  {href ? (
+                    <div className="flex items-center justify-between">
+                      <SheetClose asChild>
+                        <Link
+                          href={href}
+                          className="block flex-1 py-4 text-sm font-medium tracking-wider text-foreground"
+                        >
+                          {label}
+                        </Link>
+                      </SheetClose>
+                      <button
+                        type="button"
+                        onClick={() => handleToggle(key)}
+                        className="flex h-12 w-12 items-center justify-end text-foreground"
+                        aria-label={`${label} submenu`}
+                        aria-expanded={isOpen}
+                        aria-controls={panelId}
+                      >
+                        <ChevronDown
+                          className={cn(
+                            "h-4 w-4 transition-transform",
+                            isOpen && "rotate-180"
+                          )}
+                        />
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => handleToggle(key)}
+                      className="flex w-full items-center justify-between py-4 text-sm font-medium tracking-wider text-foreground"
+                      aria-expanded={isOpen}
+                      aria-controls={panelId}
+                    >
+                      {label}
+                      <ChevronDown
+                        className={cn(
+                          "h-4 w-4 transition-transform",
+                          isOpen && "rotate-180"
+                        )}
+                      />
+                    </button>
+                  )}
                   <div
                     id={panelId}
                     className={cn(
