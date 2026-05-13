@@ -22,7 +22,7 @@ const slides: Slide[] = [
     title: "Buford Manufacturing Hub Expansion",
     description:
       "A new 4.3-acre manufacturing facility designed to expand production capacity for high-pressure piping.",
-    image: "/images/facility-expansion.jpg",
+    image: "/images/banners/buford-facility.png",
   },
   {
     key: "georgia",
