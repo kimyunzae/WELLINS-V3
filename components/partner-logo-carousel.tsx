@@ -13,7 +13,6 @@ const PARTNER_LOGOS = [
   { src: "/images/logos/logo-lghausys.png", alt: "LG Hausys" },
   { src: "/images/logos/logo-miura.png", alt: "Miura" },
   { src: "/images/logos/logo-samsung.png", alt: "Samsung" },
-  { src: "/images/logos/logo-skbattery.png", alt: "SK Battery" },
   { src: "/images/logos/logo-soulbrain.png", alt: "Soulbrain" },
   { src: "/images/logos/logo-toray.png", alt: "Toray" },
   { src: "/images/logos/logo-ultiumcells.png", alt: "Ultium Cells" },
