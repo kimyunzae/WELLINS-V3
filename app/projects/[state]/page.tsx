@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 type StateProjectData = {
   state: string;
   description: string;
-  stats: { label: string; value: string }[];
   projects: {
     name: string;
     scopes: string[];
@@ -19,12 +18,6 @@ const stateData: Record<string, StateProjectData> = {
     state: "Indiana",
     description:
       "Indiana project work is represented by process pipe installation for battery-material manufacturing.",
-    stats: [
-      { label: "Representative Works", value: "1" },
-      { label: "Project Locations", value: "1" },
-      { label: "Source Years", value: "2023-2024" },
-      { label: "Scope Areas", value: "1" },
-    ],
     projects: [
       {
         name: "Soulbrain Plant",
@@ -39,12 +32,6 @@ const stateData: Record<string, StateProjectData> = {
     state: "Michigan",
     description:
       "Michigan project work includes industrial system installation for chemical manufacturing facilities.",
-    stats: [
-      { label: "Representative Works", value: "1" },
-      { label: "Project Locations", value: "1" },
-      { label: "Source Years", value: "2019" },
-      { label: "Scope Areas", value: "1" },
-    ],
     projects: [
       {
         name: "LG Chemical Plant",
@@ -59,12 +46,6 @@ const stateData: Record<string, StateProjectData> = {
     state: "Ohio",
     description:
       "Ohio project work includes process pipe and hot oil pipe installation for battery manufacturing.",
-    stats: [
-      { label: "Representative Works", value: "2" },
-      { label: "Project Locations", value: "1" },
-      { label: "Source Years", value: "2023-2024" },
-      { label: "Scope Areas", value: "2" },
-    ],
     projects: [
       {
         name: "LGES Honda JV Battery",
@@ -86,12 +67,6 @@ const stateData: Record<string, StateProjectData> = {
     state: "South Carolina",
     description:
       "South Carolina project work includes duct, cooling-water, and utility-pipe installation for Samsung's Newberry plant.",
-    stats: [
-      { label: "Representative Works", value: "3" },
-      { label: "Project Locations", value: "1" },
-      { label: "Source Years", value: "2018" },
-      { label: "Scope Areas", value: "3" },
-    ],
     projects: [
       {
         name: "Samsung Plant",
@@ -120,12 +95,6 @@ const stateData: Record<string, StateProjectData> = {
     state: "Tennessee",
     description:
       "Tennessee project work includes hot oil pipe and high-pressure water line installation.",
-    stats: [
-      { label: "Representative Works", value: "2" },
-      { label: "Project Locations", value: "2" },
-      { label: "Source Years", value: "2019-2024" },
-      { label: "Scope Areas", value: "2" },
-    ],
     projects: [
       {
         name: "Ultium Cells-2",
@@ -147,12 +116,6 @@ const stateData: Record<string, StateProjectData> = {
     state: "Texas",
     description:
       "Texas project work is represented by process pipe installation for Dongwoo Fine-Chem.",
-    stats: [
-      { label: "Representative Works", value: "1" },
-      { label: "Project Locations", value: "1" },
-      { label: "Source Years", value: "2023-2024" },
-      { label: "Scope Areas", value: "1" },
-    ],
     projects: [
       {
         name: "Dongwoo Fine-Chem",
@@ -202,7 +165,6 @@ export default async function StatePage({
     <ProjectDetail
       state={data.state}
       description={data.description}
-      stats={data.stats}
       projects={data.projects}
     />
   );
