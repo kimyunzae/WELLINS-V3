@@ -109,7 +109,6 @@ const navigation = {
     label: "PROJECTS",
     href: "/projects",
     items: [
-      { name: "Buford", href: "/projects/buford" },
       { name: "Georgia", href: "/projects/georgia" },
       { name: "Indiana", href: "/projects/indiana" },
       { name: "Michigan", href: "/projects/michigan" },
