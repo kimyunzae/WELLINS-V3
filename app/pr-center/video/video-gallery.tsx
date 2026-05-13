@@ -47,13 +47,13 @@ export default function VideoGallery({ videos }: Props) {
           )}
         </div>
         <div className="mt-6 max-w-3xl">
-          <h2 className="text-2xl font-semibold text-foreground lg:text-3xl">
+          <h2 className="line-clamp-2 text-2xl font-semibold text-foreground lg:text-3xl">
             {activeVideo.title}
           </h2>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="mt-2 truncate text-sm text-muted-foreground">
             {activeVideo.duration}
           </p>
-          <p className="mt-4 text-base text-muted-foreground">
+          <p className="mt-4 line-clamp-3 text-base text-muted-foreground">
             {activeVideo.description}
           </p>
         </div>
@@ -90,10 +90,10 @@ export default function VideoGallery({ videos }: Props) {
                 </div>
               </div>
               <div className="mt-4">
-                <h3 className="text-lg font-semibold text-foreground transition-colors group-hover:text-accent">
+                <h3 className="truncate text-lg font-semibold text-foreground transition-colors group-hover:text-accent">
                   {video.title}
                 </h3>
-                <p className="mt-2 text-sm text-muted-foreground">
+                <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
                   {video.description}
                 </p>
               </div>

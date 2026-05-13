@@ -98,22 +98,22 @@ export function ProjectDetail({
         </div>
       </section>
 
-      <section className="bg-primary py-20 text-primary-foreground lg:py-28">
+      <section className="bg-muted py-20 lg:py-28">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
           <div className="flex flex-col items-center text-center">
-            <h2 className="text-3xl font-light tracking-tight lg:text-4xl">
+            <h2 className="text-3xl font-light tracking-tight text-foreground lg:text-4xl">
               Have a project in <span className="font-semibold">{state}?</span>
             </h2>
-            <p className="mt-4 max-w-xl text-base leading-relaxed text-primary-foreground/70">
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
               Our team is ready to discuss your industrial engineering needs in
               this region.
             </p>
             <Link
               href="/contact"
-              className="group/quote relative mt-8 inline-flex items-center overflow-hidden border border-primary-foreground/40 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-primary-foreground transition-all duration-200 hover:-translate-y-px hover:border-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground/30"
+              className="group/quote relative mt-8 inline-flex items-center overflow-hidden border border-foreground/30 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-foreground transition-all duration-200 hover:-translate-y-px hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/30"
             >
-              <span className="absolute inset-0 origin-left scale-x-0 bg-primary-foreground transition-transform duration-200 group-hover/quote:scale-x-100 group-focus-visible/quote:scale-x-100" />
-              <span className="relative z-10 inline-flex items-center transition-colors duration-200 group-hover/quote:text-primary group-focus-visible/quote:text-primary">
+              <span className="absolute inset-0 origin-left scale-x-0 bg-foreground transition-transform duration-200 group-hover/quote:scale-x-100 group-focus-visible/quote:scale-x-100" />
+              <span className="relative z-10 inline-flex items-center transition-colors duration-200 group-hover/quote:text-background group-focus-visible/quote:text-background">
                 Contact Us
                 <ArrowRight className="ml-2 h-4 w-4" />
               </span>

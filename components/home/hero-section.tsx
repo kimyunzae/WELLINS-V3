@@ -142,11 +142,11 @@ export function HeroSection() {
                   className="relative z-10 flex h-full flex-col justify-center px-6 lg:px-12 xl:px-24"
                 >
                   <div className="mx-auto w-full max-w-[1400px]">
-                    <div className="max-w-4xl">
+                    <div className="max-w-4xl overflow-hidden">
                       {/* Animated Text */}
                       <h1
                         className={cn(
-                          "text-5xl font-light leading-[1.15] tracking-tight text-white md:text-6xl lg:text-8xl transition-all duration-1000",
+                          "line-clamp-3 text-5xl font-light leading-[1.15] tracking-tight text-white transition-all duration-1000 md:text-6xl lg:text-8xl",
                           isAnimatedActive ? "translate-y-0 opacity-100 delay-300" : "translate-y-12 opacity-0"
                         )}
                         dangerouslySetInnerHTML={{ __html: slide.title }}
@@ -154,7 +154,7 @@ export function HeroSection() {
 
                       <p
                         className={cn(
-                          "mt-8 max-w-2xl text-lg leading-relaxed text-white/80 lg:text-2xl transition-all duration-1000",
+                          "mt-8 line-clamp-2 max-w-2xl text-lg leading-relaxed text-white/80 transition-all duration-1000 lg:text-2xl",
                           isAnimatedActive ? "translate-y-0 opacity-100 delay-500" : "translate-y-12 opacity-0"
                         )}
                       >
@@ -169,10 +169,10 @@ export function HeroSection() {
                       >
                         <Link
                           href={slide.link}
-                          className="group/btn relative flex items-center gap-3 overflow-hidden border border-white/20 bg-white/5 px-10 py-5 text-sm font-bold uppercase tracking-[0.2em] text-white backdrop-blur-sm transition-all hover:border-white"
+                          className="group/btn relative flex max-w-full items-center gap-3 overflow-hidden border border-white/20 bg-white/5 px-10 py-5 text-sm font-bold uppercase tracking-[0.2em] text-white backdrop-blur-sm transition-all hover:border-white"
                         >
                           <span className="absolute inset-0 origin-left scale-x-0 bg-white transition-transform duration-300 group-hover/btn:scale-x-100" />
-                          <span className="relative z-10 transition-colors duration-300 group-hover/btn:text-[#001A3D]">
+                          <span className="relative z-10 truncate transition-colors duration-300 group-hover/btn:text-[#001A3D]">
                             {slide.linkLabel}
                           </span>
                           <ArrowRight className="relative z-10 h-4 w-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:text-[#001A3D]" />

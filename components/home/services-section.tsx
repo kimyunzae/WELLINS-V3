@@ -125,7 +125,9 @@ export function ServicesSection() {
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service, index) => {
-              const config = animConfig[index];
+              // 서비스가 6개보다 많아져도 애니메이션 설정을 반복해서 사용
+              const config = animConfig[index % animConfig.length];
+
               return (
                 <div key={service.title} className="relative overflow-hidden">
                   <Link
@@ -149,7 +151,7 @@ export function ServicesSection() {
                     </div>
 
                     <div className="relative z-10 flex h-full flex-col justify-end p-8 lg:p-9">
-                      <h3 className="mb-3 text-xl font-bold text-white group-hover:translate-x-1 transition-transform duration-500 uppercase tracking-tight">
+                      <h3 className="mb-3 line-clamp-2 text-xl font-bold uppercase tracking-tight text-white transition-transform duration-500 group-hover:translate-x-1">
                         {service.title}
                       </h3>
                       <p className="mb-6 line-clamp-2 translate-y-2 text-xs leading-relaxed text-white/84 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
