@@ -36,8 +36,8 @@ export function ServiceDetail({
       <PageHeader eyebrow="Services" title={title} description={description} />
 
       <section className="mx-auto max-w-5xl px-6 py-16 lg:px-8 lg:py-24">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
-          <div className="header-reveal">
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
+          <div className="header-reveal min-w-0">
             <div className="mb-6 flex items-center gap-3">
               <div className="h-px w-8 bg-primary/20" />
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
@@ -47,11 +47,11 @@ export function ServiceDetail({
             <h2 className="text-2xl font-semibold tracking-tight text-foreground lg:text-3xl">
               Precision <span className="font-light">Engineering Solutions</span>
             </h2>
-            <p className="mt-8 text-base leading-relaxed text-muted-foreground lg:text-lg">
+            <p className="mt-8 break-words text-base leading-relaxed text-muted-foreground [overflow-wrap:anywhere] lg:text-lg">
               {overview}
             </p>
           </div>
-          <div className="header-reveal reveal-delay-1 flex justify-center lg:justify-end">
+          <div className="header-reveal reveal-delay-1 flex min-w-0 justify-center lg:justify-end">
             <div className="relative aspect-[16/9] w-full overflow-hidden border border-primary/5 shadow-sm lg:max-w-none">
               <Image
                 src={image || "/placeholder.svg"}
@@ -118,17 +118,17 @@ export function ServiceDetail({
               <h3 className="header-reveal reveal-delay-1 mb-8 text-[11px] font-bold uppercase tracking-[0.2em] text-primary">
                 Project Benefits
               </h3>
-              <div className="grid gap-5 sm:grid-cols-2">
+              <div className="grid gap-6 sm:grid-cols-2">
                 {benefits.map((benefit, index) => (
                   <div
                     key={benefit.title}
-                    className="header-reveal border border-primary/10 bg-white p-6"
+                    className="header-reveal border-l-2 border-[#0066CC]/30 pl-5"
                     style={{ animationDelay: `${0.35 + index * 0.08}s` }}
                   >
                     <h4 className="text-base font-semibold text-foreground">
                       {benefit.title}
                     </h4>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
                       {benefit.description}
                     </p>
                   </div>
@@ -138,20 +138,24 @@ export function ServiceDetail({
           </>
         ) : null}
 
-        <Separator className="my-16 bg-primary/5" />
+      </section>
 
-        <div className="py-8 text-center">
-          <h2 className="header-reveal reveal-delay-1 text-xl font-light tracking-tight text-foreground lg:text-2xl">
-            Ready to discuss your{" "}
-            <span className="font-semibold text-primary">project?</span>
-          </h2>
-          <div className="header-reveal reveal-delay-2 mt-10">
+      <section className="bg-muted py-20 lg:py-28">
+        <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
+          <div className="flex flex-col items-center text-center">
+            <h2 className="text-3xl font-light tracking-tight text-foreground lg:text-4xl">
+              Ready to discuss your{" "}
+              <span className="font-semibold">project?</span>
+            </h2>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
+              Our team is ready to discuss your industrial engineering needs.
+            </p>
             <Link
               href="/contact"
-              className="group/quote relative inline-flex items-center overflow-hidden border border-primary/20 px-10 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-primary transition-all duration-300 hover:border-primary focus-visible:outline-none"
+              className="group/quote relative mt-8 inline-flex items-center overflow-hidden border border-foreground/30 px-8 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-foreground transition-all duration-200 hover:-translate-y-px hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/30"
             >
-              <span className="absolute inset-0 origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover/quote:scale-x-100" />
-              <span className="relative z-10 inline-flex items-center transition-colors duration-300 group-hover/quote:text-white">
+              <span className="absolute inset-0 origin-left scale-x-0 bg-foreground transition-transform duration-200 group-hover/quote:scale-x-100 group-focus-visible/quote:scale-x-100" />
+              <span className="relative z-10 inline-flex items-center transition-colors duration-200 group-hover/quote:text-background group-focus-visible/quote:text-background">
                 Contact Us
                 <ArrowRight className="ml-2 h-4 w-4" />
               </span>
