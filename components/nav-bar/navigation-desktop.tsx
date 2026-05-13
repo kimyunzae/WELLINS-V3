@@ -98,9 +98,9 @@ export default function NavigationDesktop({
                     <NavigationMenuLink
                       key={item.name}
                       href={item.href}
-                      className="block px-4 py-2 text-sm text-card-foreground transition-colors hover:bg-muted"
+                      className="block min-w-0 px-4 py-2 text-sm text-card-foreground transition-colors hover:bg-muted"
                     >
-                      <p className="text-[#2C2C2C]">{item.name}</p>
+                      <p className="truncate text-[#2C2C2C]">{item.name}</p>
                     </NavigationMenuLink>
                   ))}
                 </div>

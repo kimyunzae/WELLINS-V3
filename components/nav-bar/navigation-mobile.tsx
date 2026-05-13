@@ -158,16 +158,18 @@ export default function NavigationMobile({
                       isOpen ? "mt-2 max-h-[400px]" : "max-h-0"
                     )}
                   >
-                    {menuItems.map((item) => (
-                      <SheetClose asChild key={item.name}>
-                        <Link
-                          href={item.href}
-                          className="block py-2 pl-4 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                        >
-                          {item.name}
-                        </Link>
-                      </SheetClose>
-                    ))}
+                    <div className="max-h-[400px] overflow-y-auto">
+                      {menuItems.map((item) => (
+                        <SheetClose asChild key={item.name}>
+                          <Link
+                            href={item.href}
+                            className="block truncate py-2 pl-4 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                          >
+                            {item.name}
+                          </Link>
+                        </SheetClose>
+                      ))}
+                    </div>
                   </div>
                 </div>
               );

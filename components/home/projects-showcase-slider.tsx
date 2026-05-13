@@ -52,11 +52,15 @@ const slides: Slide[] = [
   },
 ];
 
+// 홈 슬라이더는최대 4개까지만 노출 하도록 설정 (퍼포먼스 및 디자인 고려)
+// 슬라이더를 4개이상 추가 시 변경 필요
+const visibleSlides = slides.slice(0, 4);
+
 export function ProjectsShowcaseSlider() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const totalScrollHeightVh = 100 + (slides.length - 1) * 28;
+  const totalScrollHeightVh = 100 + (visibleSlides.length - 1) * 28;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -84,9 +88,9 @@ export function ProjectsShowcaseSlider() {
       const maxScroll = Math.max(section.offsetHeight - viewportHeight, 1);
       const rect = section.getBoundingClientRect();
       const passed = Math.min(Math.max(-rect.top, 0), maxScroll);
-      const stepHeight = maxScroll / Math.max(slides.length - 1, 1);
+      const stepHeight = maxScroll / Math.max(visibleSlides.length - 1, 1);
       const nextIndex = Math.min(
-        slides.length - 1,
+        visibleSlides.length - 1,
         Math.max(0, Math.floor(passed / Math.max(stepHeight, 1))),
       );
 
@@ -121,7 +125,7 @@ export function ProjectsShowcaseSlider() {
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         <div className="absolute inset-0">
-          {slides.map((slide, index) => (
+          {visibleSlides.map((slide, index) => (
             <div
               key={slide.key}
               className={cn(
@@ -162,19 +166,22 @@ export function ProjectsShowcaseSlider() {
                     style={{
                       height: "100%",
                       transform: `scaleY(${Math.max(
-                        activeIndex / (slides.length - 1 || 1),
+                        activeIndex / (visibleSlides.length - 1 || 1),
                         0.08,
                       )})`,
                     }}
                   />
                 </div>
 
-                <div className="space-y-4">
-                  {slides.map((slide, index) => (
-                    <div key={slide.key} className="flex items-start gap-4">
+                <div className="min-w-0 space-y-4 overflow-hidden">
+                  {visibleSlides.map((slide, index) => (
+                    <div
+                      key={slide.key}
+                      className="flex min-w-0 items-start gap-4"
+                    >
                       <span
                         className={cn(
-                          "mt-0.5 text-[11px] font-bold tracking-[0.3em] transition-colors duration-300",
+                          "mt-0.5 shrink-0 text-[11px] font-bold tracking-[0.3em] transition-colors duration-300",
                           index === activeIndex
                             ? "text-white"
                             : "text-white/30",
@@ -184,7 +191,7 @@ export function ProjectsShowcaseSlider() {
                       </span>
                       <span
                         className={cn(
-                          "text-sm uppercase tracking-[0.18em] transition-all duration-300 lg:text-base",
+                          "block min-w-0 max-w-[18rem] truncate text-sm uppercase tracking-[0.18em] transition-all duration-300 lg:text-base",
                           index === activeIndex
                             ? "text-white/86"
                             : "text-white/34",
@@ -200,8 +207,8 @@ export function ProjectsShowcaseSlider() {
           </div>
 
           <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,0.28fr)] lg:gap-16">
-            <div className="relative min-h-[240px] lg:min-h-[320px]">
-              {slides.map((slide, index) => (
+            <div className="relative h-[300px] overflow-hidden lg:h-[360px]">
+              {visibleSlides.map((slide, index) => (
                 <div
                   key={`content-${slide.key}`}
                   className={cn(
@@ -211,13 +218,13 @@ export function ProjectsShowcaseSlider() {
                       : "pointer-events-none translate-y-8 opacity-0",
                   )}
                 >
-                  <p className="text-xs font-bold uppercase tracking-[0.34em] text-white/66">
+                  <p className="max-w-[28rem] truncate text-xs font-bold uppercase tracking-[0.34em] text-white/66">
                     {slide.region}
                   </p>
-                  <h3 className="mt-4 text-4xl font-light leading-[1.05] tracking-tight text-white md:text-5xl lg:text-[4.5rem]">
+                  <h3 className="mt-4 line-clamp-2 text-4xl font-light leading-[1.05] tracking-tight text-white md:text-5xl lg:text-[4.5rem]">
                     {slide.title}
                   </h3>
-                  <p className="mt-6 max-w-[38rem] text-base leading-relaxed text-white/76 lg:text-lg">
+                  <p className="mt-6 line-clamp-2 max-w-[38rem] text-base leading-relaxed text-white/76 lg:text-lg">
                     {slide.description}
                   </p>
                   {slide.href && (

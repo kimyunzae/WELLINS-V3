@@ -90,7 +90,7 @@ export default function ServicesPage() {
                   <h2 className="text-lg font-semibold tracking-tight text-[#071B3A]">
                     {service.title}
                   </h2>
-                  <p className="mt-3 min-h-[4.5rem] text-sm leading-relaxed text-[#42526B]">
+                  <p className="mt-3 line-clamp-3 min-h-[4.5rem] text-sm leading-relaxed text-[#42526B]">
                     {service.description}
                   </p>
                   <div className="mt-5 inline-flex items-center text-xs font-bold uppercase tracking-[0.16em] text-[#071B3A]">
