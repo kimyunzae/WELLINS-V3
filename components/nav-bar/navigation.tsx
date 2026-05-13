@@ -125,8 +125,8 @@ const navigation = {
   prCenter: {
     label: "PR CENTER",
     items: [
-      // { name: "Brochure", href: "/pr-center/brochure" },
-      { name: "News", href: "/pr-center/news" },
+      { name: "Brochure", href: "/pr-center/brochure" },
+      // { name: "News", href: "/pr-center/news" },
       // { name: "PR Video", href: "/pr-center/video" },
     ],
   },
