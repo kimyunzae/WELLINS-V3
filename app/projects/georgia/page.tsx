@@ -11,12 +11,6 @@ export default function GeorgiaProjectsPage() {
     <ProjectDetail
       state="Georgia"
       description="Georgia project work includes battery, automotive, chemical, and advanced manufacturing facilities."
-      stats={[
-        { label: "Representative Works", value: "6" },
-        { label: "Project Locations", value: "5" },
-        { label: "Source Years", value: "2017-2024" },
-        { label: "Scope Areas", value: "6+" },
-      ]}
       projects={[
         {
           name: "LGES Hyundai Plant",

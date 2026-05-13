@@ -12,12 +12,6 @@ export default function BufordProjectsPage() {
     <ProjectDetail
       state="Buford"
       description="Buford anchors our manufacturing and regional fabrication footprint."
-      stats={[
-        { label: "Square Foot", value: "187308" },
-        { label: "Acre", value: "4.3" },
-        { label: "Major Clients", value: "25+" },
-        { label: "Team Members", value: "30+" },
-      ]}
       projects={[
         {
           name: "Buford Manufacturing Hub",
