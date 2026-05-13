@@ -1,6 +1,7 @@
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
+import { PartnerLogoCarousel } from "@/components/partner-logo-carousel";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,23 +27,6 @@ export const metadata = {
 };
 
 const projects: ProjectRegion[] = [
-  {
-    state: "Buford",
-    projects: [
-      {
-        name: "Birmingham Automotive Plant Expansion",
-        type: "Equipment Installation",
-        year: "2024",
-      },
-      {
-        name: "Huntsville Aerospace Facility",
-        type: "Industrial Piping",
-        year: "2023",
-      },
-    ],
-    image: "/images/project-1.jpg",
-    href: "/projects/buford",
-  },
   {
     state: "Georgia",
     projects: [
@@ -153,6 +137,8 @@ export default function ProjectsPage() {
         title="Our Work Across America"
         description="Representative industrial project work across eight regional markets, organized by project location and scope."
       />
+
+      <PartnerLogoCarousel />
 
       <section className="bg-background py-20 lg:py-28">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">

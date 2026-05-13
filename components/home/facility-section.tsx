@@ -1,6 +1,4 @@
-import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
 export function FacilitySection() {
   return (
@@ -41,13 +39,6 @@ export function FacilitySection() {
               </div>
             </div>
 
-            <Link
-              href="/projects/buford"
-              className="mt-12 group inline-flex items-center justify-center bg-[#001A3D] px-10 py-5 text-sm font-bold uppercase tracking-widest text-white hover:bg-[#002855] transition-all"
-            >
-              View Project Details
-              <ArrowRight className="ml-3 h-4 w-4 transition-transform group-hover:translate-x-2" />
-            </Link>
           </div>
 
           {/* Image with Decorative Elements */}

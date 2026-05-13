@@ -12,7 +12,7 @@ type Slide = {
   title: string;
   description: string;
   image: string;
-  href: string;
+  href?: string;
 };
 
 const slides: Slide[] = [
@@ -23,7 +23,6 @@ const slides: Slide[] = [
     description:
       "A new 4.3-acre manufacturing facility designed to expand production capacity for high-pressure piping.",
     image: "/images/facility-expansion.jpg",
-    href: "/projects/buford",
   },
   {
     key: "georgia",
@@ -221,13 +220,15 @@ export function ProjectsShowcaseSlider() {
                   <p className="mt-6 max-w-[38rem] text-base leading-relaxed text-white/76 lg:text-lg">
                     {slide.description}
                   </p>
-                  <Link
-                    href={slide.href}
-                    className="group mt-10 inline-flex items-center gap-3 border-b border-white/20 pb-2 text-sm font-bold uppercase tracking-[0.24em] text-white transition-colors hover:border-white"
-                  >
-                    <span>View Project</span>
-                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                  </Link>
+                  {slide.href && (
+                    <Link
+                      href={slide.href}
+                      className="group mt-10 inline-flex items-center gap-3 border-b border-white/20 pb-2 text-sm font-bold uppercase tracking-[0.24em] text-white transition-colors hover:border-white"
+                    >
+                      <span>View Project</span>
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </Link>
+                  )}
                 </div>
               ))}
             </div>
