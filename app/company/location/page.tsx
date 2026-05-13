@@ -129,25 +129,26 @@ export default function LocationPage() {
       </section>
 
       {/* Service Area */}
-      <section className="bg-primary py-20 text-primary-foreground lg:py-28">
+      <section className="bg-muted py-20 lg:py-28">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
           <div className="max-w-2xl">
-            <h2 className="text-3xl font-light tracking-tight lg:text-4xl">
+            <h2 className="text-3xl font-light tracking-tight text-foreground lg:text-4xl">
               Serviced <span className="font-semibold">Area</span>
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-primary-foreground/70 lg:text-lg">
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground lg:text-lg">
               Wellins Inc. is licensed to operate in eight states across the
               southeastern and midwestern United States.
             </p>
           </div>
-          <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 lg:gap-6">
+          <div className="mt-10 flex flex-wrap gap-3">
             {serviceStates.map((state, index) => (
-              <div
+              <span
                 key={index}
-                className="border border-primary-foreground/20 p-4 text-center"
+                className="inline-flex items-center gap-2 rounded-full border border-foreground/15 bg-background px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-foreground hover:text-background"
               >
-                <p className="font-medium">{state}</p>
-              </div>
+                <MapPin className="h-3.5 w-3.5" />
+                {state}
+              </span>
             ))}
           </div>
         </div>
