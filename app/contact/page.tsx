@@ -134,28 +134,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="bg-primary py-16 text-primary-foreground">
-        <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-          <div className="flex flex-col items-center justify-between gap-6 text-center lg:flex-row lg:text-left">
-            <div>
-              <h2 className="text-2xl font-semibold">
-                24/7 Emergency Support
-              </h2>
-              <p className="mt-2 text-primary-foreground/70">
-                For urgent plant shutdowns or emergency repairs
-              </p>
-            </div>
-            <a
-              href="tel:+12055559999"
-              className="inline-flex items-center border border-primary-foreground/30 bg-transparent px-8 py-4 text-lg font-semibold transition-colors hover:bg-primary-foreground hover:text-primary"
-            >
-              <Phone className="mr-3 h-5 w-5" />
-              +1 (205) 555-9999
-            </a>
-          </div>
-        </div>
-      </section>
-
       <Footer />
     </main>
   );
