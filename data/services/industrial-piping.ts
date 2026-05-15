@@ -1,0 +1,69 @@
+import type { Service } from "@/types/services";
+
+export const industrialPipingService = {
+  slug: "industrial-piping",
+  title: "Industrial Piping",
+  detailTitle: "Mechanical & Industrial Piping",
+  description:
+    "Complete piping solutions from design to installation for process, utility, and specialized applications.",
+  detailDescription:
+    "Complete piping solutions from design to installation for process, utility, and specialized applications",
+  homeDescription:
+    "Process and utility piping delivered from layout to turnover.",
+  image: "/images/service-piping.jpg",
+  href: "/services/industrial-piping",
+  overview:
+    "Process-critical distribution networks engineered for uptime and simplified maintenance.",
+  capabilities: [
+    "Process piping systems design and installation",
+    "High-purity and sanitary piping",
+    "High-pressure piping systems",
+    "Carbon steel, stainless steel, and alloy piping",
+    "Pipe fabrication and prefabrication",
+    "ASME B31.1 and B31.3 code compliance",
+    "Pipe supports and hangers",
+    "Hydrostatic testing and certification",
+  ],
+  applications: [
+    "Chemical processing plants",
+    "Petrochemical refineries",
+    "Pharmaceutical manufacturing",
+    "Food and beverage production",
+    "Power generation facilities",
+    "Water treatment plants",
+    "Pulp and paper mills",
+    "Semiconductor manufacturing",
+  ],
+  benefits: [
+    {
+      title: "Code Compliance",
+      description:
+        "All installations meet ASME, ANSI, and industry-specific codes and standards.",
+    },
+    {
+      title: "Certified Welders",
+      description:
+        "AWS and ASME certified welders ensure highest quality joints and connections.",
+    },
+    {
+      title: "Prefabrication",
+      description:
+        "Shop prefabrication reduces field installation time and improves quality control.",
+    },
+    {
+      title: "Material Expertise",
+      description:
+        "Experience with carbon steel, stainless, chrome-moly, and exotic alloys.",
+    },
+    {
+      title: "Testing & Documentation",
+      description:
+        "Complete NDE testing, radiography, and documentation packages.",
+    },
+    {
+      title: "Shutdown Support",
+      description:
+        "24/7 availability for planned shutdowns and emergency repairs.",
+    },
+  ],
+} satisfies Service;

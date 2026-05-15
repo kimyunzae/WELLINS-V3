@@ -1,63 +1,23 @@
-import { ServiceDetail } from "@/components/service-detail"
+import { ServiceDetail } from "@/components/service-detail";
+import { getServiceBySlug } from "@/data/services/service-details";
+
+const service = getServiceBySlug("insulation-jacketing");
 
 export const metadata = {
-  title: "Insulation & Jacketing | Wellins Inc.",
-  description: "Industrial insulation and protective jacketing services for pipes, vessels, and equipment.",
-}
+  title: `${service.title} | Wellins Inc.`,
+  description: service.metadataDescription ?? service.description,
+};
 
 export default function InsulationJacketingPage() {
   return (
     <ServiceDetail
-      title="Insulation & Jacketing"
-      description="Thermal insulation and protective jacketing for pipes, vessels, and equipment in demanding conditions"
-      image="/images/service-insulation.jpg"
-      overview="Thermal and acoustic packages that safeguard performance and extend equipment life."
-      capabilities={[
-        "Hot and cold pipe insulation",
-        "Vessel and tank insulation",
-        "Cryogenic insulation systems",
-        "Acoustic insulation",
-        "Metal jacketing (aluminum, stainless)",
-        "PVC jacketing systems",
-        "Removable insulation blankets",
-        "Fireproofing applications",
-      ]}
-      applications={[
-        "Refineries and petrochemical plants",
-        "Chemical processing facilities",
-        "Power generation plants",
-        "Food and beverage processing",
-        "Pharmaceutical manufacturing",
-        "LNG and cryogenic facilities",
-        "Paper and pulp mills",
-        "District heating systems",
-      ]}
-      benefits={[
-        {
-          title: "Energy Savings",
-          description: "Properly designed insulation systems significantly reduce energy costs and heat loss.",
-        },
-        {
-          title: "Personnel Protection",
-          description: "Insulation keeps surface temperatures safe for workers in the facility.",
-        },
-        {
-          title: "Process Control",
-          description: "Maintain precise temperatures for critical process applications.",
-        },
-        {
-          title: "Corrosion Prevention",
-          description: "Jacketing systems protect insulation and piping from weather and physical damage.",
-        },
-        {
-          title: "Code Compliance",
-          description: "All installations meet ASTM, ASHRAE, and industry insulation standards.",
-        },
-        {
-          title: "Long Service Life",
-          description: "Quality materials and installation ensure decades of reliable performance.",
-        },
-      ]}
+      title={service.detailTitle ?? service.title}
+      description={service.detailDescription ?? service.description}
+      image={service.image}
+      overview={service.overview}
+      capabilities={service.capabilities}
+      applications={service.applications}
+      benefits={service.benefits}
     />
-  )
+  );
 }

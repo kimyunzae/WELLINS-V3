@@ -1,59 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-
-const footerLinks = {
-  company: {
-    label: "Company",
-    links: [
-      { name: "About Us", href: "/company/about" },
-      { name: "History", href: "/company/history" },
-      { name: "Organization", href: "/company/organization" },
-      { name: "Location", href: "/company/location" },
-    ],
-  },
-  services: {
-    label: "Services",
-    links: [
-      {
-        name: "Equipment Installation",
-        href: "/services/equipment-installation",
-      },
-      { name: "Industrial Piping", href: "/services/industrial-piping" },
-      { name: "HVAC System", href: "/services/hvac-system" },
-      {
-        name: "Insulation & Jacketing",
-        href: "/services/insulation-jacketing",
-      },
-      {
-        name: "High-Pressure Vessels",
-        href: "/services/high-pressure-vessels",
-      },
-      { name: "Fire Protection", href: "/services/fire-protection" },
-    ],
-  },
-  projects: {
-    label: "Projects",
-    links: [
-      { name: "Georgia", href: "/projects/georgia" },
-      { name: "Indiana", href: "/projects/indiana" },
-      { name: "Michigan", href: "/projects/michigan" },
-      { name: "Ohio", href: "/projects/ohio" },
-      { name: "South Carolina", href: "/projects/south-carolina" },
-      { name: "Tennessee", href: "/projects/tennessee" },
-      { name: "Texas", href: "/projects/texas" },
-    ],
-  },
-  resources: {
-    label: "Resources",
-    links: [
-      { name: "Brochure", href: "/pr-center/brochure" },
-      // { name: "News", href: "/pr-center/news" },
-      // { name: "PR Video", href: "/pr-center/video" },
-      { name: "Career", href: "/career" },
-      { name: "Contact", href: "/contact" },
-    ],
-  },
-};
+import { primaryContact } from "@/data/company";
+import { footerLinkSections } from "@/data/navigation";
 
 export function Footer() {
   return (
@@ -86,29 +34,30 @@ export function Footer() {
               execution, and reliable field delivery.
             </p>
             <div className="mt-6 space-y-2 text-sm text-white/72">
-              <p>3483 Satellite Blvd, Ste 100</p>
-              <p>Duluth, GA 30096</p>
+              {primaryContact.addressLines.map((line) => (
+                <p key={line}>{line}</p>
+              ))}
               <p className="mt-4">
                 <a
-                  href="tel:+17705570019"
+                  href={`tel:${primaryContact.phoneHref}`}
                   className="transition-colors hover:text-white"
                 >
-                  +1 (770) 557-0019
+                  {primaryContact.phoneDisplay}
                 </a>
               </p>
               <p>
                 <a
-                  href="mailto:info@wellinsinc.com"
+                  href={`mailto:${primaryContact.email}`}
                   className="transition-colors hover:text-white"
                 >
-                  info@wellinsinc.com
+                  {primaryContact.email}
                 </a>
               </p>
             </div>
           </div>
 
           {/* Links */}
-          {Object.values(footerLinks).map((section) => (
+          {Object.values(footerLinkSections).map((section) => (
             <div key={section.label}>
               <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
                 {section.label}

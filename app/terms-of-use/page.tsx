@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LegalDocumentLayout } from "@/components/legal-document-layout";
+import { primaryContact } from "@/data/company";
 
 export const metadata = {
   title: "Terms of Use | Wellins Inc.",
@@ -190,9 +191,9 @@ export default function TermsOfUsePage() {
           please contact us:
         </p>
         <div className="space-y-1 text-foreground">
-          <p>Email: info@wellinsinc.com</p>
-          <p>Phone: +1 (770) 557-0019</p>
-          <p>Address: 3483 Satellite Blvd, Ste 100, Duluth, GA 30096</p>
+          <p>Email: {primaryContact.email}</p>
+          <p>Phone: {primaryContact.phoneDisplay}</p>
+          <p>Address: {primaryContact.addressLines.join(", ")}</p>
         </div>
       </section>
 

@@ -8,16 +8,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Separator } from "./ui/separator";
-
-interface Project {
-  name: string;
-  type?: string;
-  scopes?: string[];
-  location: string;
-  year: string;
-  description?: string;
-  image: string;
-}
+import type { Project } from "@/types/projects";
 
 interface ProjectDetailProps {
   state: string;

@@ -1,60 +1,15 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { featuredProjectSlides } from "@/data/projects/featured-slides";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-type Slide = {
-  key: string;
-  region: string;
-  title: string;
-  description: string;
-  image: string;
-  href?: string;
-};
-
-const slides: Slide[] = [
-  {
-    key: "buford",
-    region: "Buford, GA",
-    title: "Buford Manufacturing Hub Expansion",
-    description:
-      "A new 4.3-acre manufacturing facility designed to expand production capacity for high-pressure piping.",
-    image: "/images/banners/buford-facility.png",
-  },
-  {
-    key: "georgia",
-    region: "Savannah, GA",
-    title: "LGES Hyundai Plant",
-    description:
-      "Process pipe installation in the utility area for battery manufacturing work.",
-    image: "/images/projects/project-3.png",
-    href: "/projects/georgia",
-  },
-  {
-    key: "texas",
-    region: "Houston, TX",
-    title: "Dongwoo Fine-Chem",
-    description: "Process pipe installation for Texas project work.",
-    image: "/images/projects/project-6.png",
-    href: "/projects/texas",
-  },
-  {
-    key: "ohio",
-    region: "Jeffersonville, OH",
-    title: "LGES Honda JV Battery",
-    description:
-      "Process pipe and hot oil pipe installation for battery manufacturing systems.",
-    image: "/images/projects/project-1.png",
-    href: "/projects/ohio",
-  },
-];
-
 // 홈 슬라이더는최대 4개까지만 노출 하도록 설정 (퍼포먼스 및 디자인 고려)
 // 슬라이더를 4개이상 추가 시 변경 필요
-const visibleSlides = slides.slice(0, 4);
+const visibleSlides = featuredProjectSlides.slice(0, 4);
 
 export function ProjectsShowcaseSlider() {
   const [activeIndex, setActiveIndex] = useState(0);

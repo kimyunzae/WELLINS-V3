@@ -1,4 +1,5 @@
 import { LegalDocumentLayout } from "@/components/legal-document-layout";
+import { primaryContact } from "@/data/company";
 
 export const metadata = {
   title: "Global Privacy Notice | Wellins Inc.",
@@ -179,10 +180,10 @@ export default function GlobalPrivacyNoticePage() {
         <p>
           To exercise these rights, contact us at{" "}
           <a
-            href="mailto:info@wellinsinc.com"
+            href={`mailto:${primaryContact.email}`}
             className="font-medium text-foreground underline underline-offset-4"
           >
-            info@wellinsinc.com
+            {primaryContact.email}
           </a>
           .
         </p>
@@ -242,10 +243,11 @@ export default function GlobalPrivacyNoticePage() {
         </p>
         <div className="space-y-1 text-foreground">
           <p>Wellins Inc.</p>
-          <p>3483 Satellite Blvd, Ste 100</p>
-          <p>Duluth, GA 30096</p>
-          <p>info@wellinsinc.com</p>
-          <p>+1 (770) 557-0019</p>
+          {primaryContact.addressLines.map((line) => (
+            <p key={line}>{line}</p>
+          ))}
+          <p>{primaryContact.email}</p>
+          <p>{primaryContact.phoneDisplay}</p>
         </div>
       </section>
     </LegalDocumentLayout>

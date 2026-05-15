@@ -2,14 +2,10 @@ import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
 import { Separator } from "@/components/ui/separator";
+import type { ServiceBenefit } from "@/types/services";
 import { ArrowRight, Check } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
-type ServiceBenefit = {
-  title: string;
-  description: string;
-};
 
 interface ServiceDetailProps {
   title: string;
