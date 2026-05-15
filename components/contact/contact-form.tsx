@@ -1,26 +1,17 @@
 "use client";
 
 import { SubmissionConfirmDialog } from "@/components/ui/submission-confirm-dialog";
+import { primaryContact } from "@/data/company";
+import { contactServiceOptions } from "@/data/services/summaries";
 import { ArrowRight } from "lucide-react";
 import Script from "next/script";
 import { type FormEvent, useCallback, useEffect, useRef, useState } from "react";
 
-const PRIMARY_CONTACT_PHONE_DISPLAY = "+1 (770)-557-0019";
-const SUBMIT_FAILURE_MESSAGE = `We couldn't send your request right now. Please call ${PRIMARY_CONTACT_PHONE_DISPLAY} so we can assist you directly.`;
+const SUBMIT_FAILURE_MESSAGE = `We couldn't send your request right now. Please call ${primaryContact.phoneDisplay} so we can assist you directly.`;
 const REQUEST_HISTORY_STORAGE_KEY = "contact-form-request-history";
 const MAX_SUCCESSFUL_SUBMISSIONS = 7;
 const REQUEST_WINDOW_MS = 24 * 60 * 60 * 1000;
-const TOO_MANY_REQUESTS_MESSAGE = `You've sent several requests recently. Please try again later, or call ${PRIMARY_CONTACT_PHONE_DISPLAY} for immediate assistance.`;
-
-const services = [
-  "Equipment Installation",
-  "Industrial Piping",
-  "HVAC System",
-  "Insulation & Jacketing",
-  "High-Pressure Vessels",
-  "Fire Protection",
-  "Other",
-];
+const TOO_MANY_REQUESTS_MESSAGE = `You've sent several requests recently. Please try again later, or call ${primaryContact.phoneDisplay} for immediate assistance.`;
 
 const EMAILJS_API_URL = "https://api.emailjs.com/api/v1.0/email/send";
 const EMAILJS_PUBLIC_KEY =
@@ -428,7 +419,7 @@ export function ContactForm() {
             defaultValue=""
           >
             <option value="">Select a service</option>
-            {services.map((service) => (
+            {contactServiceOptions.map((service) => (
               <option key={service} value={service}>
                 {service}
               </option>

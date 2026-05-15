@@ -1,55 +1,11 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { serviceSummaries } from "@/data/services/summaries";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-
-const services = [
-  {
-    title: "Equipment Installation",
-    description:
-      "Heavy equipment installation executed with strict safety and shutdown control.",
-    href: "/services/equipment-installation",
-    image: "/images/service-equipment.jpg",
-  },
-  {
-    title: "Industrial Piping",
-    description:
-      "Process and utility piping delivered from layout to turnover.",
-    href: "/services/industrial-piping",
-    image: "/images/service-piping.jpg",
-  },
-  {
-    title: "HVAC System",
-    description:
-      "Industrial HVAC systems built for stable operation and efficiency.",
-    href: "/services/hvac-system",
-    image: "/images/service-hvac.jpg",
-  },
-  {
-    title: "Insulation & Jacketing",
-    description:
-      "Thermal insulation and protective jacketing for critical assets.",
-    href: "/services/insulation-jacketing",
-    image: "/images/service-insulation.jpg",
-  },
-  {
-    title: "High-Pressure Vessels",
-    description:
-      "High-pressure vessel delivery aligned with ASME requirements.",
-    href: "/services/high-pressure-vessels",
-    image: "/images/service-vessels.jpg",
-  },
-  {
-    title: "Fire Protection",
-    description:
-      "Integrated suppression systems tailored to facility risk conditions.",
-    href: "/services/fire-protection",
-    image: "/images/service-fire.jpg",
-  },
-];
 
 export function ServicesSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -124,7 +80,7 @@ export function ServicesSection() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {services.map((service, index) => {
+            {serviceSummaries.map((service, index) => {
               // 서비스가 6개보다 많아져도 애니메이션 설정을 반복해서 사용
               const config = animConfig[index % animConfig.length];
 
@@ -155,7 +111,7 @@ export function ServicesSection() {
                         {service.title}
                       </h3>
                       <p className="mb-6 line-clamp-2 translate-y-2 text-xs leading-relaxed text-white/84 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                        {service.description}
+                        {service.homeDescription}
                       </p>
                       <div className="flex items-center text-[10px] font-bold uppercase tracking-[0.2em] text-white/92 transition-all group-hover:text-sky-100">
                         Learn More

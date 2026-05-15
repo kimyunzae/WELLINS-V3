@@ -1,63 +1,23 @@
-import { ServiceDetail } from "@/components/service-detail"
+import { ServiceDetail } from "@/components/service-detail";
+import { getServiceBySlug } from "@/data/services/service-details";
+
+const service = getServiceBySlug("industrial-piping");
 
 export const metadata = {
-  title: "Industrial Piping | Wellins Inc.",
-  description: "Complete industrial piping solutions from design to installation for process, utility, and specialized applications.",
-}
+  title: `${service.title} | Wellins Inc.`,
+  description: service.metadataDescription ?? service.description,
+};
 
 export default function IndustrialPipingPage() {
   return (
     <ServiceDetail
-      title="Mechanical & Industrial Piping"
-      description="Complete piping solutions from design to installation for process, utility, and specialized applications"
-      image="/images/service-piping.jpg"
-      overview="Process-critical distribution networks engineered for uptime and simplified maintenance."
-      capabilities={[
-        "Process piping systems design and installation",
-        "High-purity and sanitary piping",
-        "High-pressure piping systems",
-        "Carbon steel, stainless steel, and alloy piping",
-        "Pipe fabrication and prefabrication",
-        "ASME B31.1 and B31.3 code compliance",
-        "Pipe supports and hangers",
-        "Hydrostatic testing and certification",
-      ]}
-      applications={[
-        "Chemical processing plants",
-        "Petrochemical refineries",
-        "Pharmaceutical manufacturing",
-        "Food and beverage production",
-        "Power generation facilities",
-        "Water treatment plants",
-        "Pulp and paper mills",
-        "Semiconductor manufacturing",
-      ]}
-      benefits={[
-        {
-          title: "Code Compliance",
-          description: "All installations meet ASME, ANSI, and industry-specific codes and standards.",
-        },
-        {
-          title: "Certified Welders",
-          description: "AWS and ASME certified welders ensure highest quality joints and connections.",
-        },
-        {
-          title: "Prefabrication",
-          description: "Shop prefabrication reduces field installation time and improves quality control.",
-        },
-        {
-          title: "Material Expertise",
-          description: "Experience with carbon steel, stainless, chrome-moly, and exotic alloys.",
-        },
-        {
-          title: "Testing & Documentation",
-          description: "Complete NDE testing, radiography, and documentation packages.",
-        },
-        {
-          title: "Shutdown Support",
-          description: "24/7 availability for planned shutdowns and emergency repairs.",
-        },
-      ]}
+      title={service.detailTitle ?? service.title}
+      description={service.detailDescription ?? service.description}
+      image={service.image}
+      overview={service.overview}
+      capabilities={service.capabilities}
+      applications={service.applications}
+      benefits={service.benefits}
     />
-  )
+  );
 }

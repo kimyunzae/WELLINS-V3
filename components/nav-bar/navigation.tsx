@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation";
 import type { MouseEvent } from "react";
 import { cn } from "@/lib/utils";
 import { HOME_PAGE_REPLAY_EVENT } from "@/lib/home-hero-replay";
+import { navigationSections } from "@/data/navigation";
+import type { NavigationSectionKey } from "@/types/navigation";
 import NavigationDesktop from "./navigation-desktop";
 import NavigationMobile from "./navigation-mobile";
 
@@ -74,67 +76,9 @@ const resolveDesktopMode = ({
   return compactExpandFits ? "compact" : "mobile";
 };
 
-const navigation = {
-  company: {
-    label: "COMPANY",
-    items: [
-      { name: "About Us", href: "/company/about" },
-      { name: "History", href: "/company/history" },
-      { name: "Organization", href: "/company/organization" },
-      { name: "Location", href: "/company/location" },
-    ],
-  },
-  services: {
-    label: "SERVICES",
-    href: "/services",
-    items: [
-      {
-        name: "Equipment Installation",
-        href: "/services/equipment-installation",
-      },
-      { name: "Industrial Piping", href: "/services/industrial-piping" },
-      { name: "HVAC System", href: "/services/hvac-system" },
-      {
-        name: "Insulation & Jacketing",
-        href: "/services/insulation-jacketing",
-      },
-      {
-        name: "High-Pressure Vessels",
-        href: "/services/high-pressure-vessels",
-      },
-      { name: "Fire Protection", href: "/services/fire-protection" },
-    ],
-  },
-  projects: {
-    label: "PROJECTS",
-    href: "/projects",
-    items: [
-      { name: "Georgia", href: "/projects/georgia" },
-      { name: "Indiana", href: "/projects/indiana" },
-      { name: "Michigan", href: "/projects/michigan" },
-      { name: "Ohio", href: "/projects/ohio" },
-      { name: "South Carolina", href: "/projects/south-carolina" },
-      { name: "Tennessee", href: "/projects/tennessee" },
-      { name: "Texas", href: "/projects/texas" },
-    ],
-  },
-  career: {
-    label: "CAREER",
-    href: "/career",
-  },
-  prCenter: {
-    label: "PR CENTER",
-    items: [
-      { name: "Brochure", href: "/pr-center/brochure" },
-      // { name: "News", href: "/pr-center/news" },
-      // { name: "PR Video", href: "/pr-center/video" },
-    ],
-  },
-};
-
 const resolveActiveMenuKey = (
   pathname: string
-): keyof typeof navigation | null => {
+): NavigationSectionKey | null => {
   const sectionMap = [
     { prefix: "/company", key: "company" },
     { prefix: "/services", key: "services" },
@@ -318,7 +262,7 @@ export function Navigation() {
         >
           <div className="pointer-events-auto">
             <NavigationDesktop
-              navigation={navigation}
+              navigation={navigationSections}
               compact={desktopMode === "compact"}
               dropdownOffset={dropdownOffset}
               activeMenuKey={activeMenuKey}
@@ -343,7 +287,7 @@ export function Navigation() {
 
           {/* Mobile Menu Button */}
           <NavigationMobile
-            navigation={navigation}
+            navigation={navigationSections}
             forceVisible={desktopMode === "mobile"}
           />
         </div>
@@ -355,13 +299,13 @@ export function Navigation() {
         >
           <div ref={fullMeasureRef}>
             <NavigationDesktop
-              navigation={navigation}
+              navigation={navigationSections}
               activeMenuKey={activeMenuKey}
             />
           </div>
           <div ref={compactMeasureRef} className="mt-2">
             <NavigationDesktop
-              navigation={navigation}
+              navigation={navigationSections}
               compact
               activeMenuKey={activeMenuKey}
             />

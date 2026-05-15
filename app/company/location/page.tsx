@@ -1,6 +1,7 @@
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
+import { featuredLocations, serviceStates } from "@/data/company";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 
 export const metadata = {
@@ -8,48 +9,6 @@ export const metadata = {
   description:
     "Find our headquarters and facilities across the Southeast.",
 };
-
-const featuredLocations = [
-  {
-    label: "Corporate Headquarters",
-    city: "Duluth",
-    state: "Georgia",
-    description:
-      "Our headquarters in Duluth serves as the central hub for all operations, housing leadership, engineering support, and project coordination teams.",
-    addressLines: ["3483 Satellite Blvd, Ste 100", "Duluth, GA 30096"],
-    mapTitle: "Wellins Inc. Headquarters in Duluth, GA",
-    mapSrc:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3312.149682792209!2d-84.11853602396974!3d33.96063317317882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5aefb7a58cb15%3A0x6af73d1d65eee5d4!2s3483%20Satellite%20Blvd%20%23100%2C%20Duluth%2C%20GA%2030096!5e0!3m2!1sen!2sus!4v1700000000000",
-    phone: "+1 (770) 557-0019",
-    email: "info@wellinsinc.com",
-    hours: "Mon-Fri: 8:00 AM - 6:00 PM ET",
-  },
-  {
-    label: "Manufacturing Facility",
-    city: "Buford",
-    state: "Georgia",
-    description:
-      "Our new manufacturing facility in Buford expands fabrication capacity for high-pressure piping, vessels, and specialized production support across the Southeast.",
-    addressLines: ["974 Gainesville Hwy", "Buford, GA 30518"],
-    mapTitle: "Wellins Inc. Manufacturing Facility in Buford, GA",
-    mapSrc:
-      "https://www.google.com/maps?q=974+Gainesville+Hwy,+Buford,+GA+30518&output=embed",
-    phone: "+1 (770) 557-0019",
-    email: "info@wellinsinc.com",
-    hours: "Mon-Fri: 8:00 AM - 6:00 PM ET",
-  },
-];
-
-const serviceStates = [
-  "ARIZONA",
-  "ALABAMA",
-  "GEORGIA",
-  "LOUISIANA",
-  "OHIO",
-  "SOUTH CAROLINA",
-  "TENNESSEE",
-  "TEXAS"
-];
 
 export default function LocationPage() {
   return (
@@ -101,10 +60,10 @@ export default function LocationPage() {
                     <div className="flex items-center gap-4">
                       <Phone className="h-5 w-5 text-muted-foreground" />
                       <a
-                        href={`tel:${location.phone.replace(/[^+\d]/g, "")}`}
+                        href={`tel:${location.phoneHref}`}
                         className="text-foreground hover:text-accent"
                       >
-                        {location.phone}
+                        {location.phoneDisplay}
                       </a>
                     </div>
                     <div className="flex items-center gap-4">

@@ -2,20 +2,12 @@ import { ContactForm } from "@/components/contact/contact-form";
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
+import {
+  contactBusinessHours,
+  contactOffices,
+  primaryContact,
+} from "@/data/company";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
-
-const PRIMARY_CONTACT_PHONE_DISPLAY = "+1 (770)-557-0019";
-const PRIMARY_CONTACT_PHONE_LINK = "+17705570019";
-
-const offices = [
-  {
-    name: "Headquarters",
-    city: "Duluth, GA",
-    address: "3483 Satellite Blvd, Ste 100\nDuluth, GA 30096",
-    phone: PRIMARY_CONTACT_PHONE_DISPLAY,
-    email: "info@wellinsinc.com",
-  },
-];
 
 export default function ContactPage() {
   return (
@@ -55,10 +47,10 @@ export default function ContactPage() {
                   <div>
                     <p className="text-sm text-muted-foreground">Main Line</p>
                     <a
-                      href={`tel:${PRIMARY_CONTACT_PHONE_LINK}`}
+                      href={`tel:${primaryContact.phoneHref}`}
                       className="text-foreground hover:text-accent"
                     >
-                      {PRIMARY_CONTACT_PHONE_DISPLAY}
+                      {primaryContact.phoneDisplay}
                     </a>
                   </div>
                 </div>
@@ -67,10 +59,10 @@ export default function ContactPage() {
                   <div>
                     <p className="text-sm text-muted-foreground">Email</p>
                     <a
-                      href="mailto:info@wellinsinc.com"
+                      href={`mailto:${primaryContact.email}`}
                       className="text-foreground hover:text-accent"
                     >
-                      info@wellinsinc.com
+                      {primaryContact.email}
                     </a>
                   </div>
                 </div>
@@ -81,7 +73,7 @@ export default function ContactPage() {
                       Business Hours
                     </p>
                     <p className="text-foreground">
-                      Monday - Friday: 7:00 AM - 5:00 PM
+                      {contactBusinessHours}
                     </p>
                   </div>
                 </div>
@@ -92,7 +84,7 @@ export default function ContactPage() {
                   Our Offices
                 </h3>
                 <div className="mt-6 space-y-6">
-                  {offices.map((office) => (
+                  {contactOffices.map((office) => (
                     <div
                       key={office.name}
                       className="border-l-2 border-border pl-6"
@@ -105,15 +97,21 @@ export default function ContactPage() {
                       </p>
                       <div className="mt-3 flex items-start gap-3 text-sm text-muted-foreground">
                         <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-                        <p className="whitespace-pre-line">{office.address}</p>
+                        <p>
+                          {office.addressLines.map((line) => (
+                            <span key={line} className="block">
+                              {line}
+                            </span>
+                          ))}
+                        </p>
                       </div>
                       <div className="mt-2 space-y-1 text-sm">
                         <p>
                           <a
-                            href={`tel:${office.phone}`}
+                            href={`tel:${office.phoneHref}`}
                             className="text-foreground hover:text-accent"
                           >
-                            {office.phone}
+                            {office.phoneDisplay}
                           </a>
                         </p>
                         <p>
