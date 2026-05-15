@@ -1,5 +1,6 @@
 import type { FeaturedProjectSlide } from "@/types/projects";
 
+// 홈페이지의 프로젝트 슬라이드 데이터를 정의하는 파일입니다. 각 슬라이드는 고유한 키, 지역, 제목, 설명, 이미지, 링크 등을 포함하는 객체입니다.
 export const featuredProjectSlides = [
   {
     key: "buford",
