@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /georgia-privacy-notice
+Disallow: /global-privacy-notice
+Disallow: /terms-of-use
+
+Sitemap: https://wellins.com/sitemap.xml

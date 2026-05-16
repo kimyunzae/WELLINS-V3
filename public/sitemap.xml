@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 홈 -->
+  <url><loc>https://wellins.com</loc></url>
+
+  <!-- 서비스 -->
+  <url><loc>https://wellins.com/services</loc></url>
+  <url><loc>https://wellins.com/services/industrial-piping</loc></url>
+  <url><loc>https://wellins.com/services/fire-protection</loc></url>
+  <url><loc>https://wellins.com/services/equipment-installation</loc></url>
+  <url><loc>https://wellins.com/services/hvac-system</loc></url>
+  <url><loc>https://wellins.com/services/high-pressure-vessels</loc></url>
+  <url><loc>https://wellins.com/services/insulation-jacketing</loc></url>
+
+  <!-- 회사 -->
+  <url><loc>https://wellins.com/company/about</loc></url>
+  <url><loc>https://wellins.com/company/organization</loc></url>
+  <url><loc>https://wellins.com/company/history</loc></url>
+  <url><loc>https://wellins.com/company/location</loc></url>
+
+  <!-- 프로젝트 -->
+  <url><loc>https://wellins.com/projects</loc></url>
+  <url><loc>https://wellins.com/projects/georgia</loc></url>
+  <url><loc>https://wellins.com/projects/buford</loc></url>
+  <url><loc>https://wellins.com/projects/tennessee</loc></url>
+  <url><loc>https://wellins.com/projects/south-carolina</loc></url>
+  <url><loc>https://wellins.com/projects/indiana</loc></url>
+  <url><loc>https://wellins.com/projects/michigan</loc></url>
+  <url><loc>https://wellins.com/projects/ohio</loc></url>
+  <url><loc>https://wellins.com/projects/texas</loc></url>
+
+  <!-- PR 센터 (News, Video는 데이터 미완성으로 제외) -->
+  <url><loc>https://wellins.com/pr-center/brochure</loc></url>
+
+  <!-- 채용 -->
+  <url><loc>https://wellins.com/career</loc></url>
+  <url><loc>https://wellins.com/career/apply</loc></url>
+
+  <!-- 연락 -->
+  <url><loc>https://wellins.com/contact</loc></url>
+</urlset>
