@@ -38,7 +38,7 @@ export default function AboutPage() {
       <section className="relative overflow-hidden pt-36 pb-16 text-primary-foreground lg:pt-44 lg:pb-10">
         <div className="absolute inset-0">
           <Image
-            src="/images/headquarters.jpg"
+            src="/images/headquarters.webp"
             alt="Wellins headquarters background"
             fill
             className="object-cover scale-105"

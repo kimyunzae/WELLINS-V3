@@ -17,7 +17,7 @@ export default function CareerApplyPage() {
       <section className="pt-24">
         <div className="relative h-[240px] overflow-hidden sm:h-[300px] lg:h-[340px]">
           <Image
-            src="/images/headquarters.jpg"
+            src="/images/headquarters.webp"
             alt="Wellins career application banner"
             fill
             priority

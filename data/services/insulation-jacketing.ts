@@ -11,7 +11,7 @@ export const insulationJacketingService = {
     "Industrial insulation and protective jacketing services for pipes, vessels, and equipment.",
   homeDescription:
     "Thermal insulation and protective jacketing for critical assets.",
-  image: "/images/service-insulation.jpg",
+  image: "/images/service-insulation.webp",
   href: "/services/insulation-jacketing",
   overview:
     "Thermal and acoustic packages that safeguard performance and extend equipment life.",

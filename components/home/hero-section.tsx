@@ -12,7 +12,7 @@ const slides = [
     id: 1,
     title: 'Future on the <br /><span className="font-bold text-white">Industrial Sea</span>',
     subtitle: 'Leading the global industrial engineering with precision and innovation since 2016.',
-    image: '/images/hero-industrial.jpg',
+    image: '/images/hero-industrial.webp',
     link: '/projects',
     linkLabel: 'View Projects',
   },
@@ -20,7 +20,7 @@ const slides = [
     id: 2,
     title: 'Precision <br /><span className="font-bold text-white">Engineering Solutions</span>',
     subtitle: 'From complex piping systems to advanced HVAC installations, we deliver excellence.',
-    image: '/images/service-equipment.jpg',
+    image: '/images/service-equipment.webp',
     link: '/services',
     linkLabel: 'Our Services',
   },
@@ -34,10 +34,8 @@ const slides = [
   },
 ];
 
-// HeroSection 컴포넌트는 Embla Carousel을 활용하여 자동 재생되는 슬라이드 쇼를 구현합니다..
 export function HeroSection() {
 
-  // Embla Carousel 설정 및 슬라이드 상태 관리
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     duration: 30,
@@ -47,7 +45,6 @@ export function HeroSection() {
   const [animatedIndex, setAnimatedIndex] = useState(-1);
   const selectedIndexRef = useRef(0);
 
-  // 슬라이드 선택 시 상태 업데이트 콜백 함수입니다. Embla Carousel의 'select' 이벤트에 연결되어 현재 선택된 슬라이드 인덱스를 업데이트합니다.
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
     const nextIndex = emblaApi.selectedScrollSnap();
@@ -59,12 +56,10 @@ export function HeroSection() {
     (index: number, immediate = false) => {
       if (!emblaApi) return;
       emblaApi.scrollTo(index, immediate);
-      // selectedIndex는 onSelect 콜백에서만 업데이트
     },
     [emblaApi],
   );
 
-  // Embla Carousel 초기화 및 이벤트 리스너 설정을 위한 useEffect입니다. 컴포넌트가 마운트될 때 Embla Carousel이 초기화되고, 'select' 이벤트에 onSelect 콜백이 연결됩니다. 또한, 컴포넌트가 언마운트될 때 이벤트 리스너가 정리됩니다.
   useEffect(() => {
     if (!emblaApi) return;
 
@@ -98,7 +93,6 @@ export function HeroSection() {
     };
   }, [selectedIndex]);
 
-  // 자동 재생 및 진행 표시 로직
   useEffect(() => {
     if (!emblaApi) return;
 

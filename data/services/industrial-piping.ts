@@ -10,7 +10,7 @@ export const industrialPipingService = {
     "Complete piping solutions from design to installation for process, utility, and specialized applications",
   homeDescription:
     "Process and utility piping delivered from layout to turnover.",
-  image: "/images/service-piping.jpg",
+  image: "/images/service-piping.webp",
   href: "/services/industrial-piping",
   overview:
     "Process-critical distribution networks engineered for uptime and simplified maintenance.",

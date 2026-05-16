@@ -11,7 +11,7 @@ export const highPressureVesselsService = {
     "ASME-compliant pressure vessel installation and maintenance for industrial applications.",
   homeDescription:
     "High-pressure vessel delivery aligned with ASME requirements.",
-  image: "/images/service-vessels.jpg",
+  image: "/images/service-vessels.webp",
   href: "/services/high-pressure-vessels",
   overview:
     "Code-compliant fabrication and installation for liquid and gas processing under extreme conditions.",

@@ -15,7 +15,7 @@ const videos: VideoItem[] = [
     description:
       "Learn about Wellins Inc., our history, capabilities, and commitment to industrial excellence.",
     duration: "4:32",
-    thumbnail: "/images/hero-industrial.jpg",
+    thumbnail: "/images/hero-industrial.webp",
     youtubeId: "",
   },
   {
@@ -23,7 +23,7 @@ const videos: VideoItem[] = [
     description:
       "Our comprehensive safety program ensures every worker goes home safe every day.",
     duration: "3:15",
-    thumbnail: "/images/service-equipment.jpg",
+    thumbnail: "/images/service-equipment.webp",
     youtubeId: "",
   },
   {
@@ -31,7 +31,7 @@ const videos: VideoItem[] = [
     description:
       "Explore our advanced piping fabrication and installation capabilities.",
     duration: "5:48",
-    thumbnail: "/images/service-piping.jpg",
+    thumbnail: "/images/service-piping.webp",
     youtubeId: "",
   },
   {
@@ -47,7 +47,7 @@ const videos: VideoItem[] = [
     description:
       "How we design and install climate control systems for demanding industrial environments.",
     duration: "4:05",
-    thumbnail: "/images/service-hvac.jpg",
+    thumbnail: "/images/service-hvac.webp",
     youtubeId: "",
   },
   {

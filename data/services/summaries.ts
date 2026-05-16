@@ -1,7 +1,6 @@
 import type { ServiceSummary } from "@/types/services";
 
 
-// 서비스 요약 정보를 정의하는 파일입니다. 각 서비스 요약은 고유한 슬러그, 제목, 설명, 이미지, 링크 등을 포함하는 객체로 표현됩니다. 이 데이터는 홈 페이지나 서비스 목록 페이지에서 각 서비스의 간략한 정보를 표시하는 데 활용됩니다.
 
 export const serviceSummaries = [
   {
@@ -11,7 +10,7 @@ export const serviceSummaries = [
       "Precision installation of heavy industrial equipment with rigorous safety standards and minimal downtime.",
     homeDescription:
       "Heavy equipment installation executed with strict safety and shutdown control.",
-    image: "/images/service-equipment.jpg",
+    image: "/images/service-equipment.webp",
     href: "/services/equipment-installation",
   },
   {
@@ -21,7 +20,7 @@ export const serviceSummaries = [
       "Complete piping solutions from design to installation for process, utility, and specialized applications.",
     homeDescription:
       "Process and utility piping delivered from layout to turnover.",
-    image: "/images/service-piping.jpg",
+    image: "/images/service-piping.webp",
     href: "/services/industrial-piping",
   },
   {
@@ -31,7 +30,7 @@ export const serviceSummaries = [
       "Advanced climate control systems designed for industrial environments requiring precise temperature management.",
     homeDescription:
       "Industrial HVAC systems built for stable operation and efficiency.",
-    image: "/images/service-hvac.jpg",
+    image: "/images/service-hvac.webp",
     href: "/services/hvac-system",
   },
   {
@@ -41,7 +40,7 @@ export const serviceSummaries = [
       "Thermal insulation and protective jacketing for pipes, vessels, and equipment in demanding conditions.",
     homeDescription:
       "Thermal insulation and protective jacketing for critical assets.",
-    image: "/images/service-insulation.jpg",
+    image: "/images/service-insulation.webp",
     href: "/services/insulation-jacketing",
   },
   {
@@ -51,7 +50,7 @@ export const serviceSummaries = [
       "Engineering and installation of pressure vessels meeting ASME standards for industrial applications.",
     homeDescription:
       "High-pressure vessel delivery aligned with ASME requirements.",
-    image: "/images/service-vessels.jpg",
+    image: "/images/service-vessels.webp",
     href: "/services/high-pressure-vessels",
   },
   {
@@ -61,7 +60,7 @@ export const serviceSummaries = [
       "Comprehensive fire suppression systems including sprinklers, alarms, and specialized protection systems.",
     homeDescription:
       "Integrated suppression systems tailored to facility risk conditions.",
-    image: "/images/service-fire.jpg",
+    image: "/images/service-fire.webp",
     href: "/services/fire-protection",
   },
 ] satisfies ServiceSummary[];

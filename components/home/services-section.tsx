@@ -46,10 +46,11 @@ export function ServicesSection() {
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/hero-industrial.jpg"
+            src="/images/hero-industrial.webp"
             alt="Background"
             fill
             className="object-cover opacity-[0.14] grayscale contrast-[1.1] brightness-[0.95]"
+            sizes="100vw"
           />
         </div>
 
@@ -81,7 +82,6 @@ export function ServicesSection() {
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {serviceSummaries.map((service, index) => {
-              // 서비스가 6개보다 많아져도 애니메이션 설정을 반복해서 사용
               const config = animConfig[index % animConfig.length];
 
               return (
@@ -102,6 +102,7 @@ export function ServicesSection() {
                         alt={service.title}
                         fill
                         className="object-cover"
+                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                       />
                       <div className="absolute inset-0 bg-sky-900/20 transition-colors duration-500 group-hover:bg-sky-900/40" />
                     </div>
