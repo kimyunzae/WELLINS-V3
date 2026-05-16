@@ -5,7 +5,7 @@ export const texasProjectRegion = {
   state: "Texas",
   description:
     "Texas project work is represented by process pipe installation for Dongwoo Fine-Chem.",
-  image: "/images/projects/project-6.png",
+  image: "/images/projects/project-6.webp",
   href: "/projects/texas",
   summaryProjects: [
     {
@@ -20,7 +20,7 @@ export const texasProjectRegion = {
       scopes: ["Process Pipe Installation"],
       location: "Houston, TX",
       year: "2023~2024",
-      image: "/images/projects/project-6.png",
+      image: "/images/projects/project-6.webp",
     },
   ],
 } satisfies ProjectRegion;

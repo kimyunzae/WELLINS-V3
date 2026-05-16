@@ -7,7 +7,7 @@ export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-[#020930] text-white">
       <Image
-        src="/images/hero-industrial.jpg"
+        src="/images/hero-industrial.webp"
         alt=""
         fill
         className="object-cover opacity-30"

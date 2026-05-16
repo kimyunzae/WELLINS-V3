@@ -9,6 +9,12 @@ import {
 } from "@/data/company";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 
+export const metadata = {
+  title: "Contact | Wellins Inc.",
+  description:
+    "Get in touch with Wellins Inc. for industrial engineering inquiries, project estimates, and partnership opportunities.",
+};
+
 export default function ContactPage() {
   return (
     <main>

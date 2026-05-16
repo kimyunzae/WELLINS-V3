@@ -5,7 +5,7 @@ export const tennesseeProjectRegion = {
   state: "Tennessee",
   description:
     "Tennessee project work includes hot oil pipe and high-pressure water line installation.",
-  image: "/images/projects/project-7.png",
+  image: "/images/projects/project-7.webp",
   href: "/projects/tennessee",
   summaryProjects: [
     {
@@ -25,14 +25,14 @@ export const tennesseeProjectRegion = {
       scopes: ["Hot Oil Pipe Installation in Electrode Area"],
       location: "Spring Hill, TN",
       year: "2022~2024",
-      image: "/images/projects/project-7.png",
+      image: "/images/projects/project-7.webp",
     },
     {
       name: "LG Electronics Plant",
       scopes: ["High Pressure Water Line Installation in QC System"],
       location: "Clarksville, TN",
       year: "2019",
-      image: "/images/projects/project-15.png",
+      image: "/images/projects/project-15.webp",
     },
   ],
 } satisfies ProjectRegion;

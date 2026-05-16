@@ -11,7 +11,7 @@ export const fireProtectionService = {
     "Comprehensive industrial fire protection systems including sprinklers, suppression, and detection systems.",
   homeDescription:
     "Integrated suppression systems tailored to facility risk conditions.",
-  image: "/images/service-fire.jpg",
+  image: "/images/service-fire.webp",
   href: "/services/fire-protection",
   overview:
     "Turnkey suppression networks, alarm integration and ongoing inspection programs.",

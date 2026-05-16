@@ -12,7 +12,7 @@ export const equipmentInstallationService = {
     "Precision industrial equipment installation services with rigorous safety standards and minimal downtime.",
   homeDescription:
     "Heavy equipment installation executed with strict safety and shutdown control.",
-  image: "/images/service-equipment.jpg",
+  image: "/images/service-equipment.webp",
   href: "/services/equipment-installation",
   overview:
     "Precision rigging, alignment and commissioning for heavy industrial assets and utilities.",

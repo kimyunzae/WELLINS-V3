@@ -81,7 +81,7 @@ export default function CareerPage() {
           <div className="space-y-16 lg:space-y-20">
             <section className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-[#081724] py-14 text-white lg:min-h-[42rem] lg:py-24">
               <Image
-                src="/images/banners/head-banner2.png"
+                src="/images/banners/head-banner2.webp"
                 alt="Architectural facade with reflective glass"
                 fill
                 className="object-cover object-center grayscale-[8%] saturate-[0.68]"

@@ -17,19 +17,19 @@ const headerBackgrounds: Record<
   }
 > = {
   company: {
-    image: "/images/headquarters.jpg",
+    image: "/images/headquarters.webp",
     alt: "Wellins company facility exterior",
   },
   services: {
-    image: "/images/service-equipment.jpg",
+    image: "/images/service-equipment.webp",
     alt: "Wellins industrial service team working on equipment",
   },
   projects: {
-    image: "/images/facility-expansion.jpg",
+    image: "/images/facility-expansion.webp",
     alt: "Industrial construction project in progress",
   },
   "pr center": {
-    image: "/images/headquarters.jpg",
+    image: "/images/headquarters.webp",
     alt: "Wellins corporate profile background",
   },
 }
@@ -69,6 +69,7 @@ export function PageHeader({
               className="object-cover scale-105"
               sizes="100vw"
               priority
+              fetchPriority="high"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#001A3D]/90 via-[#001A3D]/72 to-[#001A3D]/28" />
             <div className="absolute inset-0 bg-black/20" />

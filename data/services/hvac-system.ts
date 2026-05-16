@@ -11,7 +11,7 @@ export const hvacSystemService = {
     "Advanced industrial HVAC system design and installation for precise temperature and environmental control.",
   homeDescription:
     "Industrial HVAC systems built for stable operation and efficiency.",
-  image: "/images/service-hvac.jpg",
+  image: "/images/service-hvac.webp",
   href: "/services/hvac-system",
   overview:
     "Climate control and clean room delivery for mission-critical manufacturing environments.",

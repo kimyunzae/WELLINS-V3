@@ -12,7 +12,7 @@ const slides = [
     id: 1,
     title: 'Future on the <br /><span className="font-bold text-white">Industrial Sea</span>',
     subtitle: 'Leading the global industrial engineering with precision and innovation since 2016.',
-    image: '/images/hero-industrial.jpg',
+    image: '/images/hero-industrial.webp',
     link: '/projects',
     linkLabel: 'View Projects',
   },
@@ -20,7 +20,7 @@ const slides = [
     id: 2,
     title: 'Precision <br /><span className="font-bold text-white">Engineering Solutions</span>',
     subtitle: 'From complex piping systems to advanced HVAC installations, we deliver excellence.',
-    image: '/images/service-equipment.jpg',
+    image: '/images/service-equipment.webp',
     link: '/services',
     linkLabel: 'Our Services',
   },
@@ -28,15 +28,16 @@ const slides = [
     id: 3,
     title: 'Global Standard <br /><span className="font-bold text-white">Quality Assurance</span>',
     subtitle: 'Committed to safety, reliability, and world-class engineering standards in every project.',
-    image: '/images/facility-expansion.jpg',
+    image: '/images/facility-expansion.webp',
     link: '/company/about',
     linkLabel: 'Learn More',
   },
 ];
 
 export function HeroSection() {
+
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: false,
+    loop: true,
     duration: 30,
     startIndex: 0,
   });
@@ -55,7 +56,6 @@ export function HeroSection() {
     (index: number, immediate = false) => {
       if (!emblaApi) return;
       emblaApi.scrollTo(index, immediate);
-      // selectedIndex는 onSelect 콜백에서만 업데이트
     },
     [emblaApi],
   );
@@ -93,17 +93,11 @@ export function HeroSection() {
     };
   }, [selectedIndex]);
 
-  // 자동 재생 및 진행 표시 로직
   useEffect(() => {
     if (!emblaApi) return;
 
     const timer = setInterval(() => {
-      const nextIndex =
-        selectedIndexRef.current >= slides.length - 1
-          ? 0
-          : selectedIndexRef.current + 1;
-
-      goToSlide(nextIndex, nextIndex === 0);
+      emblaApi.scrollNext();
     }, 6000);
 
     return () => clearInterval(timer);
@@ -142,11 +136,11 @@ export function HeroSection() {
                   className="relative z-10 flex h-full flex-col justify-center px-6 lg:px-12 xl:px-24"
                 >
                   <div className="mx-auto w-full max-w-[1400px]">
-                    <div className="max-w-4xl overflow-hidden">
+                    <div className="max-w-4xl overflow-visible">
                       {/* Animated Text */}
                       <h1
                         className={cn(
-                          "line-clamp-3 text-5xl font-light leading-[1.15] tracking-tight text-white transition-all duration-1000 md:text-6xl lg:text-8xl",
+                          "text-5xl font-light leading-[1.22] tracking-tight text-white transition-all duration-1000 md:text-6xl lg:text-8xl",
                           isAnimatedActive ? "translate-y-0 opacity-100 delay-300" : "translate-y-12 opacity-0"
                         )}
                         dangerouslySetInnerHTML={{ __html: slide.title }}

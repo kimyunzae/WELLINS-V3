@@ -45,7 +45,7 @@ export function FacilitySection() {
           <div className="relative order-1 lg:order-2">
             <div className="relative aspect-[4/5] overflow-hidden z-10 shadow-2xl">
               <Image
-                src="/images/facility-expansion.jpg"
+                src="/images/facility-expansion.webp"
                 alt="Industrial facility expansion project"
                 fill
                 className="object-cover transition-transform duration-700 hover:scale-105"
