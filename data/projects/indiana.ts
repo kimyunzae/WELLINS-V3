@@ -5,7 +5,7 @@ export const indianaProjectRegion = {
   state: "Indiana",
   description:
     "Indiana project work is represented by process pipe installation for battery-material manufacturing.",
-  image: "/images/projects/project-5.png",
+  image: "/images/projects/project-5.webp",
   href: "/projects/indiana",
   summaryProjects: [
     {
@@ -20,7 +20,7 @@ export const indianaProjectRegion = {
       scopes: ["Process Pipe Installation"],
       location: "Kokomo, IN",
       year: "2023~2024",
-      image: "/images/projects/project-5.png",
+      image: "/images/projects/project-5.webp",
     },
   ],
 } satisfies ProjectRegion;

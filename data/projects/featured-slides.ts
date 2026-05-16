@@ -8,7 +8,7 @@ export const featuredProjectSlides = [
     title: "Buford Manufacturing Hub Expansion",
     description:
       "A new 4.3-acre manufacturing facility designed to expand production capacity for high-pressure piping.",
-    image: "/images/banners/buford-facility.png",
+    image: "/images/banners/buford-facility.webp",
   },
   {
     key: "georgia",
@@ -16,7 +16,7 @@ export const featuredProjectSlides = [
     title: "LGES Hyundai Plant",
     description:
       "Process pipe installation in the utility area for battery manufacturing work.",
-    image: "/images/projects/project-3.png",
+    image: "/images/projects/project-3.webp",
     href: "/projects/georgia",
   },
   {
@@ -24,7 +24,7 @@ export const featuredProjectSlides = [
     region: "Houston, TX",
     title: "Dongwoo Fine-Chem",
     description: "Process pipe installation for Texas project work.",
-    image: "/images/projects/project-6.png",
+    image: "/images/projects/project-6.webp",
     href: "/projects/texas",
   },
   {
@@ -33,7 +33,7 @@ export const featuredProjectSlides = [
     title: "LGES Honda JV Battery",
     description:
       "Process pipe and hot oil pipe installation for battery manufacturing systems.",
-    image: "/images/projects/project-1.png",
+    image: "/images/projects/project-1.webp",
     href: "/projects/ohio",
   },
 ] satisfies FeaturedProjectSlide[];

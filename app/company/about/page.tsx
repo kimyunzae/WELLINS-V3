@@ -111,7 +111,7 @@ export default function AboutPage() {
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
             <div className="relative aspect-[4/3] overflow-hidden">
               <Image
-                src="/images/images/image-hq.jpg"
+                src="/images/images/image-hq.webp"
                 alt="Wellins Inc. team members at work"
                 fill
                 className="object-cover"

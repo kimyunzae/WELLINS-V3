@@ -28,7 +28,7 @@ const slides = [
     id: 3,
     title: 'Global Standard <br /><span className="font-bold text-white">Quality Assurance</span>',
     subtitle: 'Committed to safety, reliability, and world-class engineering standards in every project.',
-    image: '/images/facility-expansion.jpg',
+    image: '/images/facility-expansion.webp',
     link: '/company/about',
     linkLabel: 'Learn More',
   },

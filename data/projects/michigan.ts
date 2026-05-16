@@ -5,7 +5,7 @@ export const michiganProjectRegion = {
   state: "Michigan",
   description:
     "Michigan project work includes industrial system installation for chemical manufacturing facilities.",
-  image: "/images/projects/project-14.png",
+  image: "/images/projects/project-14.webp",
   href: "/projects/michigan",
   summaryProjects: [
     {
@@ -20,7 +20,7 @@ export const michiganProjectRegion = {
       scopes: ["NMP System Installation"],
       location: "Holland, MI",
       year: "2019",
-      image: "/images/projects/project-14.png",
+      image: "/images/projects/project-14.webp",
     },
   ],
 } satisfies ProjectRegion;

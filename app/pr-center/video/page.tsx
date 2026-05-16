@@ -39,7 +39,7 @@ const videos: VideoItem[] = [
     description:
       "Behind the scenes of our largest automotive plant expansion project.",
     duration: "6:22",
-    thumbnail: "/images/facility-expansion.jpg",
+    thumbnail: "/images/facility-expansion.webp",
     youtubeId: "",
   },
   {
@@ -55,7 +55,7 @@ const videos: VideoItem[] = [
     description:
       "The skilled professionals behind every successful Wellins Inc. project.",
     duration: "3:45",
-    thumbnail: "/images/team-workers.jpg",
+    thumbnail: "/images/team-workers.webp",
     youtubeId: "",
   },
 ];

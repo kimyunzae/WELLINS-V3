@@ -25,7 +25,7 @@ const headerBackgrounds: Record<
     alt: "Wellins industrial service team working on equipment",
   },
   projects: {
-    image: "/images/facility-expansion.jpg",
+    image: "/images/facility-expansion.webp",
     alt: "Industrial construction project in progress",
   },
   "pr center": {

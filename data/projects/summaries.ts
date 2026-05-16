@@ -6,7 +6,7 @@ export const projectRegionSummaries = [
     state: "Georgia",
     description:
       "Georgia project work includes battery, automotive, chemical, and advanced manufacturing facilities.",
-    image: "/images/projects/project-3.png",
+    image: "/images/projects/project-3.webp",
     href: "/projects/georgia",
     summaryProjects: [
       {
@@ -26,7 +26,7 @@ export const projectRegionSummaries = [
     state: "Indiana",
     description:
       "Indiana project work is represented by process pipe installation for battery-material manufacturing.",
-    image: "/images/projects/project-5.png",
+    image: "/images/projects/project-5.webp",
     href: "/projects/indiana",
     summaryProjects: [
       {
@@ -41,7 +41,7 @@ export const projectRegionSummaries = [
     state: "Michigan",
     description:
       "Michigan project work includes industrial system installation for chemical manufacturing facilities.",
-    image: "/images/projects/project-14.png",
+    image: "/images/projects/project-14.webp",
     href: "/projects/michigan",
     summaryProjects: [
       {
@@ -56,7 +56,7 @@ export const projectRegionSummaries = [
     state: "Ohio",
     description:
       "Ohio project work includes process pipe and hot oil pipe installation for battery manufacturing.",
-    image: "/images/projects/project-1.png",
+    image: "/images/projects/project-1.webp",
     href: "/projects/ohio",
     summaryProjects: [
       {
@@ -76,7 +76,7 @@ export const projectRegionSummaries = [
     state: "South Carolina",
     description:
       "South Carolina project work includes duct, cooling-water, and utility-pipe installation for Samsung's Newberry plant.",
-    image: "/images/projects/project-16.png",
+    image: "/images/projects/project-16.webp",
     href: "/projects/south-carolina",
     summaryProjects: [
       {
@@ -91,7 +91,7 @@ export const projectRegionSummaries = [
     state: "Tennessee",
     description:
       "Tennessee project work includes hot oil pipe and high-pressure water line installation.",
-    image: "/images/projects/project-7.png",
+    image: "/images/projects/project-7.webp",
     href: "/projects/tennessee",
     summaryProjects: [
       {
@@ -111,7 +111,7 @@ export const projectRegionSummaries = [
     state: "Texas",
     description:
       "Texas project work is represented by process pipe installation for Dongwoo Fine-Chem.",
-    image: "/images/projects/project-6.png",
+    image: "/images/projects/project-6.webp",
     href: "/projects/texas",
     summaryProjects: [
       {
