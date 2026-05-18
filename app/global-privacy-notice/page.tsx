@@ -1,11 +1,13 @@
 import { LegalDocumentLayout } from "@/components/legal-document-layout";
 import { primaryContact } from "@/data/company";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata = {
-  title: "Global Privacy Notice | Wellins Inc.",
+export const metadata = createPageMetadata({
+  title: "Global Privacy Notice",
   description:
     "An overview of how Wellins Inc. collects, uses, shares, and protects personal information.",
-};
+  path: "/global-privacy-notice",
+});
 
 export default function GlobalPrivacyNoticePage() {
   return (

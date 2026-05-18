@@ -1,12 +1,13 @@
 import { Analytics } from '@vercel/analytics/next'
+import {
+  siteDescription,
+  siteName,
+  siteTitle,
+  siteUrl,
+} from "@/lib/metadata"
 import type { Metadata, Viewport } from 'next'
 import React from "react"
 import './globals.css'
-
-const siteUrl = new URL('https://wellins.com')
-const siteTitle = 'Wellins Inc. | Industrial Engineering Excellence'
-const siteDescription =
-  'Leading industrial engineering company specializing in piping, HVAC systems, equipment installation, and fire protection. Serving major manufacturers across the United States.'
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     description: siteDescription,
     url: '/',
     type: 'website',
-    siteName: 'Wellins Inc.',
+    siteName,
     locale: 'en_US',
     images: [
       {

@@ -1,16 +1,18 @@
 import { CareerAnimationObserver } from "@/app/career/career-animation-observer";
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
+import { createPageMetadata } from "@/lib/metadata";
 import { ArrowUpRight, Gauge, ShieldCheck } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "Career | Wellins Inc.",
+export const metadata: Metadata = createPageMetadata({
+  title: "Careers",
   description:
     "Explore career opportunities at Wellins Inc. and learn the values we look for in our team.",
-};
+  path: "/career",
+});
 
 const cultureHighlights = [
   {

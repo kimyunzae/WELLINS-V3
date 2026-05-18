@@ -5,12 +5,14 @@ import {
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata = {
-  title: "Organization | Wellins Inc.",
+export const metadata = createPageMetadata({
+  title: "Organization",
   description:
     "Learn about the organizational structure of Wellins Inc. and our leadership team.",
-};
+  path: "/company/organization",
+});
 
 const divisions: OrganizationDivision[] = [
   {

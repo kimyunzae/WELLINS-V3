@@ -3,16 +3,18 @@ import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
 import { PartnerLogoCarousel } from "@/components/partner-logo-carousel";
 import { projectRegionSummaries } from "@/data/projects/summaries";
+import { createPageMetadata } from "@/lib/metadata";
 import type { ProjectSummary } from "@/types/projects";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Projects | Wellins Inc.",
+export const metadata = createPageMetadata({
+  title: "Industrial Projects",
   description:
     "Explore representative industrial project work across regional manufacturing markets.",
-};
+  path: "/projects",
+});
 
 
 export default function ProjectsPage() {

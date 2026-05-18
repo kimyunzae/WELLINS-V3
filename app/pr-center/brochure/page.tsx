@@ -1,13 +1,15 @@
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
+import { createPageMetadata } from "@/lib/metadata";
 import { Download, FileText } from "lucide-react";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Brochure | Wellins Inc.",
+export const metadata = createPageMetadata({
+  title: "Brochures and Downloads",
   description: "Download our corporate brochure and service materials.",
-};
+  path: "/pr-center/brochure",
+});
 
 const downloads = [
   {

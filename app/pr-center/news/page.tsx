@@ -1,14 +1,16 @@
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
+import { createPageMetadata } from "@/lib/metadata";
 import { newsItems } from "@/lib/news";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-export const metadata = {
-  title: "News | Wellins Inc.",
+export const metadata = createPageMetadata({
+  title: "News",
   description: "Latest news and announcements from Wellins Inc.",
-};
+  path: "/pr-center/news",
+});
 
 // const news = [
 //   {

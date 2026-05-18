@@ -1,13 +1,15 @@
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
+import { createPageMetadata } from "@/lib/metadata";
 import VideoGallery, { type VideoItem } from "./video-gallery";
 
-export const metadata = {
-  title: "PR Video | Wellins Inc.",
+export const metadata = createPageMetadata({
+  title: "PR Videos",
   description:
     "Watch videos about Wellins Inc. projects, capabilities, and company culture.",
-};
+  path: "/pr-center/video",
+});
 
 const videos: VideoItem[] = [
   {

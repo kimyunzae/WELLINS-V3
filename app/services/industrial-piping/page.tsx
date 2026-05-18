@@ -1,12 +1,14 @@
 import { ServiceDetail } from "@/components/service-detail";
 import { getServiceBySlug } from "@/data/services/service-details";
+import { createPageMetadata } from "@/lib/metadata";
 
 const service = getServiceBySlug("industrial-piping");
 
-export const metadata = {
-  title: `${service.title} | Wellins Inc.`,
+export const metadata = createPageMetadata({
+  title: service.title,
   description: service.metadataDescription ?? service.description,
-};
+  path: "/services/industrial-piping",
+});
 
 export default function IndustrialPipingPage() {
   return (

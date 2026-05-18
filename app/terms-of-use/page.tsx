@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { LegalDocumentLayout } from "@/components/legal-document-layout";
 import { primaryContact } from "@/data/company";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata = {
-  title: "Terms of Use | Wellins Inc.",
+export const metadata = createPageMetadata({
+  title: "Terms of Use",
   description:
     "Terms and conditions governing the use of the Wellins Inc. website and related digital services.",
-};
+  path: "/terms-of-use",
+});
 
 export default function TermsOfUsePage() {
   return (
