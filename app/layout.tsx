@@ -48,24 +48,22 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/favicon-wellins-light-32x32.png',
+        url: '/favicon-blue-32x32.png',
         sizes: '32x32',
         type: 'image/png',
-        media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/favicon-wellins-dark-32x32.png',
-        sizes: '32x32',
+        url: '/favicon-blue-16x16.png',
+        sizes: '16x16',
         type: 'image/png',
-        media: '(prefers-color-scheme: dark)',
       },
       {
-        url: '/favicon.ico',
+        url: '/favicon-blue.ico',
         sizes: '32x32',
         type: 'image/x-icon',
       },
     ],
-    shortcut: '/favicon.ico',
+    shortcut: '/favicon-blue.ico',
     apple: [
       {
         url: '/apple-icon-wellins.png',
