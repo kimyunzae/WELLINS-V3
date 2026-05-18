@@ -8,7 +8,7 @@ import { PageHeader } from "@/components/page-header";
 import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata = createPageMetadata({
-  title: "Organization",
+  title: "Company - Organization",
   description:
     "Learn about the organizational structure of Wellins Inc. and our leadership team.",
   path: "/company/organization",

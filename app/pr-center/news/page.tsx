@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export const metadata = createPageMetadata({
-  title: "News",
+  title: "PR Center - News",
   description: "Latest news and announcements from Wellins Inc.",
   path: "/pr-center/news",
 });

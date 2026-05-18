@@ -5,7 +5,7 @@ import { createPageMetadata } from "@/lib/metadata";
 const service = getServiceBySlug("high-pressure-vessels");
 
 export const metadata = createPageMetadata({
-  title: service.title,
+  title: `Services - ${service.title}`,
   description: service.metadataDescription ?? service.description,
   path: "/services/high-pressure-vessels",
 });

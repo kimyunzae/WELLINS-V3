@@ -5,7 +5,7 @@ import { createPageMetadata } from "@/lib/metadata";
 import VideoGallery, { type VideoItem } from "./video-gallery";
 
 export const metadata = createPageMetadata({
-  title: "PR Videos",
+  title: "PR Center - Videos",
   description:
     "Watch videos about Wellins Inc. projects, capabilities, and company culture.",
   path: "/pr-center/video",

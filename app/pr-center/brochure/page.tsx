@@ -6,7 +6,7 @@ import { Download, FileText } from "lucide-react";
 import Link from "next/link";
 
 export const metadata = createPageMetadata({
-  title: "Brochures and Downloads",
+  title: "PR Center - Brochures and Downloads",
   description: "Download our corporate brochure and service materials.",
   path: "/pr-center/brochure",
 });

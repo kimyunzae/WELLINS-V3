@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = createPageMetadata({
-  title: "Industrial Engineering Services",
+  title: "Services",
   description:
     "Comprehensive industrial engineering services including equipment installation, piping, HVAC, insulation, pressure vessels, and fire protection.",
   path: "/services",

@@ -73,6 +73,6 @@ export function createProjectRegionTitle(region: {
   ).slice(0, 2);
 
   return projectNames.length
-    ? `${region.state} Projects: ${projectNames.join(", ")}`
-    : `${region.state} Projects`;
+    ? `Projects - ${region.state}: ${projectNames.join(", ")}`
+    : `Projects - ${region.state}`;
 }

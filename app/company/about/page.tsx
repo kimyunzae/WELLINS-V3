@@ -4,7 +4,7 @@ import { createPageMetadata } from "@/lib/metadata";
 import Image from "next/image";
 
 export const metadata = createPageMetadata({
-  title: "About Us",
+  title: "Company - About Us",
   description:
     "Learn about Wellins Inc., founded in 2016, delivering industrial engineering services in piping, HVAC, and equipment installation.",
   path: "/company/about",

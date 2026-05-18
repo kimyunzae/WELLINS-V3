@@ -6,7 +6,7 @@ import { createPageMetadata } from "@/lib/metadata";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 
 export const metadata = createPageMetadata({
-  title: "Locations",
+  title: "Company - Locations",
   description:
     "Find our headquarters and facilities across the Southeast.",
   path: "/company/location",

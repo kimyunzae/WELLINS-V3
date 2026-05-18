@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Career Application",
+  title: "Careers - Apply",
   description: "Submit your career application to Wellins Inc.",
   path: "/career/apply",
 });
