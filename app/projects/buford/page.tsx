@@ -1,12 +1,17 @@
 import { ProjectDetail } from "@/components/project-detail";
 import { getProjectRegionBySlug } from "@/data/projects/project-details";
+import {
+  createPageMetadata,
+  createProjectRegionTitle,
+} from "@/lib/metadata";
 
 const region = getProjectRegionBySlug("buford");
 
-export const metadata = {
-  title: `${region.state} Projects | Wellins Inc.`,
+export const metadata = createPageMetadata({
+  title: createProjectRegionTitle(region),
   description: region.metadataDescription ?? region.description,
-};
+  path: region.href,
+});
 
 export default function BufordProjectsPage() {
   return (

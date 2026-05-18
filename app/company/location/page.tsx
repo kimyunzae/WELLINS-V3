@@ -2,13 +2,15 @@ import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
 import { featuredLocations, serviceStates } from "@/data/company";
+import { createPageMetadata } from "@/lib/metadata";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 
-export const metadata = {
-  title: "Location | Wellins Inc.",
+export const metadata = createPageMetadata({
+  title: "Company - Locations",
   description:
     "Find our headquarters and facilities across the Southeast.",
-};
+  path: "/company/location",
+});
 
 export default function LocationPage() {
   return (

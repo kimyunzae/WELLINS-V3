@@ -3,6 +3,10 @@ import {
   dynamicProjectRegions,
   getProjectRegionBySlug,
 } from "@/data/projects/project-details";
+import {
+  createPageMetadata,
+  createProjectRegionTitle,
+} from "@/lib/metadata";
 import { notFound } from "next/navigation";
 
 export function generateStaticParams() {
@@ -20,10 +24,11 @@ export async function generateMetadata({
   const data = getProjectRegionBySlug(state);
   if (!data) return {};
 
-  return {
-    title: `${data.state} Projects | Wellins Inc.`,
-    description: data.description,
-  };
+  return createPageMetadata({
+    title: createProjectRegionTitle(data),
+    description: data.metadataDescription ?? data.description,
+    path: data.href,
+  });
 }
 
 export default async function StatePage({

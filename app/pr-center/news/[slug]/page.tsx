@@ -1,6 +1,7 @@
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
+import { createPageMetadata } from "@/lib/metadata";
 import { getNewsBySlug, newsItems } from "@/lib/news";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -19,10 +20,11 @@ export async function generateMetadata({
 
   if (!item) return {};
 
-  return {
-    title: `${item.title} | Wellins Inc.`,
+  return createPageMetadata({
+    title: item.title,
     description: item.excerpt,
-  };
+    path: `/pr-center/news/${item.slug}`,
+  });
 }
 
 export default async function NewsDetailPage({

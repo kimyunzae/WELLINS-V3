@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { LegalDocumentLayout } from "@/components/legal-document-layout";
 import { primaryContact } from "@/data/company";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata = {
-  title: "Georgia Privacy Notice | Wellins Inc.",
+export const metadata = createPageMetadata({
+  title: "Georgia Privacy Notice",
   description:
     "Georgia-specific notice describing how Wellins Inc. collects, uses, and safeguards personal information.",
-};
+  path: "/georgia-privacy-notice",
+});
 
 export default function GeorgiaPrivacyNoticePage() {
   return (

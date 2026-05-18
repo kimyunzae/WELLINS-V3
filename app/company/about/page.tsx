@@ -1,12 +1,14 @@
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
+import { createPageMetadata } from "@/lib/metadata";
 import Image from "next/image";
 
-export const metadata = {
-  title: "About Us | Wellins Inc.",
+export const metadata = createPageMetadata({
+  title: "Company - About Us",
   description:
     "Learn about Wellins Inc., founded in 2016, delivering industrial engineering services in piping, HVAC, and equipment installation.",
-};
+  path: "/company/about",
+});
 
 const values = [
   {

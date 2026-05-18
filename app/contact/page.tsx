@@ -7,13 +7,15 @@ import {
   contactOffices,
   primaryContact,
 } from "@/data/company";
+import { createPageMetadata } from "@/lib/metadata";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 
-export const metadata = {
-  title: "Contact | Wellins Inc.",
+export const metadata = createPageMetadata({
+  title: "Contact",
   description:
     "Get in touch with Wellins Inc. for industrial engineering inquiries, project estimates, and partnership opportunities.",
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

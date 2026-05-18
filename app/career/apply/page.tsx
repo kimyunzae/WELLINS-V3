@@ -1,13 +1,15 @@
 import { CareerApplicationForm } from "@/components/career/application-form";
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
+import { createPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import Image from "next/image";
 
-export const metadata: Metadata = {
-  title: "Apply | Wellins Inc.",
+export const metadata: Metadata = createPageMetadata({
+  title: "Careers - Apply",
   description: "Submit your career application to Wellins Inc.",
-};
+  path: "/career/apply",
+});
 
 export default function CareerApplyPage() {
   return (

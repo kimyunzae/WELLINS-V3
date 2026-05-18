@@ -1,7 +1,8 @@
 "use client";
 
 import { SubmissionConfirmDialog } from "@/components/ui/submission-confirm-dialog";
-import { type FormEvent, useRef, useState } from "react";
+import Script from "next/script";
+import { type FormEvent, useCallback, useEffect, useRef, useState } from "react";
 
 const states = [
   "Alabama",
@@ -88,6 +89,8 @@ const EMAILJS_SERVICE_ID =
   process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID?.trim() ?? "";
 const EMAILJS_APPLY_TEMPLATE_ID =
   process.env.NEXT_PUBLIC_EMAILJS_APPLY_TEMPLATE_ID?.trim() ?? "";
+const RECAPTCHA_SITE_KEY =
+  process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY?.trim() ?? "";
 const DEFAULT_MAX_TOTAL_ATTACHMENT_BYTES = 500 * 1024; // 기본값 500kb, 환경변수로 설정된 값이 유효한 경우 해당 값 사용
 
 const CONFIGURED_MAX_TOTAL_ATTACHMENT_BYTES = Number(
@@ -109,6 +112,46 @@ const SUBMIT_RATE_LIMIT_MESSAGE =
   "Your last application was already sent. Wait a few seconds and try again.";
 const SUBMIT_ATTACHMENT_LIMIT_MESSAGE =
   "Your resume exceeds the EmailJS attachment limit for this plan. Upload a smaller file and try again.";
+const CAPTCHA_REQUIRED_MESSAGE = "Please confirm you are not a robot.";
+
+type GrecaptchaApi = {
+  getResponse: () => string;
+  reset: () => void;
+  render: (
+    container: HTMLElement,
+    parameters: { sitekey: string },
+  ) => number;
+  ready: (callback: () => void) => void;
+};
+
+type RecaptchaWindow = Window & {
+  grecaptcha?: GrecaptchaApi;
+  onCareerRecaptchaLoad?: () => void;
+};
+
+function getGrecaptcha(): GrecaptchaApi | null {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  return (window as RecaptchaWindow).grecaptcha ?? null;
+}
+
+function safeCaptchaGetResponse(): string {
+  try {
+    return getGrecaptcha()?.getResponse().trim() ?? "";
+  } catch {
+    return "";
+  }
+}
+
+function safeCaptchaReset(): void {
+  try {
+    getGrecaptcha()?.reset();
+  } catch {
+    // Ignore reset failures from a removed or unavailable widget.
+  }
+}
 
 function getEmailJsFailureMessage(status: number, responseText: string) {
   const normalizedResponse = responseText.trim();
@@ -135,6 +178,7 @@ function getEmailJsFailureMessage(status: number, responseText: string) {
 
 export function CareerApplicationForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const captchaRef = useRef<HTMLDivElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isConfirmingSubmit, setIsConfirmingSubmit] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
@@ -146,7 +190,43 @@ export function CareerApplicationForm() {
     positionSource: string;
   } | null>(null);
 
-  const getSubmissionFormData = (form: HTMLFormElement) => {
+  const renderCaptcha = useCallback(() => {
+    const grecaptcha = getGrecaptcha();
+    if (!grecaptcha || !captchaRef.current || !RECAPTCHA_SITE_KEY) {
+      return;
+    }
+
+    grecaptcha.ready(() => {
+      if (!captchaRef.current) {
+        return;
+      }
+
+      const freshDiv = document.createElement("div");
+      captchaRef.current.replaceChildren(freshDiv);
+      grecaptcha.render(freshDiv, {
+        sitekey: RECAPTCHA_SITE_KEY,
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!RECAPTCHA_SITE_KEY) {
+      return;
+    }
+
+    if (getGrecaptcha()) {
+      renderCaptcha();
+      return;
+    }
+
+    (window as RecaptchaWindow).onCareerRecaptchaLoad = renderCaptcha;
+
+    return () => {
+      (window as RecaptchaWindow).onCareerRecaptchaLoad = undefined;
+    };
+  }, [renderCaptcha]);
+
+  const getSubmissionFormData = (form: HTMLFormElement, captchaToken: string) => {
     const formData = new FormData(form);
     const uploadedFiles = ["resume"]
       .map((fieldName) => formData.get(fieldName))
@@ -156,9 +236,20 @@ export function CareerApplicationForm() {
       0,
     );
 
-    if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_APPLY_TEMPLATE_ID) {
+    if (
+      !EMAILJS_PUBLIC_KEY ||
+      !EMAILJS_SERVICE_ID ||
+      !EMAILJS_APPLY_TEMPLATE_ID ||
+      !RECAPTCHA_SITE_KEY
+    ) {
       return {
         errorMessage: "Career form is not configured yet.",
+      };
+    }
+
+    if (!captchaToken) {
+      return {
+        errorMessage: CAPTCHA_REQUIRED_MESSAGE,
       };
     }
 
@@ -180,14 +271,17 @@ export function CareerApplicationForm() {
     formData.set("service_id", EMAILJS_SERVICE_ID);
     formData.set("template_id", EMAILJS_APPLY_TEMPLATE_ID);
     formData.set("user_id", EMAILJS_PUBLIC_KEY);
+    formData.set("g-recaptcha-response", captchaToken);
 
     return { formData };
   };
 
   const submitApplication = async (form: HTMLFormElement) => {
-    const { formData, errorMessage } = getSubmissionFormData(form);
+    const captchaToken = safeCaptchaGetResponse();
+    const { formData, errorMessage } = getSubmissionFormData(form, captchaToken);
 
     if (!formData) {
+      safeCaptchaReset();
       setIsSubmitError(true);
       setSubmitMessage(errorMessage ?? SUBMIT_FAILURE_MESSAGE);
       setIsConfirmingSubmit(false);
@@ -210,9 +304,11 @@ export function CareerApplicationForm() {
       }
 
       form.reset();
+      safeCaptchaReset();
       setIsConfirmingSubmit(false);
       setSubmitMessage(SUBMIT_SUCCESS_MESSAGE);
     } catch (error) {
+      safeCaptchaReset();
       setIsSubmitError(true);
       setIsConfirmingSubmit(false);
       setSubmitMessage(
@@ -240,8 +336,12 @@ export function CareerApplicationForm() {
     setIsSubmitError(false);
     setSubmitMessage("");
 
-    const { errorMessage } = getSubmissionFormData(form);
+    const captchaToken = safeCaptchaGetResponse();
+    const { errorMessage } = getSubmissionFormData(form, captchaToken);
     if (errorMessage) {
+      if (errorMessage !== CAPTCHA_REQUIRED_MESSAGE) {
+        safeCaptchaReset();
+      }
       setIsSubmitError(true);
       setSubmitMessage(errorMessage);
       setIsConfirmingSubmit(false);
@@ -270,6 +370,13 @@ export function CareerApplicationForm() {
 
   return (
     <>
+      {RECAPTCHA_SITE_KEY ? (
+        <Script
+          src="https://www.google.com/recaptcha/api.js?onload=onCareerRecaptchaLoad&render=explicit"
+          strategy="afterInteractive"
+        />
+      ) : null}
+
       <form
         ref={formRef}
         onSubmit={handleSubmit}
@@ -551,6 +658,14 @@ export function CareerApplicationForm() {
             className={`${inputClassName} resize-y`}
           />
         </div>
+
+        {RECAPTCHA_SITE_KEY ? (
+          <div ref={captchaRef} className="overflow-x-auto" />
+        ) : (
+          <p className="text-sm text-[#B42318]">
+            reCAPTCHA site key is missing.
+          </p>
+        )}
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <button

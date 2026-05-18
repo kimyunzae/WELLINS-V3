@@ -1,36 +1,76 @@
-import React from "react"
-import type { Metadata, Viewport } from 'next'
 import { Analytics } from '@vercel/analytics/next'
+import {
+  siteDescription,
+  siteName,
+  siteTitle,
+  siteUrl,
+} from "@/lib/metadata"
+import type { Metadata, Viewport } from 'next'
+import React from "react"
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Wellins Inc. | Industrial Engineering Excellence',
-  description: 'Leading industrial engineering company specializing in piping, HVAC systems, equipment installation, and fire protection. Serving major manufacturers across the United States.',
+  metadataBase: siteUrl,
+  title: siteTitle,
+  description: siteDescription,
   keywords: ['industrial engineering', 'piping', 'HVAC', 'equipment installation', 'fire protection', 'industrial contractor'],
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    url: '/',
     type: 'website',
-    siteName: 'Wellins Inc.',
+    siteName,
     locale: 'en_US',
+    images: [
+      {
+        url: '/social-card-wellins.png',
+        width: 1200,
+        height: 630,
+        alt: 'Wellins Inc.',
+        type: 'image/png',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
+    title: siteTitle,
+    description: siteDescription,
+    images: [
+      {
+        url: '/social-card-wellins.png',
+        alt: 'Wellins Inc.',
+      },
+    ],
   },
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
+        url: '/favicon-blue-32x32.png',
+        sizes: '32x32',
+        type: 'image/png',
       },
       {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
+        url: '/favicon-blue-16x16.png',
+        sizes: '16x16',
+        type: 'image/png',
       },
       {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
+        url: '/favicon-blue.ico',
+        sizes: '32x32',
+        type: 'image/x-icon',
       },
     ],
-    apple: '/apple-icon.png',
+    shortcut: '/favicon-blue.ico',
+    apple: [
+      {
+        url: '/apple-icon-wellins.png',
+        sizes: '180x180',
+        type: 'image/png',
+      },
+    ],
   },
   generator: 'v0.app'
 }

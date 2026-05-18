@@ -1,26 +1,4 @@
-<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    @media (prefers-color-scheme: light) {
-      .background { fill: black; }
-      .foreground { fill: white; }
-    }
-    @media (prefers-color-scheme: dark) {
-      .background { fill: white; }
-      .foreground { fill: black; }
-    }
-  </style>
-  <g clip-path="url(#clip0_7960_43945)">
-    <rect class="background" width="180" height="180" rx="37" />
-    <g style="transform: scale(95%); transform-origin: center">
-      <path class="foreground"
-        d="M101.141 53H136.632C151.023 53 162.689 64.6662 162.689 79.0573V112.904H148.112V79.0573C148.112 78.7105 148.098 78.3662 148.072 78.0251L112.581 112.898C112.701 112.902 112.821 112.904 112.941 112.904H148.112V126.672H112.941C98.5504 126.672 86.5638 114.891 86.5638 100.5V66.7434H101.141V100.5C101.141 101.15 101.191 101.792 101.289 102.422L137.56 66.7816C137.255 66.7563 136.945 66.7434 136.632 66.7434H101.141V53Z" />
-      <path class="foreground"
-        d="M65.2926 124.136L14 66.7372H34.6355L64.7495 100.436V66.7372H80.1365V118.47C80.1365 126.278 70.4953 129.958 65.2926 124.136Z" />
-    </g>
-  </g>
-  <defs>
-    <clipPath id="clip0_7960_43945">
-      <rect width="180" height="180" fill="white" />
-    </clipPath>
-  </defs>
+<svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="180" fill="#ffffff" />
+  <image width="180" height="180" href="data:image/png;base64,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" />
 </svg>

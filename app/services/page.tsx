@@ -2,15 +2,17 @@ import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
 import { serviceSummaries } from "@/data/services/summaries";
+import { createPageMetadata } from "@/lib/metadata";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Services | Wellins Inc.",
+export const metadata = createPageMetadata({
+  title: "Services",
   description:
     "Comprehensive industrial engineering services including equipment installation, piping, HVAC, insulation, pressure vessels, and fire protection.",
-};
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (

@@ -5,12 +5,14 @@ import {
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata = {
-  title: "History | Wellins Inc.",
+export const metadata = createPageMetadata({
+  title: "Company - History",
   description:
     "Key milestones that trace how our footprint, licensing, and capabilities continue to expand.",
-};
+  path: "/company/history",
+});
 
 const timeline: HistoryTimelineItem[] = [
   {
