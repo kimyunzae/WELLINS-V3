@@ -111,12 +111,13 @@ export default function AboutPage() {
       <section className="bg-background py-20 lg:py-28">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-            <div className="relative aspect-[4/3] overflow-hidden">
+            <div className="relative aspect-[16/9] overflow-hidden">
               <Image
                 src="/images/images/image-hq.webp"
-                alt="Wellins Inc. team members at work"
+                alt="Wellins Inc. headquarters entrance sign"
                 fill
-                className="object-cover"
+                className="object-fill"
+                sizes="(min-width: 1024px) 50vw, 100vw"
               />
             </div>
             <div>
