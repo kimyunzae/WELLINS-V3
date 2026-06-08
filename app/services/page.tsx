@@ -10,7 +10,7 @@ import Link from "next/link";
 export const metadata = createPageMetadata({
   title: "Services",
   description:
-    "Comprehensive industrial engineering services including equipment installation, piping, HVAC, insulation, pressure vessels, and fire protection.",
+    "Comprehensive industrial engineering services including industrial piping, insulation, pressure vessels, and fire protection.",
   path: "/services",
 });
 
@@ -27,7 +27,7 @@ export default function ServicesPage() {
 
       <section className="bg-[#F6F8FB] py-10 lg:py-14">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+          <div className="grid gap-5 md:grid-cols-2 lg:gap-6">
             {serviceSummaries.map((service) => (
               <Link
                 key={service.title}
@@ -40,7 +40,7 @@ export default function ServicesPage() {
                     alt={service.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    sizes="(min-width: 768px) 50vw, 100vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#001A3D]/15 to-transparent" />
                 </div>

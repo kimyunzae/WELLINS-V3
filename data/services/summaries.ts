@@ -4,16 +4,6 @@ import type { ServiceSummary } from "@/types/services";
 
 export const serviceSummaries = [
   {
-    slug: "equipment-installation",
-    title: "Equipment Installation",
-    description:
-      "Precision installation of heavy industrial equipment with rigorous safety standards and minimal downtime.",
-    homeDescription:
-      "Heavy equipment installation executed with strict safety and shutdown control.",
-    image: "/images/service-equipment.webp",
-    href: "/services/equipment-installation",
-  },
-  {
     slug: "industrial-piping",
     title: "Industrial Piping",
     description:
@@ -22,16 +12,6 @@ export const serviceSummaries = [
       "Process and utility piping delivered from layout to turnover.",
     image: "/images/service-piping.webp",
     href: "/services/industrial-piping",
-  },
-  {
-    slug: "hvac-system",
-    title: "HVAC System",
-    description:
-      "Advanced climate control systems designed for industrial environments requiring precise temperature management.",
-    homeDescription:
-      "Industrial HVAC systems built for stable operation and efficiency.",
-    image: "/images/service-hvac.webp",
-    href: "/services/hvac-system",
   },
   {
     slug: "insulation-jacketing",

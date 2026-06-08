@@ -1,20 +1,16 @@
 import type { Service, ServiceSlug } from "@/types/services";
-import { equipmentInstallationService } from "./equipment-installation";
 import { fireProtectionService } from "./fire-protection";
 import { highPressureVesselsService } from "./high-pressure-vessels";
-import { hvacSystemService } from "./hvac-system";
 import { industrialPipingService } from "./industrial-piping";
 import { insulationJacketingService } from "./insulation-jacketing";
 
 // 서비스 상세 정보를 정의하는 파일입니다. 각 서비스가 공통된 구조를 가지도록 Service 타입을 사용하여 상세 정보를 포함하는 객체입니다.
 
 
-// project쪽과 마찬가지로 slug함수(getServiceBySlug)를 통해서 받고자하는 services(equipmentInstallationService, fireProtectionService, ...)의 데이터형식을 받을 수 있습니다.
+// project쪽과 마찬가지로 slug함수(getServiceBySlug)를 통해서 받고자하는 services(fireProtectionService, industrialPipingService, ...)의 데이터형식을 받을 수 있습니다.
 
 export const serviceDetails = [
-  equipmentInstallationService,
   industrialPipingService,
-  hvacSystemService,
   insulationJacketingService,
   highPressureVesselsService,
   fireProtectionService,

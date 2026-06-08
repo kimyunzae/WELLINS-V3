@@ -51,16 +51,6 @@ export const industrialPipingService = {
         "Shop prefabrication reduces field installation time and improves quality control.",
     },
     {
-      title: "Material Expertise",
-      description:
-        "Experience with carbon steel, stainless, chrome-moly, and exotic alloys.",
-    },
-    {
-      title: "Testing & Documentation",
-      description:
-        "Complete NDE testing, radiography, and documentation packages.",
-    },
-    {
       title: "Shutdown Support",
       description:
         "24/7 availability for planned shutdowns and emergency repairs.",
