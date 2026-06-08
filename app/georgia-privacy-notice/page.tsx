@@ -61,7 +61,7 @@ export default function GeorgiaPrivacyNoticePage() {
         </p>
         <ul className="space-y-3 pl-5 text-muted-foreground marker:text-foreground">
           <li>Industrial piping, process systems, and mechanical project support.</li>
-          <li>HVAC, fire protection, and equipment installation coordination.</li>
+          <li>Industrial piping, fire protection, and pressure vessel coordination.</li>
           <li>Estimating, administrative support, and client communications.</li>
         </ul>
       </section>

@@ -11,7 +11,7 @@ export const tennesseeProjectRegion = {
     {
       name: "Ultium Cells-2",
       scopes: ["Hot Oil Pipe Installation"],
-      year: "2022~2024",
+      year: "2022~2025",
     },
     {
       name: "LG Electronics Plant",
@@ -24,7 +24,7 @@ export const tennesseeProjectRegion = {
       name: "Ultium Cells-2",
       scopes: ["Hot Oil Pipe Installation in Electrode Area"],
       location: "Spring Hill, TN",
-      year: "2022~2024",
+      year: "2022~2025",
       image: "/images/projects/project-7.webp",
     },
     {

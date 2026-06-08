@@ -11,12 +11,12 @@ export const ohioProjectRegion = {
     {
       name: "LGES Honda JV Battery",
       scopes: ["Process Pipe Installation"],
-      year: "2024~",
+      year: "2024~2026",
     },
     {
       name: "LGES Honda JV Battery",
       scopes: ["Hot Oil Pipe Installation"],
-      year: "2023",
+      year: "2023~",
     },
   ],
   projects: [
@@ -24,14 +24,14 @@ export const ohioProjectRegion = {
       name: "LGES Honda JV Battery",
       scopes: ["Process Pipe Installation"],
       location: "Jeffersonville, OH",
-      year: "2024~",
+      year: "2024~2026",
       image: "/images/projects/project-1.webp",
     },
     {
       name: "LGES Honda JV Battery",
       scopes: ["Hot Oil Pipe Installation in Electrode Area"],
       location: "Jeffersonville, OH",
-      year: "2023",
+      year: "2023~",
       image: "/images/projects/project-2.webp",
     },
   ],

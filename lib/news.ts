@@ -14,7 +14,7 @@ const news: NewsItem[] = [
       "We are pleased to announce the successful completion of a 250,000 sq ft expansion project for a leading automotive manufacturer in Birmingham, Alabama.",
     category: "Project Completion",
     content: [
-      "The project included new process piping, HVAC upgrades, and equipment installation across multiple production lines. Our team coordinated closely with plant leadership to keep critical operations running during the build.",
+      "The project included new process piping, fire protection coordination, and utility installation across multiple production lines. Our team coordinated closely with plant leadership to keep critical operations running during the build.",
       "A phased execution plan allowed commissioning to begin while construction continued in adjacent zones. This approach reduced downtime and kept the overall schedule on track.",
       "We thank our client and project partners for their collaboration and look forward to supporting the next phase of manufacturing growth in the region.",
     ],
@@ -74,8 +74,8 @@ const news: NewsItem[] = [
       "Wellins Inc. completes first major EV battery facility project, marking expansion into the growing electric vehicle manufacturing sector.",
     category: "Project Completion",
     content: [
-      "The project required specialized HVAC and cleanroom systems to support sensitive battery assembly processes and quality control.",
-      "Our scope included process piping, utility distribution, and equipment integration within a fast-track construction schedule.",
+      "The project required specialized utility distribution and cleanroom-adjacent coordination to support sensitive battery assembly processes and quality control.",
+      "Our scope included process piping, hot oil pipe work, and utility distribution within a fast-track construction schedule.",
       "This milestone positions Wellins to support the accelerating transition to electric vehicle production across North America.",
     ],
   },

@@ -14,7 +14,7 @@ export const primaryContact = {
 
 // 영업 시간과 사무실 위치 정보를 포함하는 데이터입니다. 각 위치에는 주소, 전화번호, 이메일, 영업 시간 등의 세부 정보가 포함되어 있습니다. 이 데이터는 회사의 연락처 페이지나 위치 페이지에서 사용될 수 있습니다.
 export const contactBusinessHours =
-  "Monday - Friday: 7:00 AM - 5:00 PM";
+  "Monday - Friday: 8:30 AM - 5:30 PM";
 
 
 // 회사의 연락처 사무실 정보를 정의하는 데이터입니다. 각 사무실에는 이름, 도시, 주소, 전화번호, 이메일 등의 세부 정보가 포함되어 있습니다. 이 데이터는 회사의 연락처 페이지에서 사용될 수 있습니다.
@@ -45,7 +45,7 @@ export const featuredLocations = [
     phoneDisplay: primaryContact.phoneDisplay,
     phoneHref: primaryContact.phoneHref,
     email: primaryContact.email,
-    hours: "Mon-Fri: 8:00 AM - 6:00 PM ET",
+    hours: "Mon-Fri: 8:30 AM - 5:30 PM ET",
   },
   {
     label: "Manufacturing Facility",
@@ -60,7 +60,7 @@ export const featuredLocations = [
     phoneDisplay: primaryContact.phoneDisplay,
     phoneHref: primaryContact.phoneHref,
     email: primaryContact.email,
-    hours: "Mon-Fri: 8:00 AM - 6:00 PM ET",
+    hours: "Mon-Fri: 8:30 AM - 5:30 PM ET",
   },
 ] satisfies CompanyLocation[];
 

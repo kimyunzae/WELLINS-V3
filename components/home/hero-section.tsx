@@ -19,8 +19,8 @@ const slides = [
   {
     id: 2,
     title: 'Precision <br /><span className="font-bold text-white">Engineering Solutions</span>',
-    subtitle: 'From complex piping systems to advanced HVAC installations, we deliver excellence.',
-    image: '/images/service-equipment.webp',
+    subtitle: 'From complex piping systems to fire protection and pressure vessel support, we deliver excellence.',
+    image: '/images/service-piping.webp',
     link: '/services',
     linkLabel: 'Our Services',
   },

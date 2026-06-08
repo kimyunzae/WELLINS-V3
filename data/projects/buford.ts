@@ -11,7 +11,7 @@ export const bufordProjectRegion = {
   projects: [
     {
       name: "Buford Manufacturing Hub",
-      type: "Equipment Installation",
+      type: "Manufacturing Facility",
       location: "Buford, GA",
       year: "2026",
       description:

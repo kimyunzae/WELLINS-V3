@@ -12,12 +12,12 @@ export const projectRegionSummaries = [
       {
         name: "LGES Hyundai Plant",
         scopes: ["Process Pipe Installation"],
-        year: "2024~",
+        year: "2024~2025",
       },
       {
         name: "SK Battery America Plant-2",
-        scopes: ["Hot Oil Pipe", "HVAC Installation"],
-        year: "2024~",
+        scopes: ["Hot Oil Pipe"],
+        year: "2023~2025",
       },
     ],
   },
@@ -47,7 +47,7 @@ export const projectRegionSummaries = [
       {
         name: "LG Chemical Plant",
         scopes: ["NMP System Installation"],
-        year: "2019",
+        year: "2019~2020",
       },
     ],
   },
@@ -62,12 +62,12 @@ export const projectRegionSummaries = [
       {
         name: "LGES Honda JV Battery",
         scopes: ["Process Pipe Installation"],
-        year: "2024~",
+        year: "2024~2026",
       },
       {
         name: "LGES Honda JV Battery",
         scopes: ["Hot Oil Pipe Installation"],
-        year: "2023",
+        year: "2023~",
       },
     ],
   },
@@ -97,7 +97,7 @@ export const projectRegionSummaries = [
       {
         name: "Ultium Cells-2",
         scopes: ["Hot Oil Pipe Installation"],
-        year: "2022~2024",
+        year: "2022~2025",
       },
       {
         name: "LG Electronics Plant",

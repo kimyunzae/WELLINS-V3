@@ -6,7 +6,7 @@ import Image from "next/image";
 export const metadata = createPageMetadata({
   title: "Company - About Us",
   description:
-    "Learn about Wellins Inc., founded in 2016, delivering industrial engineering services in piping, HVAC, and equipment installation.",
+    "Learn about Wellins Inc., founded in 2016, delivering industrial engineering services in piping, insulation, fire protection, and pressure vessel solutions.",
   path: "/company/about",
 });
 
@@ -113,10 +113,10 @@ export default function AboutPage() {
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
             <div className="relative aspect-[16/9] overflow-hidden">
               <Image
-                src="/images/images/image-hq.webp"
-                alt="Wellins Inc. headquarters entrance sign"
+                src="/images/banners/buford-facility.webp"
+                alt="Wellins Inc. Buford manufacturing facility"
                 fill
-                className="object-fill"
+                className="object-cover"
                 sizes="(min-width: 1024px) 50vw, 100vw"
               />
             </div>
@@ -136,9 +136,9 @@ export default function AboutPage() {
               </p>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground lg:text-lg">
                 WELLINS INC has a dedicated Project Management Group along with
-                Engineering Support and established distribution accounts with
-                leading equipment manufacturers for mechanical, industrial,
-                HVAC, and commercial projects.
+                Engineering Support and established field capabilities for
+                industrial piping, insulation, fire protection, and pressure
+                vessel projects.
               </p>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground lg:text-lg">
                 We look forward to growing together as a community in the
@@ -193,8 +193,8 @@ export default function AboutPage() {
                 Since our establishment in Georgia, Wellins Inc. has continued
                 to grow as an industrial systems partner for manufacturing and
                 facility projects. Our work brings together industrial piping,
-                HVAC systems, equipment installation, insulation, jacketing, and
-                fire protection capabilities.
+                insulation and jacketing, fire protection, and pressure vessel
+                fabrication and delivery.
               </p>
 
               <p>
@@ -215,12 +215,10 @@ export default function AboutPage() {
 
               <p>
                 I invite you to explore what Wellins Inc. can do for your next
-                project. Our team of expert engineers, project managers, and
-                skilled tradespeople are ready to bring your vision to life with
-                the precision, planning, and reliability our clients expect from
-                a dedicated industrial systems partner.
-                the precision and reliability that has defined our company for
-                over a decade.
+                project. Our engineers, project managers, fabrication team, and
+                skilled tradespeople are ready to support each stage with the
+                precision, planning, and reliability our clients expect from a
+                dedicated industrial systems partner.
               </p>
 
               <p className="pt-2 font-medium text-foreground">

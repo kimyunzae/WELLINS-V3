@@ -11,7 +11,7 @@ export const michiganProjectRegion = {
     {
       name: "LG Chemical Plant",
       scopes: ["NMP System Installation"],
-      year: "2019",
+      year: "2019~2020",
     },
   ],
   projects: [
@@ -19,7 +19,7 @@ export const michiganProjectRegion = {
       name: "LG Chemical Plant",
       scopes: ["NMP System Installation"],
       location: "Holland, MI",
-      year: "2019",
+      year: "2019~2020",
       image: "/images/projects/project-14.webp",
     },
   ],

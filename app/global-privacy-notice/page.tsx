@@ -140,7 +140,7 @@ export default function GlobalPrivacyNoticePage() {
         </h3>
         <p>
           Wellins Inc. is the entity responsible for industrial engineering,
-          piping, HVAC, fire protection, equipment installation, and related
+          industrial piping, insulation, fire protection, pressure vessels, and related
           project support services. This Global Privacy Notice applies to those
           business activities and related communications.
         </p>

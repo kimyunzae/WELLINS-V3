@@ -80,7 +80,7 @@ export function ServicesSection() {
             </Link>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2">
             {serviceSummaries.map((service, index) => {
               const config = animConfig[index % animConfig.length];
 
@@ -102,7 +102,7 @@ export function ServicesSection() {
                         alt={service.title}
                         fill
                         className="object-cover"
-                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                        sizes="(min-width: 768px) 50vw, 100vw"
                       />
                       <div className="absolute inset-0 bg-sky-900/20 transition-colors duration-500 group-hover:bg-sky-900/40" />
                     </div>
