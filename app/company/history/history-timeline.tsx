@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 export interface HistoryTimelineItem {
@@ -12,9 +13,11 @@ interface HistoryTimelineProps {
   items: HistoryTimelineItem[];
 }
 
-const STEP_DELAY_SECONDS = 0.48;
-const LINE_DRAW_DELAY_SECONDS = 0.14;
-const LINE_DRAW_DURATION_SECONDS = 0.28;
+const STEP_DELAY_SECONDS = 0.42;
+const LINE_DRAW_DELAY_SECONDS = 0.12;
+const LINE_DRAW_DURATION_SECONDS = 0.3;
+
+const ACCENT = "#0B3C7A";
 
 export function HistoryTimeline({ items }: HistoryTimelineProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -39,7 +42,7 @@ export function HistoryTimeline({ items }: HistoryTimelineProps) {
         });
       },
       {
-        threshold: 0.2,
+        threshold: 0.15,
         rootMargin: "0px 0px -10% 0px",
       }
     );
@@ -54,30 +57,36 @@ export function HistoryTimeline({ items }: HistoryTimelineProps) {
   return (
     <div
       ref={containerRef}
-      className="history-observed-section space-y-0"
+      className="history-observed-section"
       data-in-view={isInView}
     >
       {items.map((item, index) => {
         const baseDelay = 0.06 + index * STEP_DELAY_SECONDS;
+        const isLast = index === items.length - 1;
 
         return (
           <div
             key={`${item.year}-${item.title}`}
-            className="relative grid grid-cols-[3.5rem_minmax(0,1fr)] gap-6 pb-12 last:pb-0 lg:grid-cols-[4.5rem_minmax(0,1fr)] lg:gap-10"
+            className="relative grid grid-cols-[2rem_minmax(0,1fr)] gap-x-5 pb-10 last:pb-0 sm:grid-cols-[2.5rem_minmax(0,1fr)] sm:gap-x-7"
           >
-            <div className="flex flex-col items-center">
+            {/* Marker + connecting line */}
+            <div className="relative flex flex-col items-center">
               <div
-                className="history-item-reveal flex h-14 w-14 shrink-0 items-center justify-center border border-border bg-background text-sm font-semibold text-foreground shadow-[0_16px_32px_rgba(15,23,42,0.06)] lg:h-[4.5rem] lg:w-[4.5rem] lg:text-base"
-                style={{ animationDelay: `${baseDelay}s` }}
+                className="history-item-reveal relative z-10 flex h-7 w-7 shrink-0 items-center justify-center sm:h-8 sm:w-8"
+                style={{ animationDelay: `${baseDelay}s`, color: ACCENT }}
               >
-                {item.year.slice(-2)}
+                <ChevronRight
+                  className="h-6 w-6 sm:h-7 sm:w-7"
+                  strokeWidth={2.75}
+                />
               </div>
 
-              {index < items.length - 1 && (
-                <div className="mt-4 flex flex-1 justify-center overflow-hidden">
+              {!isLast && (
+                <div className="mt-1 flex flex-1 justify-center overflow-hidden">
                   <span
-                    className="history-line-grow block h-full w-px bg-black/85"
+                    className="history-line-grow block h-full w-px"
                     style={{
+                      backgroundColor: `${ACCENT}33`,
                       animationDelay: `${baseDelay + LINE_DRAW_DELAY_SECONDS}s`,
                       animationDuration: `${LINE_DRAW_DURATION_SECONDS}s`,
                     }}
@@ -86,22 +95,25 @@ export function HistoryTimeline({ items }: HistoryTimelineProps) {
               )}
             </div>
 
-            <div className="min-w-0 pb-6 lg:pb-8">
+            {/* Content */}
+            <div className="min-w-0 pt-px">
+              <div className="flex items-baseline gap-4 sm:gap-5">
+                <span
+                  className="history-item-reveal text-3xl font-bold leading-none tracking-tight sm:text-4xl lg:text-[2.75rem]"
+                  style={{ animationDelay: `${baseDelay + 0.02}s`, color: ACCENT }}
+                >
+                  {item.year}
+                </span>
+                <h3
+                  className="history-item-reveal text-sm font-bold uppercase tracking-[0.12em] sm:text-base"
+                  style={{ animationDelay: `${baseDelay + 0.06}s`, color: ACCENT }}
+                >
+                  {item.title}
+                </h3>
+              </div>
               <p
-                className="history-item-reveal text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground lg:text-sm"
-                style={{ animationDelay: `${baseDelay + 0.03}s` }}
-              >
-                {item.year}
-              </p>
-              <h3
-                className="history-item-reveal mt-3 text-xl font-semibold text-foreground lg:text-2xl"
-                style={{ animationDelay: `${baseDelay + 0.07}s` }}
-              >
-                {item.title}
-              </h3>
-              <p
-                className="history-item-reveal mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground lg:text-lg"
-                style={{ animationDelay: `${baseDelay + 0.11}s` }}
+                className="history-item-reveal mt-2.5 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:mt-3 sm:text-base"
+                style={{ animationDelay: `${baseDelay + 0.1}s` }}
               >
                 {item.description}
               </p>
