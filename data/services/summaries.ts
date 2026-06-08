@@ -20,7 +20,7 @@ export const serviceSummaries = [
       "Thermal insulation and protective jacketing for pipes, vessels, and equipment in demanding conditions.",
     homeDescription:
       "Thermal insulation and protective jacketing for critical assets.",
-    image: "/images/service-insulation.webp",
+    image: "/images/service-insulation.jpg",
     href: "/services/insulation-jacketing",
   },
   {
