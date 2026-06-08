@@ -125,8 +125,8 @@ export const renderSocialImage = async () => {
                 opacity: 0.9,
               }}
             >
-              Piping, HVAC, equipment installation, and fire protection across
-              the United States.
+              Industrial piping, insulation, pressure vessels, and fire
+              protection across the United States.
             </div>
           </div>
         </div>

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   metadataBase: siteUrl,
   title: siteTitle,
   description: siteDescription,
-  keywords: ['industrial engineering', 'piping', 'HVAC', 'equipment installation', 'fire protection', 'industrial contractor'],
+  keywords: ['industrial engineering', 'industrial piping', 'insulation', 'jacketing', 'fire protection', 'pressure vessels', 'industrial contractor'],
   alternates: {
     canonical: '/',
   },
@@ -48,25 +48,25 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/favicon-blue-32x32.png',
+        url: '/favicon-wellins-new-32x32.png',
         sizes: '32x32',
         type: 'image/png',
       },
       {
-        url: '/favicon-blue-16x16.png',
+        url: '/favicon-wellins-new-16x16.png',
         sizes: '16x16',
         type: 'image/png',
       },
       {
-        url: '/favicon-blue.ico',
+        url: '/favicon-wellins-new.ico',
         sizes: '32x32',
         type: 'image/x-icon',
       },
     ],
-    shortcut: '/favicon-blue.ico',
+    shortcut: '/favicon-wellins-new.ico',
     apple: [
       {
-        url: '/apple-icon-wellins.png',
+        url: '/apple-icon-wellins-new.png',
         sizes: '180x180',
         type: 'image/png',
       },

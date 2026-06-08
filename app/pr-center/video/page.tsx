@@ -25,7 +25,7 @@ const videos: VideoItem[] = [
     description:
       "Our comprehensive safety program ensures every worker goes home safe every day.",
     duration: "3:15",
-    thumbnail: "/images/service-equipment.webp",
+    thumbnail: "/images/service-fire.webp",
     youtubeId: "",
   },
   {
@@ -45,11 +45,11 @@ const videos: VideoItem[] = [
     youtubeId: "",
   },
   {
-    title: "HVAC Solutions for Manufacturing",
+    title: "Fire Protection Solutions for Manufacturing",
     description:
-      "How we design and install climate control systems for demanding industrial environments.",
+      "How we plan and deliver life-safety systems for demanding industrial environments.",
     duration: "4:05",
-    thumbnail: "/images/service-hvac.webp",
+    thumbnail: "/images/service-fire.webp",
     youtubeId: "",
   },
   {

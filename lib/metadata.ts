@@ -4,7 +4,7 @@ export const siteName = "Wellins Inc.";
 export const siteUrl = new URL("https://wellins.com");
 export const siteTitle = "Wellins Inc. | Industrial Engineering Excellence";
 export const siteDescription =
-  "Leading industrial engineering company specializing in piping, HVAC systems, equipment installation, and fire protection. Serving major manufacturers across the United States.";
+  "Leading industrial engineering company specializing in industrial piping, insulation, jacketing, fire protection, and pressure vessel solutions. Serving major manufacturers across the United States.";
 
 const socialImage = {
   url: "/social-card-wellins.png",
