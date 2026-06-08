@@ -66,9 +66,11 @@ export default function HistoryPage() {
       />
 
       <section className="relative overflow-hidden bg-background py-20 lg:py-28">
-        {/* Slanted feature image (desktop only) — sits behind the timeline */}
+        {/* Slanted feature image (desktop only) — sits behind the timeline.
+            Inset from the top/bottom so it floats on the page rather than
+            butting straight against the dark hero above. */}
         <div
-          className="pointer-events-none absolute inset-y-0 left-0 hidden w-[46%] lg:block"
+          className="pointer-events-none absolute bottom-16 left-0 top-20 hidden w-[46%] lg:block lg:bottom-24 lg:top-28"
           style={{ clipPath: "polygon(0 0, 100% 0, 70% 100%, 0 100%)" }}
         >
           <div className="relative h-full w-full">
@@ -80,9 +82,12 @@ export default function HistoryPage() {
               sizes="50vw"
               priority
             />
+            {/* Darken the photo overall */}
+            <div className="absolute inset-0 bg-[#001A3D]/40" />
             {/* Blend the right edge into the page so the years overlap cleanly */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#001A3D]/45 via-[#001A3D]/10 to-background" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#001A3D]/40 via-transparent to-[#001A3D]/15" />
+            {/* Dissolve the top & bottom edges into the page */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,var(--background)_0%,transparent_22%,transparent_72%,var(--background)_100%)]" />
           </div>
         </div>
 
