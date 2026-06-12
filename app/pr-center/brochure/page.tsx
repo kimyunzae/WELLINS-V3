@@ -1,8 +1,8 @@
+import { BrochureDownloads } from "@/components/pr-center/brochure-downloads";
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/nav-bar/navigation";
 import { PageHeader } from "@/components/page-header";
 import { createPageMetadata } from "@/lib/metadata";
-import { Download, FileText } from "lucide-react";
 import Link from "next/link";
 
 export const metadata = createPageMetadata({
@@ -10,44 +10,6 @@ export const metadata = createPageMetadata({
   description: "Download our corporate brochure and service materials.",
   path: "/pr-center/brochure",
 });
-
-const downloads = [
-  {
-    title: "Corporate Brochure",
-    description:
-      "Comprehensive overview of Wellins Inc. capabilities, services, and project portfolio.",
-    size: "19.4 MB",
-    format: "PDF",
-    fileName: "WELLINS_BROCHURE.pdf",
-    href: "/downloads/corporate-brochure.pdf",
-  },
-  {
-    title: "Services Overview",
-    description:
-      "Detailed information about our six core service areas and capabilities.",
-    size: "2.5 MB",
-    format: "PDF",
-    fileName: "2025 WELLINS CATALOGUE.pdf",
-    href: "/downloads/services-overview.pdf",
-  },
-  {
-    title: "Safety Program",
-    description:
-      "Our commitment to safety excellence and OSHA compliance programs.",
-    size: "1.5 MB",
-    format: "PDF",
-    fileName: "safety-program.pdf",
-    href: "/downloads/safety-program.pdf",
-  },
-  {
-    title: "Quality Assurance",
-    description: "Quality management systems and certification documentation.",
-    size: "1.2 MB",
-    format: "PDF",
-    fileName: "quality-assurance.pdf",
-    href: "/downloads/quality-assurance.pdf",
-  },
-];
 
 export default function BrochurePage() {
   return (
@@ -61,40 +23,7 @@ export default function BrochurePage() {
 
       <section className="bg-background py-20 lg:py-28">
         <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
-          <div className="grid gap-6 md:grid-cols-2 lg:gap-8">
-            {downloads.map((item, index) => (
-              <div
-                key={index}
-                className="flex gap-6 border border-border p-6 lg:p-8"
-              >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-muted">
-                  <FileText className="h-6 w-6 text-muted-foreground" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-foreground">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    {item.description}
-                  </p>
-                  <div className="mt-4 flex items-center gap-4">
-                    <span className="text-xs text-muted-foreground">
-                      {item.format} • {item.size}
-                    </span>
-                    <a
-                      href={item.href}
-                      className="inline-flex items-center text-sm font-medium text-foreground transition-colors hover:text-accent cursor-pointer"
-                      download={item.fileName}
-                    >
-                      <Download className="mr-2 h-4 w-4" />
-                      Download
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
+          <BrochureDownloads />
         </div>
       </section>
 
