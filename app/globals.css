@@ -303,6 +303,64 @@
   }
 }
 
+@keyframes service-scene-reveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes service-pipe-draw {
+  from {
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes service-image-wipe {
+  from {
+    clip-path: polygon(36% 0, 36% 0, 0 100%, 0 100%);
+  }
+
+  to {
+    clip-path: polygon(36% 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes service-image-wipe-tablet {
+  from {
+    clip-path: polygon(30% 0, 30% 0, 0 100%, 0 100%);
+  }
+
+  to {
+    clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes service-image-wipe-desktop {
+  from {
+    clip-path: polygon(25% 0, 25% 0, 0 100%, 0 100%);
+  }
+
+  to {
+    clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
 /* 페이지 헤더(PageHeader) — 왼쪽에서 페이드인 슬라이드 */
 @keyframes header-reveal {
   from {
@@ -468,6 +526,40 @@
       forwards;
   }
 
+  .service-scene-reveal {
+    animation: service-scene-reveal 0.58s cubic-bezier(0.22, 1, 0.36, 1)
+      both;
+  }
+
+  .service-scene-reveal-intro {
+    animation-delay: 1.56s;
+  }
+
+  .service-image-wipe {
+    clip-path: polygon(36% 0, 100% 0, 100% 100%, 0 100%);
+    animation: service-image-wipe 1.05s cubic-bezier(0.76, 0, 0.24, 1) 1.12s
+      both;
+  }
+
+  .service-pipe-draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: service-pipe-draw 1.75s cubic-bezier(0.22, 1, 0.36, 1)
+      forwards;
+  }
+
+  .service-pipe-draw-primary {
+    animation-duration: 1.08s;
+  }
+
+  .service-technical-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.11) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.11) 1px, transparent 1px);
+    background-size: clamp(56px, 6vw, 96px) clamp(56px, 6vw, 96px);
+    mask-image: linear-gradient(90deg, black, transparent 78%);
+  }
+
   /* 서비스(Services) — 스크롤 진입 전 일시정지 / 진입 시 재생 */
   .service-observed-section .service-section-reveal,
   .service-observed-section .service-list-item {
@@ -478,6 +570,22 @@
   .service-observed-section[data-in-view="true"] .service-list-item {
     animation-play-state: running;
   }
+}
+
+@media (min-width: 640px) {
+  .service-image-wipe {
+    clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
+    animation-name: service-image-wipe-tablet;
+  }
+
+}
+
+@media (min-width: 1024px) {
+  .service-image-wipe {
+    clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%);
+    animation-name: service-image-wipe-desktop;
+  }
+
 }
 
 /* 마키(Marquee) — 무한 수평 스크롤 (파트너 로고 등) */
@@ -510,6 +618,9 @@
   .organization-line-grow,
   .service-section-reveal,
   .service-list-item,
+  .service-scene-reveal,
+  .service-image-wipe,
+  .service-pipe-draw,
   .animate-marquee {
     animation: none !important;
     opacity: 1 !important;
