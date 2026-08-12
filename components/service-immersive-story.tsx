@@ -245,7 +245,7 @@ export function ServiceImmersiveStory({
             }}
           />
           <div className="absolute inset-0 bg-[#2174a5]/28 mix-blend-color" />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,44,66,0.92)_0%,rgba(21,80,111,0.58)_24%,rgba(33,116,165,0.08)_58%),linear-gradient(180deg,rgba(11,44,66,0.08)_0%,transparent_56%,rgba(9,38,58,0.68)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,24,37,0.96)_0%,rgba(8,42,62,0.76)_24%,rgba(5,25,39,0.32)_62%),linear-gradient(180deg,rgba(3,19,31,0.26)_0%,rgba(3,19,31,0.14)_56%,rgba(2,16,27,0.84)_100%)]" />
         </div>
       </div>
 
@@ -313,51 +313,53 @@ export function ServiceImmersiveStory({
         </div>
 
         <div className="grid flex-1 content-end gap-10 pt-2 lg:grid-cols-[0.68fr_1.32fr] lg:items-end lg:gap-20 lg:pt-3">
-          <div
-            role="tablist"
-            aria-label="Service sections"
-            aria-orientation="vertical"
-            className="flex flex-col items-start lg:-translate-x-16"
-          >
-            {scenes.map((scene, index) => {
-              const isActive = scene.id === activeSceneId;
+          <div className="min-w-0 min-[1600px]:-translate-x-16">
+            <div
+              role="tablist"
+              aria-label="Service sections"
+              aria-orientation="vertical"
+              className="flex flex-col items-start"
+            >
+              {scenes.map((scene, index) => {
+                const isActive = scene.id === activeSceneId;
 
-              return (
-                <button
-                  key={scene.id}
-                  ref={(element) => {
-                    tabRefs.current[index] = element;
-                  }}
-                  id={`service-tab-${scene.id}`}
-                  type="button"
-                  role="tab"
-                  aria-selected={isActive}
-                  aria-controls="service-tab-panel"
-                  tabIndex={isActive ? 0 : -1}
-                  onMouseEnter={() => setActiveSceneId(scene.id)}
-                  onFocus={() => setActiveSceneId(scene.id)}
-                  onClick={() => setActiveSceneId(scene.id)}
-                  onKeyDown={(event) => handleTabKeyDown(event, index)}
-                  className={cn(
-                    "group flex w-full items-center py-3 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2174a5] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:py-4",
-                    isActive
-                      ? "text-[#102b3a]"
-                      : "text-[#102b3a]/38 hover:text-[#102b3a]/68"
-                  )}
-                >
-                  <span
+                return (
+                  <button
+                    key={scene.id}
+                    ref={(element) => {
+                      tabRefs.current[index] = element;
+                    }}
+                    id={`service-tab-${scene.id}`}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    aria-controls="service-tab-panel"
+                    tabIndex={isActive ? 0 : -1}
+                    onMouseEnter={() => setActiveSceneId(scene.id)}
+                    onFocus={() => setActiveSceneId(scene.id)}
+                    onClick={() => setActiveSceneId(scene.id)}
+                    onKeyDown={(event) => handleTabKeyDown(event, index)}
                     className={cn(
-                      "font-light leading-none tracking-[-0.0282em] transition-[font-size,color] duration-300 motion-reduce:transition-none",
+                      "group flex w-full cursor-pointer items-center py-3 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2174a5] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:py-4",
                       isActive
-                        ? "text-[clamp(1.7rem,2.8vw,3.2rem)] text-[#102b3a]"
-                        : "text-[clamp(1.25rem,1.8vw,1.75rem)] text-[#102b3a]/38 group-hover:text-[#102b3a]/68"
+                        ? "text-[#102b3a]"
+                        : "text-[#102b3a]/38 hover:text-[#102b3a]/68"
                     )}
                   >
-                    {scene.label}
-                  </span>
-                </button>
-              );
-            })}
+                    <span
+                      className={cn(
+                        "font-light leading-none tracking-[-0.0282em] transition-[font-size,color] duration-300 motion-reduce:transition-none",
+                        isActive
+                          ? "text-[clamp(1.7rem,2.8vw,3.2rem)] text-[#102b3a]"
+                          : "text-[clamp(1.25rem,1.8vw,1.75rem)] text-[#102b3a]/38 group-hover:text-[#102b3a]/68"
+                      )}
+                    >
+                      {scene.label}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           <div
@@ -391,7 +393,12 @@ export function ServiceImmersiveStory({
                 !introComplete && "service-scene-reveal-intro"
               )}
             >
-              <p className="mb-4 text-xs font-semibold leading-4 tracking-[0.0252em] text-[#69c7ed]">
+              <p
+                className={cn(
+                  "mb-4 text-xs font-semibold leading-4 tracking-[0.0252em] text-[#69c7ed]",
+                  !introComplete && "service-scene-accent-intro"
+                )}
+              >
                 {activeScene.eyebrow}
               </p>
 
@@ -403,7 +410,12 @@ export function ServiceImmersiveStory({
                 <ul className="grid max-w-4xl gap-x-10 gap-y-3 sm:grid-cols-2">
                   {activeItems.map((item) => (
                     <li key={item} className="flex gap-3">
-                      <span className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-[#69c7ed]" />
+                      <span
+                        className={cn(
+                          "mt-[9px] h-1 w-1 shrink-0 rounded-full bg-[#69c7ed]",
+                          !introComplete && "service-scene-accent-intro"
+                        )}
+                      />
                       <span className="text-[15px] leading-6 tracking-[0.0096em] text-white/80">
                         {item}
                       </span>

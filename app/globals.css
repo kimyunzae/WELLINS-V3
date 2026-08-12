@@ -315,6 +315,16 @@
   }
 }
 
+@keyframes service-scene-accent-reveal {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes service-pipe-draw {
   from {
     opacity: 0;
@@ -535,6 +545,10 @@
     animation-delay: 1.56s;
   }
 
+  .service-scene-accent-intro {
+    animation: service-scene-accent-reveal 0.26s ease-out 1.88s both;
+  }
+
   .service-image-wipe {
     clip-path: polygon(36% 0, 100% 0, 100% 100%, 0 100%);
     animation: service-image-wipe 1.05s cubic-bezier(0.76, 0, 0.24, 1) 1.12s
@@ -619,6 +633,7 @@
   .service-section-reveal,
   .service-list-item,
   .service-scene-reveal,
+  .service-scene-accent-intro,
   .service-image-wipe,
   .service-pipe-draw,
   .animate-marquee {
