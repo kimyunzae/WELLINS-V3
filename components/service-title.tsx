@@ -8,13 +8,13 @@ export interface ServiceTitleMask {
 }
 
 export const defaultServiceTitleMask: ServiceTitleMask = {
-  solid: "polygon(0 0, 42% 0, 36% 100%, 0 100%)",
-  outlineLeft: "polygon(42% 0, 65.75% 0, 65.75% 100%, 36% 100%)",
-  outlineRight: "polygon(65.25% 0, 100% 0, 100% 100%, 65.25% 100%)",
+  solid: "polygon(0 0, 42% 0, 36% 130%, 0 130%)",
+  outlineLeft: "polygon(42% 0, 65.75% 0, 65.75% 130%, 36% 130%)",
+  outlineRight: "polygon(65.25% 0, 100% 0, 100% 130%, 65.25% 130%)",
 };
 
 const titleClassName =
-  "max-w-5xl pb-[0.14em] text-balance text-[clamp(3.5rem,7vw,6rem)] font-light leading-[1.12] tracking-[-0.0319em]";
+  "-mb-[0.16em] max-w-5xl pb-[0.3em] text-balance text-[clamp(3.5rem,7vw,6rem)] font-light leading-[1.12] tracking-[-0.0319em]";
 
 interface ServiceTitleSolidProps {
   mask: string;
@@ -118,6 +118,8 @@ export function ServiceTitleOutline({
     <>
       <style>{`
         .service-title-outline-character {
+          padding-block: 0.12em 0.24em;
+          margin-block: -0.12em -0.24em;
           -webkit-mask-image: linear-gradient(105deg, #000 0%, #000 38%, rgba(0, 0, 0, 0.92) 47%, transparent 57%, transparent 100%);
           mask-image: linear-gradient(105deg, #000 0%, #000 38%, rgba(0, 0, 0, 0.92) 47%, transparent 57%, transparent 100%);
           -webkit-mask-repeat: no-repeat;

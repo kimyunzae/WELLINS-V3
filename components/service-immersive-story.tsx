@@ -152,7 +152,9 @@ export function ServiceImmersiveStory({
       const topEdge = clamp(
         ((imageEdgeAt(titleRect.top) - titleRect.left) / titleRect.width) * 100
       );
-      const clipBottom = 114;
+      // Keep the clip region below the font box so descenders and text strokes
+      // remain visible for any service title, including g, j, p, q, and y.
+      const clipBottom = 130;
       const bottomEdge = clamp(
         ((
           imageEdgeAt(
