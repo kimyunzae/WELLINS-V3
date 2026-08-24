@@ -21,8 +21,8 @@ const headerBackgrounds: Record<
     alt: "Wellins company facility exterior",
   },
   services: {
-    image: "/images/service-piping.webp",
-    alt: "Wellins industrial piping service work",
+    image: "/images/hero-industrial.webp",
+    alt: "Industrial systems inside a modern processing facility",
   },
   projects: {
     image: "/images/facility-expansion.webp",

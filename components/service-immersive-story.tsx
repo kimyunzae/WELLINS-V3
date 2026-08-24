@@ -85,6 +85,7 @@ export function ServiceImmersiveStory({
   const [activeSceneId, setActiveSceneId] = useState<SceneId>("overview");
   const [introComplete, setIntroComplete] = useState(false);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const tabImageLayerRefs = useRef<Array<HTMLSpanElement | null>>([]);
   const imageWipeRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const [titleMask, setTitleMask] = useState<ServiceTitleMask>(
@@ -116,7 +117,7 @@ export function ServiceImmersiveStory({
       return;
     }
 
-    const syncTitleMask = () => {
+    const syncDiagonalMasks = () => {
       const titleParentRect = titleElement.offsetParent?.getBoundingClientRect();
       const imageRect = imageElement.getBoundingClientRect();
 
@@ -149,20 +150,37 @@ export function ServiceImmersiveStory({
           (1 -
             (verticalPosition - imageRect.top) /
               Math.max(imageRect.height, 1));
-      const topEdge = clamp(
-        ((imageEdgeAt(titleRect.top) - titleRect.left) / titleRect.width) * 100
-      );
+      const getDiagonalEdges = (
+        targetRect: Pick<
+          DOMRect,
+          "left" | "top" | "width" | "height" | "bottom"
+        >,
+        clipBottom = 100
+      ) => {
+        const bottomPosition =
+          targetRect.bottom +
+          targetRect.height * ((clipBottom - 100) / 100);
+
+        return {
+          topEdge: clamp(
+            ((imageEdgeAt(targetRect.top) - targetRect.left) /
+              Math.max(targetRect.width, 1)) *
+              100
+          ),
+          bottomEdge: clamp(
+            ((imageEdgeAt(bottomPosition) - targetRect.left) /
+              Math.max(targetRect.width, 1)) *
+              100
+          ),
+        };
+      };
+
       // Keep the clip region below the font box so descenders and text strokes
       // remain visible for any service title, including g, j, p, q, and y.
       const clipBottom = 130;
-      const bottomEdge = clamp(
-        ((
-          imageEdgeAt(
-            titleRect.bottom +
-              titleRect.height * ((clipBottom - 100) / 100)
-          ) -
-            titleRect.left) /
-          titleRect.width) * 100
+      const { topEdge, bottomEdge } = getDiagonalEdges(
+        titleRect,
+        clipBottom
       );
       const join = Math.min(100, Math.max(topEdge, bottomEdge) + 28);
       const nextMask: ServiceTitleMask = {
@@ -174,18 +192,34 @@ export function ServiceImmersiveStory({
       setTitleMask((currentMask) =>
         currentMask.solid === nextMask.solid ? currentMask : nextMask
       );
+
+      tabImageLayerRefs.current.forEach((imageLayer) => {
+        if (!imageLayer) {
+          return;
+        }
+
+        const { topEdge, bottomEdge } = getDiagonalEdges(
+          imageLayer.getBoundingClientRect()
+        );
+        imageLayer.style.clipPath = `polygon(${topEdge}% 0, 100% 0, 100% 100%, ${bottomEdge}% 100%)`;
+      });
     };
 
-    const frame = window.requestAnimationFrame(syncTitleMask);
-    const observer = new ResizeObserver(syncTitleMask);
+    const frame = window.requestAnimationFrame(syncDiagonalMasks);
+    const observer = new ResizeObserver(syncDiagonalMasks);
     observer.observe(titleElement);
     observer.observe(imageElement);
-    window.addEventListener("resize", syncTitleMask);
+    tabImageLayerRefs.current.forEach((imageLayer) => {
+      if (imageLayer) {
+        observer.observe(imageLayer);
+      }
+    });
+    window.addEventListener("resize", syncDiagonalMasks);
 
     return () => {
       window.cancelAnimationFrame(frame);
       observer.disconnect();
-      window.removeEventListener("resize", syncTitleMask);
+      window.removeEventListener("resize", syncDiagonalMasks);
     };
   }, [title]);
 
@@ -339,22 +373,41 @@ export function ServiceImmersiveStory({
                     onFocus={() => setActiveSceneId(scene.id)}
                     onClick={() => setActiveSceneId(scene.id)}
                     onKeyDown={(event) => handleTabKeyDown(event, index)}
-                    className={cn(
-                      "group flex w-full cursor-pointer items-center py-3 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2174a5] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:py-4",
-                      isActive
-                        ? "text-[#102b3a]"
-                        : "text-[#102b3a]/38 hover:text-[#102b3a]/68"
-                    )}
+                    className="group flex w-full cursor-pointer items-center py-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2174a5] focus-visible:ring-offset-4 focus-visible:ring-offset-white sm:py-4"
                   >
                     <span
                       className={cn(
-                        "font-light leading-none tracking-[-0.0282em] transition-[font-size,color] duration-300 motion-reduce:transition-none",
+                        "relative block w-full font-light leading-none tracking-[-0.0282em] transition-[font-size] duration-300 motion-reduce:transition-none",
                         isActive
-                          ? "text-[clamp(1.7rem,2.8vw,3.2rem)] text-[#102b3a]"
-                          : "text-[clamp(1.25rem,1.8vw,1.75rem)] text-[#102b3a]/38 group-hover:text-[#102b3a]/68"
+                          ? "text-[clamp(1.7rem,2.8vw,3.2rem)]"
+                          : "text-[clamp(1.25rem,1.8vw,1.75rem)]"
                       )}
                     >
-                      {scene.label}
+                      <span
+                        className={cn(
+                          "block transition-colors duration-300",
+                          isActive
+                            ? "text-[#102b3a]"
+                            : "text-[#102b3a]/38 group-hover:text-[#102b3a]/68"
+                        )}
+                      >
+                        {scene.label}
+                      </span>
+                      <span
+                        ref={(element) => {
+                          tabImageLayerRefs.current[index] = element;
+                        }}
+                        aria-hidden="true"
+                        className={cn(
+                          "pointer-events-none absolute inset-0 block [clip-path:inset(0_0_0_100%)] transition-[color,opacity] duration-300 [text-shadow:0_1px_10px_rgba(3,25,39,0.44)] motion-reduce:opacity-100 motion-reduce:transition-none",
+                          isActive
+                            ? "text-white"
+                            : "text-white/45 group-hover:text-white/70",
+                          introComplete ? "opacity-100" : "opacity-0"
+                        )}
+                      >
+                        {scene.label}
+                      </span>
                     </span>
                   </button>
                 );
