@@ -38,10 +38,6 @@ export function ServicesOverview({ services }: ServicesOverviewProps) {
                 <div className="absolute inset-0 -z-20 bg-[#2174a5]/28 mix-blend-color transition-opacity duration-700 group-hover/service:opacity-65 group-focus-visible/service:opacity-65" />
                 <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(3,19,31,0.08)_0%,rgba(3,19,31,0.12)_45%,rgba(2,16,27,0.82)_100%)]" />
 
-                <span className="absolute left-5 top-5 text-[11px] font-semibold tracking-[0.08em] text-white/64 sm:left-6 sm:top-6">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-
                 <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 lg:p-7">
                   <h3 className="max-w-[26rem] text-[clamp(1.8rem,3vw,2.8rem)] font-light leading-[1.04] tracking-[-0.038em]">
                     {service.title}
