@@ -83,13 +83,6 @@ jobs:
           role-to-assume: ${{ steps.deploy-vars.outputs.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ steps.deploy-vars.outputs.AWS_REGION }}
 
-      - name: Synchronize files and remove stale pages
-        run: |
-          aws s3 sync out "s3://${S3_BUCKET}" \
-            --delete \
-            --exclude "_next/static/*" \
-            --only-show-errors
-
       - name: Upload versioned Next.js assets
         run: |
           aws s3 cp out/_next/static "s3://${S3_BUCKET}/_next/static" \
@@ -116,6 +109,13 @@ jobs:
             --include "*.txt" \
             --exclude "_next/static/*" \
             --cache-control "no-store" \
+            --only-show-errors
+
+      - name: Remove stale pages
+        run: |
+          aws s3 sync out "s3://${S3_BUCKET}" \
+            --delete \
+            --exclude "_next/static/*" \
             --only-show-errors
 
       - name: Invalidate CloudFront
