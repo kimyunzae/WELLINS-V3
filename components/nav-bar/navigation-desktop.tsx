@@ -95,12 +95,16 @@ export default function NavigationDesktop({
               <NavigationMenuContent className="group-data-[viewport=false]/navigation-menu:!mt-[var(--nav-dropdown-offset)] relative border-t-2 border-zinc-300 bg-white p-0 before:absolute before:left-0 before:top-0 before:h-[2px] before:w-4 before:bg-[#0096D9] before:content-[''] after:absolute after:left-4 after:top-0 after:h-[2px] after:w-4 after:bg-[#EE1A29] after:content-['']">
                 <div className="w-[200px] bg-card shadow-md">
                   {menuItems.map((item) => (
+                    // 일반 <a>로 두면 전체 문서 이동이 되어, Next Link 프리페치(Range: bytes=0-63)가
+                    // 브라우저 캐시에 남긴 64바이트 HTML을 그대로 받아 빈 화면이 된다.
                     <NavigationMenuLink
                       key={item.name}
-                      href={item.href}
+                      asChild
                       className="block min-w-0 px-4 py-2 text-sm text-card-foreground transition-colors hover:bg-muted"
                     >
-                      <p className="truncate text-[#2C2C2C]">{item.name}</p>
+                      <Link href={item.href}>
+                        <p className="truncate text-[#2C2C2C]">{item.name}</p>
+                      </Link>
                     </NavigationMenuLink>
                   ))}
                 </div>
